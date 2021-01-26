@@ -1,30 +1,38 @@
 package sample;
 
 import java.io.File;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
-
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Controller {
 
     @FXML
-    private Button button;
+    private Button FileChooser;
 
     @FXML
-    private ListView listView;
+    private ListView listview;
 
-    public void Button1Action(ActionEvent event){
+    @FXML
+    public void ButtonOnAction(ActionEvent event){
         FileChooser fc = new FileChooser();
-        File selectedFile = fc.showOpenDialog(null);
 
-        if(selectedFile != null){
-            listView.getItems().add(selectedFile.getName());
-        } else{
-            System.out.println("File not valid");
+        // send error message if text file is not given
+        // FileChooser.ExtensionFilter fileExtensions = new FileChooser.ExtensionFilter("*.txt");
+        // fc.getExtensionFilters().add(fileExtensions);
+
+        File selectedFiled = fc.showOpenDialog(null);
+
+        if(selectedFiled != null){
+            listview.getItems().add(selectedFiled.getName());
+        }else{
+            System.out.println("File is not Valid");
         }
+
     }
 
 }
