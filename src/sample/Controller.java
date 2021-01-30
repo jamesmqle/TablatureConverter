@@ -2,6 +2,8 @@ package sample;
 
 import java.io.File;
 
+import javafx.scene.control.TextArea;
+import javafx.scene.input.Clipboard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,7 +17,13 @@ public class Controller {
     private Button FileChooser;
 
     @FXML
+    private Button CopyText;
+
+    @FXML
     private ListView listview;
+
+    @FXML
+    private TextArea textview;
 
     @FXML
     public void ButtonOnAction(ActionEvent event){
@@ -32,7 +40,16 @@ public class Controller {
         }else{
             System.out.println("File is not Valid");
         }
+    }
+
+    @FXML
+    public void ButtonOnAction2(ActionEvent event){
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        String clipBoardText = clipboard.getString();
+        textview.setText(clipBoardText);
+
 
     }
+
 
 }
