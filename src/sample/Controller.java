@@ -27,18 +27,15 @@ public class Controller {
 
     @FXML
     public void ButtonOnAction(ActionEvent event){
+        // creates file chooser object
         FileChooser fc = new FileChooser();
-
-        // send error message if text file is not given
-        // FileChooser.ExtensionFilter fileExtensions = new FileChooser.ExtensionFilter("*.txt");
-        // fc.getExtensionFilters().add(fileExtensions);
-
+        // filters only text files
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text File","*.txt"));
+        // opens file explorer
         File selectedFiled = fc.showOpenDialog(null);
 
         if(selectedFiled != null){
             listview.getItems().add(selectedFiled.getName());
-        }else{
-            System.out.println("File is not Valid");
         }
     }
 
@@ -47,8 +44,6 @@ public class Controller {
         Clipboard clipboard = Clipboard.getSystemClipboard();
         String clipBoardText = clipboard.getString();
         textview.setText(clipBoardText);
-
-
     }
 
 
