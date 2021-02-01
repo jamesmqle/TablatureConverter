@@ -45,6 +45,4 @@ public class Controller {
         String clipBoardText = clipboard.getString();
         textview.setText(clipBoardText);
     }
-
-
 }

@@ -7,10 +7,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner; // Import the Scanner class to read text files
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 public class textReader {
 	public static void main(String[] args) throws IOException {
-		Scanner in = new Scanner(new FileReader("C:\\Users\\tukau\\Documents\\GitHub\\TablatureConverter\\src\\sample\\hotCrossBunsGuitarTab"));
-		BufferedReader br = new BufferedReader(new FileReader("C:\\\\Users\\\\tukau\\\\Documents\\\\GitHub\\\\TablatureConverter\\\\src\\\\sample\\\\hotCrossBunsGuitarTab"));
+		Scanner in = new Scanner(new FileReader("C:\\Users\\James Le\\IdeaProjects\\TablatureConverter\\src\\sample\\hotCrossBunsGuitarTab"));
+		BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\James Le\\IdeaProjects\\TablatureConverter\\src\\sample\\hotCrossBunsGuitarTab"));
 		
 		try {
 		    StringBuilder sb = new StringBuilder();
@@ -23,9 +26,17 @@ public class textReader {
 		    }
 		    String everything = sb.toString();
 		    System.out.println(everything);
+
+			Pattern pt = Pattern.compile("\\d");
+			Matcher mt = pt.matcher(everything);
+			while(mt.find()){
+				System.out.print(mt.group());
+			}
+
 		} 
 		finally {
 		    br.close();
 		}
+
 	}
 }

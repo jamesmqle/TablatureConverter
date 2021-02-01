@@ -9,23 +9,19 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <Button fx:id="FileChooser" layoutX="169.0" layoutY="269.0" mnemonicParsing="false" onAction="#ButtonOnAction" prefHeight="32.0" prefWidth="173.0" text="Select Text File to Convert" />
-      <Label layoutX="255.0" layoutY="91.0" prefHeight="47.0" prefWidth="290.0" text="Tablature Converter">
+      <Button fx:id="FileChooser" layoutX="169.0" layoutY="269.0" mnemonicParsing="false" onAction="#ButtonOnAction" prefHeight="32.0" prefWidth="173.0" text="Select Text File" />
+      <Label fx:id="title" layoutX="255.0" layoutY="91.0" prefHeight="47.0" prefWidth="290.0" text="Tablature Converter">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <Label layoutX="86.0" layoutY="165.0" prefHeight="47.0" prefWidth="628.0" text="This program will convert music a tablature text file into musicXML file.">
+      <Label fx:id="description" layoutX="87.0" layoutY="165.0" prefHeight="47.0" prefWidth="628.0" text="This program will convert music tablature text file into musicXML file.">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
       <ListView fx:id="listview" layoutX="499.0" layoutY="265.0" prefHeight="41.0" prefWidth="200.0" />
-      <Button fx:id="CopyText" layoutX="169.0" layoutY="440.0" mnemonicParsing="false" onAction="#ButtonOnAction2" prefHeight="32.0" prefWidth="173.0" text="Copy to Clipboard" textAlignment="CENTER">
-         <font>
-            <Font name="Calibri" size="12.0" />
-         </font>
-      </Button>
+      <Button fx:id="CopyText" layoutX="169.0" layoutY="440.0" mnemonicParsing="false" onAction="#ButtonOnAction2" prefHeight="32.0" prefWidth="173.0" text="Paste to Clipboard" textAlignment="CENTER" />
       <TextArea fx:id="textview" layoutX="484.0" layoutY="394.0" prefHeight="124.0" prefWidth="230.0" />
    </children>
 </AnchorPane>
