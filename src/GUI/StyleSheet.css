@@ -2,7 +2,7 @@
     -fx-font-family: 'JetBrains Mono';
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-background-image: url("/sample/background.png");
+    -fx-background-image: url("/GUI/background.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: stretch;
 }
