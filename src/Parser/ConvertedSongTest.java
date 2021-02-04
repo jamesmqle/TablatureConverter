@@ -1,12 +1,11 @@
-package sample;
+package Parser;
 
 import java.io.File;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import sample.ConvertedSong;
-import sample.ConvertedSong.PartList.ScorePart;
+import Parser.ConvertedSong;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

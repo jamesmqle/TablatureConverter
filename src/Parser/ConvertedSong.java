@@ -1,4 +1,4 @@
-package sample;
+package Parser;
 
 import java.io.Serializable;
 

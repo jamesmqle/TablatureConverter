@@ -1,4 +1,4 @@
-package sample;
+package Parser;
 
 public class NoteConvert {
 	
