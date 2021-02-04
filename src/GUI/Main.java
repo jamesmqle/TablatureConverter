@@ -1,5 +1,5 @@
 
-package sample;
+package GUI;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,10 +16,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../GUI/sample.fxml"));
         primaryStage.setTitle("Tablature Converter");
-        primaryStage.setScene(new Scene(root, 800, 600));
+        Scene scene = new Scene(root, 800, 600);
+        scene.getStylesheets().add("GUI/StyleSheet.css");
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
-
 }
