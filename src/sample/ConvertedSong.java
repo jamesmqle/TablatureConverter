@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 
 /**
@@ -95,7 +97,7 @@ public class ConvertedSong implements Serializable{
 		this.partList = partList;
 	}
 	
-	//@XmlElement (name = "part-list")
+	@XmlElement (name = "part-list")
 	public PartList getPartList() {
 		return partList;
 	}
@@ -115,7 +117,7 @@ public class ConvertedSong implements Serializable{
 		public TimeSignature() {
 		}
 		
-		//@XmlElement (name = "beats")
+		@XmlElement (name = "beats")
 		public int getBeats() {
 			return this.beats;
 		}
@@ -124,7 +126,7 @@ public class ConvertedSong implements Serializable{
 			this.beats = beats;
 		}
 		
-		//@XmlElement (name = "beat-type")
+		@XmlElement (name = "beat-type")
 		public int getBeatType() {
 			return this.beatType;
 		}
@@ -149,7 +151,6 @@ public class ConvertedSong implements Serializable{
 		//I think we need to implement the ScorePart below as a list
 		private ScorePart scorePart;
 		
-		//@XmlElement (name = "score-part")
 		public ScorePart getScorePart() {
 			return this.scorePart;
 		}
@@ -172,15 +173,18 @@ public class ConvertedSong implements Serializable{
 		 * Fields:
 		 * - partName (part-name)
 		 */
+
+		@XmlRootElement(name = "score-part")
 		public static class ScorePart implements Serializable {
-			//@XmlAttribute
+			//@XmlAttribute (name = "id")
+			//public static final String id = "3.1";
 			public static String id;
 			private String partName;
-			
+
 			public ScorePart() {
 			}
 			
-			//@XmlElement
+			@XmlAttribute (name = "id")
 			public String getId() {
 				return this.id;
 			}
@@ -189,7 +193,7 @@ public class ConvertedSong implements Serializable{
 				this.id = id;
 			}
 			
-			//@XmlElement (name = "part-name")
+			@XmlElement (name = "part-name")
 			public String getPartName() {
 				return this.partName;
 			}
