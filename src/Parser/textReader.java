@@ -1,4 +1,4 @@
-package sample;
+package Parser;
 
 import java.io.BufferedReader;
 import java.io.File;  // Import the File class
