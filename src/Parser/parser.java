@@ -1,4 +1,4 @@
-package sample;
+package Parser;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,7 +11,7 @@ public class parser {
 		int jCopy = 0;
 		boolean underClear=true;
 		String arr[] = new String[6];
-		Scanner myReader = new Scanner(new FileReader("C:\\Users\\tukau\\Documents\\GitHub\\TablatureConverter\\src\\sample\\hotCrossBunsGuitarTab"));
+		Scanner myReader = new Scanner(new FileReader("C:\\Users\\James Le\\IdeaProjects\\TablatureConverter\\src\\sample\\hotCrossBunsGuitarTab"));
 		for (int i = 0; i < 6; i++) {
 			String data = myReader.nextLine();
 			System.out.println(data);
