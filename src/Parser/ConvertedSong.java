@@ -136,7 +136,7 @@ public class ConvertedSong implements Serializable{
 		 */
 
 		public static class Key implements Serializable {
-			public int fifths;
+			private int fifths;
 			public Key() {}
 			@XmlElement(name = "fifths")
 			public int getFifths() {

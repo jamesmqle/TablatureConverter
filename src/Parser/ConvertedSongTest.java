@@ -58,9 +58,9 @@ public class ConvertedSongTest {
 		String xmlFile = "src\\sample\\ConvertedSong.xml";
 		ConvertedSong song = new ConvertedSong();
 		//song.setKey((new ConvertedSong.Key(0)));
-		song.setAttributes(new ConvertedSong.Attributes(new ConvertedSong.Attributes.Key(0), new ConvertedSong.Attributes.TimeSignature(4,5), new ConvertedSong.Attributes.Clef("G",4)));
-		//song.setAttributes(new ConvertedSong.Attributes(new ConvertedSong.Attributes.Clef("G",4)));
-		//song.setAttributes(new ConvertedSong.Attributes(new ConvertedSong.Attributes.TimeSignature(4,5)));
+		song.setAttributes(new ConvertedSong.Attributes(new ConvertedSong.Attributes.Key(0)));
+		song.setAttributes(new ConvertedSong.Attributes(new ConvertedSong.Attributes.Clef("G",4)));
+		song.setAttributes(new ConvertedSong.Attributes(new ConvertedSong.Attributes.TimeSignature(4,5)));
 		song.setNote(new ConvertedSong.Note(new ConvertedSong.Note.Pitch("G",2)));
 		song.setNote(new ConvertedSong.Note(new ConvertedSong.Note.Duration(1)));
 		song.setNote(new ConvertedSong.Note(new ConvertedSong.Note.Type("Start", "Stop")));
