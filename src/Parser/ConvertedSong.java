@@ -1,10 +1,11 @@
 package Parser;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
+import java.time.Duration;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlAttribute;
 
 /**
@@ -72,73 +73,227 @@ import javax.xml.bind.annotation.XmlAttribute;
 public class ConvertedSong implements Serializable{
 	@XmlAttribute
 	public static final String VERSION = "3.1";
-	
-    private TimeSignature timeSignature;
+
+	private Attributes attributes;
+	private Note note;
     private PartList partList;
     
     public ConvertedSong() {}
+    
+    @XmlElement(name = "attributes")
+	public Attributes getAttributes(){return attributes;}
+	public void setAttributes(Attributes attributes){this.attributes = attributes;}
 
-    public ConvertedSong(TimeSignature timeSignature) {
-        this.timeSignature = timeSignature;
-    }
+	@XmlElement (name = "note")
+	public Note getNote(){return note;}
+	public  void setNote(Note note){this.note = note;}
 	
-	@XmlElement (name = "time")
-	public TimeSignature getTimeSignature() {
-		return timeSignature;
-	}
-	
-	public void setTimeSignature(TimeSignature timeSignature) {
-		this.timeSignature = timeSignature;
-	}
-
-	public void setPartList(PartList partList) {
-		this.partList = partList;
-	}
-	
-	//@XmlElement (name = "part-list")
+	@XmlElement (name = "part-list")
 	public PartList getPartList() {
 		return partList;
 	}
-	
-	/*
-	 * Time Signature (time)
-	 * Fields: 
-	 * - beats (beats)
-	 * - beatType (beat-type)
-	 */
-	
-	public static class TimeSignature implements Serializable {
+	public void setPartList(PartList partList) {
+		this.partList = partList;
+	}
 
-		private int beats;
-		private int beatType;
-		
-		public TimeSignature() {
+	/*
+	 * Attributes (attribute)
+	 * Fields:
+	 * - Key (key)
+	 * - TimeSignature (time)
+	 * - Clef (clef
+	 */
+
+	public static class Attributes implements Serializable {
+
+		private Key key;
+		private TimeSignature timeSignature;
+		private Clef clef;
+
+		public Attributes() {}
+		public Attributes(Key key, TimeSignature timeSignature, Clef clef) { }
+
+		public Attributes(Key key) {}
+		public Attributes(Clef clef) {}
+		public Attributes(TimeSignature timeSignature){}
+
+		@XmlElement(name = "key")
+		public Key getKey() { return key; }
+		public void setKey(Key key) { this.key = key; }
+
+		@XmlElement(name = "time")
+		public TimeSignature getTimeSignature() { return timeSignature; }
+		public void setTimeSignature(TimeSignature timeSignature) { this.timeSignature = timeSignature; }
+
+		@XmlElement(name = "clef")
+		public Clef getClef() {return clef; }
+		public void setClef(Clef clef) { this.clef = clef;}
+
+		/*
+		 * Key (key)
+		 * Fields:
+		 * - fifths (fifths)
+		 */
+
+		public static class Key implements Serializable {
+			public int fifths;
+			public Key() {}
+			@XmlElement(name = "fifths")
+			public int getFifths() {
+				return this.fifths;
+			}
+			public void setFifths(int fifths) {
+				this.fifths = fifths;
+			}
+			public Key(int fifths) { this.fifths = fifths; }
+		}
+
+		/*
+		 * Clef (clef)
+		 * Fields:
+		 * - sign (sign)
+		 * - line (line)
+		 */
+		public static class Clef implements Serializable {
+			private String sign;
+			private int line;
+			public Clef() { }
+			public Clef(Clef clef) { }
+			public Clef(String sign, int line) { this.sign = sign; this.line = line;}
+			@XmlElement (name = "sign")
+			public String getSign() {return this.sign; }
+			public void setSign(String sign) { this.sign = sign; }
+			@XmlElement (name = "line")
+			public int getLine() { return this.line; }
+			public void setLine(int line) { this.line = line; }
 		}
 		
-		//@XmlElement (name = "beats")
-		public int getBeats() {
-			return this.beats;
-		}
-		
-		public void setBeats(int beats) {
-			this.beats = beats;
-		}
-		
-		//@XmlElement (name = "beat-type")
-		public int getBeatType() {
-			return this.beatType;
-		}
-		
-		public void setBeatType(int beatType) {
-			this.beatType = beatType;
-		}
-		
-		public TimeSignature(int beats, int beatType) {
-			this.beats = beats;
-			this.beatType = beatType;
+		/*
+		 * Time Signature (time)
+		 * Fields:
+		 * - beats (beats)
+		 * - beatType (beat-type)
+		 */
+
+		public static class TimeSignature implements Serializable {
+			private int beats;
+			private int beatType;
+			public TimeSignature() { }
+			public TimeSignature(int beats, int beatType) { this.beats = beats;this.beatType = beatType; }
+			@XmlElement(name = "beats")
+			public int getBeats() {
+				return this.beats;
+			}
+			public void setBeats(int beats) {
+				this.beats = beats;
+			}
+			@XmlElement(name = "beat-type")
+			public int getBeatType() {
+				return this.beatType;
+			}
+			public void setBeatType(int beatType) {
+				this.beatType = beatType;
+			}
 		}
 	}
-	
+
+	/*
+	 * Note (note)
+	 * Fields:
+	 * - pitch (pitch)
+	 * - duration (duration)
+	 * - type (type)
+	 */
+	public static class Note implements Serializable {
+		private Pitch pitch;
+		private Duration duration;
+		private Type type;
+
+		public Note(){}
+		public Note(Pitch g) {}
+		public Note(Duration duration) {}
+		public Note(Type type){}
+		public Note(Pitch pitch, Duration duration, Type type) { this.pitch = pitch;this.duration = duration;this.type = type; }
+
+
+		@XmlElement(name = "pitch")
+		public Pitch getPitch() { return this.pitch; }
+		public void setPitch(Pitch pitch) { this.pitch = pitch; }
+
+		@XmlElement(name = "duration")
+		public Duration getDuration() { return this.duration; }
+		public void setDuration(Duration duration) { this.duration = duration; }
+
+		@XmlElement(name = "type")
+		public Type getType() { return this.type; }
+		public void setType(Type type) { this.type = type; }
+
+
+		/*
+		 * Pitch (pitch)
+		 * Fields:
+		 * - step (step)
+		 * - octave (octave)
+		 */
+
+		public static class Pitch implements Serializable {
+			private String step;
+			private int octave;
+
+			public Pitch() {}
+			public Pitch(Pitch pitch) {}
+			public Pitch(String step, int octave) { this.step = step;this.octave = octave; }
+
+			@XmlElement(name = "step")
+			public String getStep() { return this.step;}
+			public void setsStep(String step) { this.step = step; }
+
+			@XmlElement(name = "octave") public int getOctave() { return this.octave; }
+			public void setOctave(int octave) { this.octave = octave; }
+		}
+
+		/*
+		 * Duration (duration)
+		 * Fields:
+		 * - division (represents a note's duration in terms of divisions per quarter note)
+		 */
+
+		public static class Duration implements Serializable {
+			private int divisions;
+			public Duration() { }
+			public Duration(int divisions){}
+			public Duration(Duration duration) { }
+
+			@XmlElement(name = "duration")
+			public int getDivisions() { return this.divisions; }
+			public void setDivisions(int divisions) { this.divisions = divisions;}
+		}
+
+		/*
+		 * Type (type) / Tied Notes
+		 * Fields:
+		 * - typeStart
+		 * - typeStop
+		 */
+
+		public static class Type implements Serializable {
+			private String typeStart;
+			private String typeStop;
+
+			public Type() { }
+			public Type(Type type) { }
+			public Type(String typeStart, String typeStop){}
+
+			@XmlElement(name = "type")
+			public String getTypeStart() { return this.typeStart; }
+			public void setTypeStart(String typeStart) { this.typeStart = typeStart; }
+
+			@XmlElement(name = "type")
+			public String getTypeStop() { return this.typeStop; }
+			public void setTypeStop(String typeStop) { this.typeStop = typeStop; }
+		}
+
+	}
 	/*
 	 * Part List (part-list)
 	 * Fields:
@@ -158,8 +313,7 @@ public class ConvertedSong implements Serializable{
 			this.scorePart = scorePart;
 		}
 		
-		public PartList() {
-		}
+		public PartList() {}
 		
 		public PartList(ScorePart scorePart) {
 			this.scorePart = scorePart;
