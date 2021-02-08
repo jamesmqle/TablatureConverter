@@ -16,10 +16,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("../GUI/sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
         primaryStage.setTitle("Tablature Converter");
         Scene scene = new Scene(root, 800, 600);
-        scene.getStylesheets().add("GUI/StyleSheet.css");
+        scene.getStylesheets().add("GUI/WelcomeStyleSheet.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

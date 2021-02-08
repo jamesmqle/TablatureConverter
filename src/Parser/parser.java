@@ -1,17 +1,22 @@
 package Parser;
 
+import GUI.Controller;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class parser {
+public class parser extends Controller {
 
 	public static void main(String[] args) throws IOException {
+
+		Controller selectFile = null;
+
 		int jCopy = 0;
 		boolean underClear=true;
 		String arr[] = new String[6];
-		Scanner myReader = new Scanner(new FileReader("C:\\Users\\James Le\\IdeaProjects\\TablatureConverter\\src\\sample\\hotCrossBunsGuitarTab"));
+		Scanner myReader = new Scanner(new FileReader("src/sample/hotCrossBunsGuitarTab"));
 		for (int i = 0; i < 6; i++) {
 			String data = myReader.nextLine();
 			System.out.println(data);
