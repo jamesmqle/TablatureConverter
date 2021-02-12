@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<score-partwise version="3.1">
+    <part-list>
+        <scorePart id="P1">
+            <part-name>Music</part-name>
+        </scorePart>
+    </part-list>
+    <time>
+        <beat-type>4</beat-type>
+        <beats>3</beats>
+    </time>
+</score-partwise>
