@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<score-partwise version="3.1">
+    <attributes>
+        <clef>
+            <line>4</line>
+            <sign>G</sign>
+        </clef>
+        <divisions>0</divisions>
+        <key>
+            <fifths>0</fifths>
+        </key>
+        <time>
+            <beat-type>5</beat-type>
+            <beats>4</beats>
+        </time>
+    </attributes>
+    <note>
+        <duration>1</duration>
+        <pitch>
+            <octave>2</octave>
+            <step>G</step>
+        </pitch>
+        <type>
+            <type>Stop</type>
+        </type>
+    </note>
+    <part-list>
+        <score-part id="P1">
+            <part-name>Music</part-name>
+        </score-part>
+    </part-list>
+</score-partwise>
