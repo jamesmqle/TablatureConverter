@@ -76,6 +76,10 @@ public class ConvertedSong implements Serializable {
         this.parts = new ArrayList<Part>();
     }
 
+    public void addPart(Part part){
+        this.parts.add(part);
+    }
+
     /*
     @XmlElement(name = "attributes")
     public Attributes getAttributes() {
@@ -105,9 +109,7 @@ public class ConvertedSong implements Serializable {
         this.parts = parts;
     }
 
-    public void addPart(Part part){
-        this.parts.add(part);
-    }
+
 
     /*
      * Attributes (attribute)
