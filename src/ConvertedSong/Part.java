@@ -8,7 +8,7 @@ public class Part implements Serializable {
     private Measure measure;
 
     public Part() {
-        this.measure = new Measure();
+        this.measure = new Measure(new Attributes(new Clef(), new Key(), new TimeSignature(), 4), new Note());
     }
 
     @XmlElement(name = "measure")

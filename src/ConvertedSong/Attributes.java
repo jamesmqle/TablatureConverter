@@ -9,6 +9,13 @@ public class Attributes {
     private TimeSignature time;
     private int divisions;
 
+    public Attributes(){
+        this.clef = new Clef();
+        this.key = new Key();
+        this.time = new TimeSignature();
+        this.divisions = 4;
+    }
+
     public Attributes(Clef c, Key k , TimeSignature t, int d){
         this.clef = c;
         this.key = k;
@@ -16,7 +23,7 @@ public class Attributes {
         this.divisions = d;
     }
 
-    @XmlElement(name = "Clef")
+    @XmlElement(name = "clef")
     public Clef getClef() {
         return clef;
     }
@@ -25,7 +32,7 @@ public class Attributes {
         this.clef = clef;
     }
 
-    @XmlElement(name = "Key")
+    @XmlElement(name = "key")
     public Key getKey() {
         return key;
     }
@@ -34,7 +41,7 @@ public class Attributes {
         this.key = key;
     }
 
-    @XmlElement(name = "Time")
+    @XmlElement(name = "time")
     public TimeSignature getTime() {
         return time;
     }
@@ -43,7 +50,7 @@ public class Attributes {
         this.time = time;
     }
 
-    @XmlElement(name = "Divisions")
+    @XmlElement(name = "divisions")
     public int getDivisions() {
         return divisions;
     }

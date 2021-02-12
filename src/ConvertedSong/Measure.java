@@ -23,7 +23,7 @@ public class Measure implements Serializable {
         this.note = n;
     }
 
-    @XmlElement(name = "Attribute")
+    @XmlElement(name = "attributes")
     public Attributes getAttributes(){
         return this.attributes;
     }
@@ -32,7 +32,7 @@ public class Measure implements Serializable {
         this.attributes = attributes;
     }
 
-    @XmlElement(name = "Note")
+    @XmlElement(name = "note")
     public Note getNote(){
         return this.note;
     }
