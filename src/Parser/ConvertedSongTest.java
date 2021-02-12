@@ -18,7 +18,6 @@ public class ConvertedSongTest {
     @BeforeEach
     public void init() throws JAXBException {
         this.context = JAXBContext.newInstance(ConvertedSong.class);
-
     }
 
 /*    @Test
@@ -58,8 +57,11 @@ public class ConvertedSongTest {
     public static void main(String[] args) {
 		String xmlFile = "src\\sample\\ConvertedSong.xml";
 		ConvertedSong song = new ConvertedSong();
-		song.setTimeSignature(new ConvertedSong.TimeSignature(3,4));
+		//song.setKey((new ConvertedSong.Key(0)));
+
 		song.setPartList(new ConvertedSong.PartList(new ConvertedSong.PartList.ScorePart("Music", "P1")));
+		song.setAttributes(new ConvertedSong.Attributes(new ConvertedSong.Attributes.Key(0), new ConvertedSong.Attributes.TimeSignature(4,5), new ConvertedSong.Attributes.Clef("G",4)));
+		song.setNote(new ConvertedSong.Note(new ConvertedSong.Note.Pitch("G",2), 1, new ConvertedSong.Note.Type("Start", "Stop")));
 		serialize(song, xmlFile);
 		deSerialize(xmlFile);
 	}
