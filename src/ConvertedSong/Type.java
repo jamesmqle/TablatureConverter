@@ -10,7 +10,7 @@ public class Type implements Serializable {
     public Type() {
     }
 
-    public Type(ConvertedSong.ConvertedSong.Type type) {
+    public Type(Type type) {
         this.typeStart = type.getTypeStart();
         this.typeStop = type.getTypeStop();
     }

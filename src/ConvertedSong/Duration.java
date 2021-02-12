@@ -13,7 +13,7 @@ public class Duration implements Serializable {
         this.divisions = divisions;
     }
 
-    public Duration(ConvertedSong.ConvertedSong.Duration duration) {
+    public Duration(Duration duration) {
         //this.divisions = duration;
         //TODO: reimplement
     }

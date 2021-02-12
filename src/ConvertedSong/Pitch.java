@@ -11,7 +11,7 @@ public class Pitch implements Serializable {
     }
 
     //redundant?
-    public Pitch(ConvertedSong.ConvertedSong.Pitch pitch) {
+    public Pitch(Pitch pitch) {
         this.octave = pitch.getOctave();
         this.step = pitch.getStep();
     }

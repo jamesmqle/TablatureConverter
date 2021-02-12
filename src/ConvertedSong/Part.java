@@ -4,14 +4,14 @@ import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 
 public class Part implements Serializable {
-    private ConvertedSong.ConvertedSong.Measure measure;
+    private Measure measure;
 
     @XmlElement(name = "measure")
-    public ConvertedSong.ConvertedSong.Measure getMeasure() {
+    public Measure getMeasure() {
         return this.measure;
     }
 
-    public void setMeasure(ConvertedSong.ConvertedSong.Measure measure) {
+    public void setMeasure(Measure measure) {
         this.measure = measure;
     }
 }
