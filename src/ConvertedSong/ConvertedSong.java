@@ -1,11 +1,5 @@
 package ConvertedSong;
 
-import java.io.Serializable;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlAttribute;
-
 /**
  * <p>
  * This file is the object file that declares all sections of the MusicXML file format.
@@ -60,6 +54,13 @@ import javax.xml.bind.annotation.XmlAttribute;
  * type: states what note is being played. Is to some extent redundant, but is helpful for
  */
 
+import java.io.Serializable;
+import java.util.*;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlAttribute;
+
 //@XmlRootElement
 
 @XmlRootElement(name = "score-partwise")
@@ -68,14 +69,14 @@ public class ConvertedSong implements Serializable {
     public static final String VERSION = "3.1";
 
     //private Attributes attributes;
-    private Note note;
     private PartList partList;
-    private Part part;
+    private List<Part> parts;
 
     public ConvertedSong() {
+        this.parts = new ArrayList<Part>();
     }
 
-/*
+    /*
     @XmlElement(name = "attributes")
     public Attributes getAttributes() {
         return this.attributes;
@@ -85,15 +86,6 @@ public class ConvertedSong implements Serializable {
         this.attributes = attributes;
     }
 */
-
-    @XmlElement(name = "note")
-    public Note getNote() {
-        return note;
-    }
-
-    public void setNote(Note note) {
-        this.note = note;
-    }
 
     @XmlElement(name = "part-list")
     public PartList getPartList() {
@@ -105,12 +97,16 @@ public class ConvertedSong implements Serializable {
     }
 
     @XmlElement(name = "part")
-    public Part getPart() {
-        return this.part;
+    public List<Part> getParts() {
+        return this.parts;
     }
 
-    public void setPart(Part part) {
-        this.part = part;
+    public void setParts(List<Part> parts) {
+        this.parts = parts;
+    }
+
+    public void addPart(Part part){
+        this.parts.add(part);
     }
 
     /*
