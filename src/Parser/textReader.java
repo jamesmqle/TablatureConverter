@@ -10,10 +10,20 @@ import java.util.Scanner; // Import the Scanner class to read text files
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+/*
+
+ */
 public class textReader {
+
+	/*
+	 *	Todo:
+	 *  Make this a function that accepts filepath as a string
+	 */
+
 	public static void main(String[] args) throws IOException {
-		Scanner in = new Scanner(new FileReader("C:\\Users\\James Le\\IdeaProjects\\TablatureConverter\\src\\sample\\hotCrossBunsGuitarTab"));
-		BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\James Le\\IdeaProjects\\TablatureConverter\\src\\sample\\hotCrossBunsGuitarTab"));
+		String filepath;
+		Scanner in = new Scanner(new FileReader("C:\\Users\\tukau\\Documents\\GitHub\\TablatureConverter\\src\\sample\\hotCrossBunsGuitarTab"));
+		BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\tukau\\Documents\\GitHub\\TablatureConverter\\src\\sample\\hotCrossBunsGuitarTab"));
 		
 		try {
 		    StringBuilder sb = new StringBuilder();
@@ -30,11 +40,11 @@ public class textReader {
 		   // toVerticalWords(everything);
 
 
-			Pattern pt = Pattern.compile("\\d");
+/*			Pattern pt = Pattern.compile("\\d");
 			Matcher mt = pt.matcher(everything);
 			while(mt.find()){
 				System.out.print(mt.group());
-			}
+			}*/
 		} 
 		finally {
 		    br.close();
