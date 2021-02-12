@@ -71,13 +71,26 @@ public class ConvertedSong implements Serializable {
     //private Attributes attributes;
     private PartList partList;
     private List<Part> parts;
+    private List<Measure> measures;
+    private List<Note> notes;
 
     public ConvertedSong() {
         this.parts = new ArrayList<Part>();
+        this.measures = new ArrayList<Measure>();
+        this.notes = new ArrayList<Note>();
+
     }
 
     public void addPart(Part part){
         this.parts.add(part);
+    }
+
+    public void addMeasure(Measure measure){
+        this.measures.add(measure);
+    }
+
+    public void addNote(Note note){
+        this.notes.add(note);
     }
 
     /*

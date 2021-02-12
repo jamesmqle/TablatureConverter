@@ -2,6 +2,11 @@ package ConvertedSong;
 
 import javax.xml.bind.annotation.XmlElement;
 
+
+/*
+ *  Objects: clef, key, time
+ *  Attributes: divisions
+ */
 public class Attributes {
 
     private Clef clef;

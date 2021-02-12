@@ -61,6 +61,16 @@ public class ConvertedSongTest {
 		song.addPart(new Part());
 		song.addPart(new Part());
 
+		song.addMeasure(new Measure());
+		song.addMeasure(new Measure());
+		song.addMeasure(new Measure());
+		song.addMeasure(new Measure());
+
+		song.addNote(new Note());
+		song.addNote(new Note());
+		song.addNote(new Note());
+		song.addNote(new Note());
+
 		serialize(song, xmlFile);
 		deSerialize(xmlFile);
 	}

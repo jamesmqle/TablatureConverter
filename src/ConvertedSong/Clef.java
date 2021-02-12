@@ -2,6 +2,9 @@ package ConvertedSong;
 
 import javax.xml.bind.annotation.XmlElement;
 
+/*
+ *  The Clef program implements attributes sign and line.
+ */
 public class Clef {
 
     private String sign;

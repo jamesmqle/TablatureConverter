@@ -3,6 +3,9 @@ package ConvertedSong;
 import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 
+/*
+ *  The Measure program implements objects attributes and note
+ */
 public class Measure implements Serializable {
 
     private Attributes attributes;
