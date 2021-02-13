@@ -2,6 +2,8 @@ package ConvertedSong;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  *  The Measure program implements objects attributes and note
@@ -9,13 +11,14 @@ import java.io.Serializable;
 public class Measure implements Serializable {
 
     private Attributes attributes;
-    private Note note;
+   // private Note note;
+    private List<Note> notes;
 
     public Measure(){}
 
     public Measure(Attributes a, Note n){
         this.attributes = a;
-        this.note = n;
+        this.notes = new ArrayList<Note>();
     }
 
     public Measure(Attributes a){
@@ -23,7 +26,7 @@ public class Measure implements Serializable {
     }
 
     public Measure(Note n){
-        this.note = n;
+        this.notes = new ArrayList<Note>();
     }
 
     @XmlElement(name = "attributes")
@@ -35,13 +38,18 @@ public class Measure implements Serializable {
         this.attributes = attributes;
     }
 
-    @XmlElement(name = "note")
-    public Note getNote(){
-        return this.note;
+    public void addNote(Note note){
+        this.notes.add(note);
     }
 
-    public void setNote(Note note){
-        this.note = note;
-    }
+
+//    @XmlElement(name = "note")
+//    public Note getNote(){
+//        return this.note;
+//    }
+//
+//    public void setNote(Note note){
+//        this.note = note;
+//    }
 
 }
