@@ -14,6 +14,10 @@ public class Part implements Serializable {
         this.measures = new ArrayList<Measure>();
     }
 
+    public List<Measure> getMeasures(){
+        return this.measures;
+    }
+
     public void addMeasure(Measure measure) {
         this.measures.add(measure);
     }

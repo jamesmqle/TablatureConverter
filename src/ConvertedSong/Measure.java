@@ -1,5 +1,7 @@
 package ConvertedSong;
 
+import Parser.NoteConvert;
+import javax.management.Attribute;
 import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,14 +13,16 @@ import java.util.List;
 public class Measure implements Serializable {
 
     private Attributes attributes;
-   // private Note note;
     private List<Note> notes;
 
-    public Measure(){}
-
-    public Measure(Attributes a, Note n){
-        this.attributes = a;
+    public Measure(){
+        this.attributes = new Attributes();
         this.notes = new ArrayList<Note>();
+    }
+
+    public Measure(Attributes a, List<Note> n){
+        this.attributes = a;
+        this.notes = n;
     }
 
     public Measure(Attributes a){
@@ -42,6 +46,9 @@ public class Measure implements Serializable {
         this.notes.add(note);
     }
 
+    public void addNoteFromTab(String string, int fret){
+        this.notes.add(new Note(new Pitch(NoteConvert.convertToNote(string, fret),NoteConvert.octaveFinder(string, fret)), 1, new Type("0", "1")));
+    }
 
 //    @XmlElement(name = "note")
 //    public Note getNote(){

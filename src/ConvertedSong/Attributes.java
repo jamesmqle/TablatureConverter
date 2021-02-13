@@ -15,11 +15,21 @@ public class Attributes {
     private int divisions;
 
     public Attributes(){
+        this.clef = new Clef("a",1);
+        this.key = new Key(1);
+        this.time = new TimeSignature(2,2);
+        this.divisions = -1;
+    }
+
+    /*
+     *
+     public Attributes(){
         this.clef = new Clef();
         this.key = new Key();
         this.time = new TimeSignature();
-        this.divisions = 4;
+        this.divisions = -1;
     }
+     */
 
     public Attributes(Clef c, Key k , TimeSignature t, int d){
         this.clef = c;

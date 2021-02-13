@@ -29,7 +29,6 @@ public class Note implements Serializable {
         this.type = type;
     }
 
-
     @XmlElement(name = "pitch")
     public Pitch getPitch() {
         return this.pitch;
@@ -56,4 +55,5 @@ public class Note implements Serializable {
     public void setType(Type type) {
         this.type = type;
     }
+
 }

@@ -1,6 +1,7 @@
 package ConvertedSong;
 
 import java.io.File;
+import java.util.ArrayList;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -56,10 +57,14 @@ public class ConvertedSongTest {
 		ConvertedSong song = new ConvertedSong();
 		//song.setKey((new ConvertedSong.Key(0)));
 
+		//make song.parts not empty
 		song.addPart(new Part());
-		song.addPart(new Part());
-		song.addPart(new Part());
-		song.addPart(new Part());
+
+		//make song.parts.measures not empty
+		song.getParts().get(song.getParts().size()-1).getMeasures().add(new Measure(new Attributes(), new ArrayList<Note>()));
+
+		//
+		song.getParts().get(song.getParts().size()-1).getMeasures().get(song.getParts().size()-1).addNoteFromTab("e", 1);
 
 //		song.addMeasure(new Measure());
 //		song.addMeasure(new Measure());

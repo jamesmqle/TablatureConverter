@@ -78,7 +78,6 @@ public class ConvertedSong implements Serializable {
         this.parts = new ArrayList<Part>();
       //  this.measures = new ArrayList<Measure>();
       //  this.notes = new ArrayList<Note>();
-
     }
 
     public void addPart(Part part){
