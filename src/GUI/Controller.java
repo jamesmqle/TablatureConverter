@@ -32,6 +32,9 @@ public class Controller {
 
     @FXML
     private Button CopyText;
+    
+    @FXML
+    private TextField textPro;
 
     @FXML
     private TextField textfield;
@@ -67,8 +70,8 @@ public class Controller {
         if(selectedFile != null){ 
 
             // adds file to listview 
-        	fileAsString = selectedFile.toString();
-        	textfield.setText(selectedFile.getAbsolutePath());
+        	//fileAsString = selectedFile.toString();
+        	textPro.setText(selectedFile.getAbsolutePath());
         	System.out.println("path : " + selectedFile.getAbsolutePath());
 
             //listview.getItems().add(selectedFile.getParentFile()); 
@@ -87,7 +90,7 @@ public class Controller {
     void ToPreviewFile(ActionEvent event) throws IOException { 
     //Open previous selected file
     	//Desktop desktop = Desktop.getDesktop();
-    	//desktop.open(fileAsString.);
+    	//desktop.open(fileAsString);
     	Runtime.getRuntime().exec("explorer /select, <selectedFile>");
     }
     
@@ -126,11 +129,6 @@ public class Controller {
           window.show(); 
 
       } 
-          
-        
-    
-
-    
-
+     
 
 }

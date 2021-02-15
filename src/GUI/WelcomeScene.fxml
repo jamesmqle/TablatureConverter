@@ -23,9 +23,12 @@
          </font>
       </Label>
       <Button layoutX="14.0" layoutY="563.0" mnemonicParsing="false" onAction="#ToClipBoardHandler" prefHeight="32.0" prefWidth="173.0" text="Paste to Clipboard" textAlignment="CENTER" />
-      <TextField fx:id="textfield" layoutX="107.0" layoutY="310.0" onAction="#ToUploadFile" prefHeight="39.0" prefWidth="470.0" />
+      <TextField fx:id="textPro" layoutX="107.0" layoutY="310.0" onAction="#ToUploadFile" prefHeight="39.0" prefWidth="470.0" />
       <Button layoutX="16.0" layoutY="378.0" mnemonicParsing="false" onAction="#ToPreviewFile" prefHeight="39.0" prefWidth="118.0" text="Preview File" />
-      <TextField fx:id="textfield" layoutX="194.0" layoutY="416.0" onAction="#ToClipBoardHandler" prefHeight="275.0" prefWidth="833.0" />
+      <TextField fx:id="textfield" layoutX="194.0" layoutY="416.0" onAction="#ToClipBoardHandler" prefHeight="275.0" prefWidth="833.0">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font></TextField>
       <Button layoutX="1069.0" layoutY="644.0" mnemonicParsing="false" onAction="#ConvertHandler" prefHeight="39.0" prefWidth="118.0" text="Convert" />
    </children>
 </AnchorPane>

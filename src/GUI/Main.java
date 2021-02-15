@@ -27,5 +27,6 @@ public class Main extends Application {
         // keeps it to one size(full screen)
         primaryStage.setResizable(false);
     }
+    
         
 }

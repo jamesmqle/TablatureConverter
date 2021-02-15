@@ -15,6 +15,5 @@
             <Font size="34.0" />
          </font>
       </TextField>
-      <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="91.0" text="Home" />
    </children>
 </AnchorPane>
