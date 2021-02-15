@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="414.0" prefWidth="508.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <children>
+      <Button layoutX="163.0" layoutY="194.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="192.0" text="Preview File" />
+      <TextField layoutX="80.0" layoutY="55.0" prefHeight="74.0" prefWidth="364.0" text="Conversion Complete">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </TextField>
+      <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="91.0" text="Home" />
+   </children>
+</AnchorPane>

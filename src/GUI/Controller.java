@@ -2,6 +2,8 @@ package GUI;
 
 import java.io.File;
 import java.io.IOException;
+import java.awt.Desktop;
+//import java.awt.TextField;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -9,103 +11,126 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.Clipboard;
+import javafx.scene.layout.AnchorPane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+//import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
-import javax.swing.filechooser.FileNameExtensionFilter;
+//import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 public class Controller {
-
-    @FXML
+	@FXML
     private Button FileChooser;
+	
+	String fileAsString;
 
     @FXML
     private Button CopyText;
 
     @FXML
-    private ListView listview;
+    private TextField textfield;
+    
+    @FXML
+    private AnchorPane anchorid;
 
     @FXML
-    private TextArea textview;
+    private Label description;
 
-    /*
-    switches from welcome scene to file upload scene
-     */
     @FXML
-    public void ToUploadFileHandler(ActionEvent event) throws IOException {
-        Parent fileUploadScreenParent = FXMLLoader.load(getClass().getResource("FileUploadScreen.fxml"));
-        Scene FileUploadScene = new Scene(fileUploadScreenParent);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(FileUploadScene);
-        window.show();
+    private Label title;
+
+    @FXML
+    void ToUploadFile(ActionEvent event) throws IOException{   
+    	 // creates file chooser object 
+
+        FileChooser fc = new FileChooser(); 
+
+        // Title for file explorer dialogue 
+
+        fc.setTitle("Text File"); 
+        Stage stage = (Stage)anchorid.getScene().getWindow(); 
+ 
+        // filters only text files 
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text File","*.txt")); 
+
+        // opens file explorer 
+        File selectedFile = fc.showOpenDialog(stage); 
+
+  
+
+        if(selectedFile != null){ 
+
+            // adds file to listview 
+        	fileAsString = selectedFile.toString();
+        	textfield.setText(selectedFile.getAbsolutePath());
+        	System.out.println("path : " + selectedFile.getAbsolutePath());
+
+            //listview.getItems().add(selectedFile.getParentFile()); 
+
+            //System.out.println(selectedFile.getPath()); 
+
+            // Opens the file 
+
+             //Desktop desktop = Desktop.getDesktop(); 
+             //desktop.open(selectedFile); 
+
+        } 
     }
-
-    /*
-    switches from welcome scene to clipboard scene
-     */
+    
     @FXML
-    public void ToClipBoardHandler(ActionEvent event) throws IOException {
-        Parent clipBoardScreenParent = FXMLLoader.load(getClass().getResource("ClipBoardScreen.fxml"));
-        Scene ClipBoardScene = new Scene(clipBoardScreenParent);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(ClipBoardScene);
-        window.show();
+    void ToPreviewFile(ActionEvent event) throws IOException { 
+    //Open previous selected file
+    	//Desktop desktop = Desktop.getDesktop();
+    	//desktop.open(fileAsString.);
+    	Runtime.getRuntime().exec("explorer /select, <selectedFile>");
     }
-
-    /*
-    upload text file button
-     */
+    
+    
+    
     @FXML
-    public void FileChooserHandler(ActionEvent event){
-        // creates file chooser object
-        FileChooser fc = new FileChooser();
-        // filters only text files
-        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text File","*.txt"));
-        // opens file explorer
-        File selectedFile = fc.showOpenDialog(null);
+   public void ToClipBoardHandler(ActionEvent event) throws IOException { 
+    	
+              Clipboard clipboard = Clipboard.getSystemClipboard(); 
+              String clipBoardText = clipboard.getString(); 
+              textfield.setText(clipBoardText); 
+              
+          } 
+    
+    
+    /* 
 
-        if(selectedFile != null){
-            // adds file to listview
-            listview.getItems().add(selectedFile.getParentFile());
-            System.out.println(selectedFile.getPath());
-        }
-    }
+    switches from file upload / clipboard scene to conversion complete scene 
 
-    /*
-    Paste to clipboard button
-     */
-    @FXML
-    public void PasteClipBoardHandler(ActionEvent event){
-        Clipboard clipboard = Clipboard.getSystemClipboard();
-        String clipBoardText = clipboard.getString();
-        textview.setText(clipBoardText);
-    }
+     */ 
 
-    /*
-    Goes back to welcome scene
-     */
-    @FXML
-    public void BackToWelcome(ActionEvent event) throws IOException {
-        Parent back = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
-        Scene welcomeScene = new Scene(back);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(welcomeScene);
-        window.show();
-    }
+      @FXML 
 
-    /*
-  switches from file upload / clipboard scene to conversion complete scene
-   */
-    @FXML
-    public void ConvertHandler(ActionEvent event) throws IOException {
-        Parent conversionCompleteParent = FXMLLoader.load(getClass().getResource("ConversionComplete.fxml"));
-        Scene ClipBoardScene = new Scene(conversionCompleteParent);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(ClipBoardScene);
-        window.show();
-    }
+      public void ConvertHandler(ActionEvent event) throws IOException { 
+
+          Parent conversionCompleteParent = FXMLLoader.load(getClass().getResource("Conversion.fxml")); 
+
+          Scene ClipBoardScene = new Scene(conversionCompleteParent); 
+
+          ClipBoardScene.getStylesheets().add("GUI/WelcomeStyleSheet.css"); 
+
+          Stage window = (Stage)((Node)event.getSource()).getScene().getWindow(); 
+
+          window.setScene(ClipBoardScene); 
+
+          window.show(); 
+
+      } 
+          
+        
+    
+
+    
+
+
 }
