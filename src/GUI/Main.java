@@ -17,19 +17,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
         primaryStage.setTitle("Tablature Converter");
-<<<<<<< HEAD
-        Scene scene = new Scene(root, 1000, 800);
-=======
         Scene scene = new Scene(root, 1200,800);
->>>>>>> refs/heads/feature-jamesmqle
         scene.getStylesheets().add("GUI/WelcomeStyleSheet.css");
         primaryStage.setScene(scene);
         primaryStage.show();
-        // makes the stage full screen
-        primaryStage.setMaximized(true);
-        // keeps it to one size(full screen)
-        primaryStage.setResizable(false);
     }
-    
-        
 }
