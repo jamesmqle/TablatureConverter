@@ -6,22 +6,46 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<<<<<<< HEAD
 <AnchorPane id="AnchorPane" fx:id="anchorid" prefHeight="764.0" prefWidth="1241.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller"> 
+=======
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
+>>>>>>> refs/heads/feature-jamesmqle
    <children>
+<<<<<<< HEAD
       <Button layoutX="14.0" layoutY="255.0" mnemonicParsing="false" onAction="#ToUploadFile" prefHeight="39.0" prefWidth="125.0" text="Upload File" />
       <Label fx:id="title" layoutX="466.0" layoutY="20.0" prefHeight="62.0" prefWidth="388.0" text="Tablature Converter" textAlignment="CENTER">
+=======
+      <Button layoutX="13.0" layoutY="353.0" mnemonicParsing="false" onAction="#FileChooserHandler" prefHeight="43.0" prefWidth="109.0" text="Upload File" />
+      <Label fx:id="title" layoutX="67.0" layoutY="51.0" prefHeight="73.0" prefWidth="478.0" text="Tablature Converter">
+>>>>>>> refs/heads/feature-jamesmqle
          <font>
+<<<<<<< HEAD
             <Font size="42.0" />
+=======
+            <Font size="50.0" />
+>>>>>>> refs/heads/feature-jamesmqle
          </font>
       </Label>
+<<<<<<< HEAD
       <Label fx:id="description" layoutX="220.0" layoutY="115.0" prefHeight="130.0" prefWidth="1021.0" text="Description: This program will convert music tablature text file into musicXML file.&#10;&#10;Would you like to : Upload File or Paste to Clipboard?" textAlignment="CENTER">
+=======
+      <Label fx:id="description" layoutX="50.0" layoutY="123.0" prefHeight="164.0" prefWidth="508.0" text="This program will convert music tablature&#10;text file into musicXML file.&#10;Upload File or Copy from Clipboard.&#10;">
+>>>>>>> refs/heads/feature-jamesmqle
          <font>
+<<<<<<< HEAD
             <Font name="Arial" size="23.0" />
+=======
+            <Font size="26.0" />
+>>>>>>> refs/heads/feature-jamesmqle
          </font>
       </Label>
+<<<<<<< HEAD
       <Button layoutX="14.0" layoutY="563.0" mnemonicParsing="false" onAction="#ToClipBoardHandler" prefHeight="32.0" prefWidth="173.0" text="Paste to Clipboard" textAlignment="CENTER" />
       <TextField fx:id="textPro" layoutX="107.0" layoutY="310.0" onAction="#ToUploadFile" prefHeight="39.0" prefWidth="470.0" />
       <Button layoutX="16.0" layoutY="378.0" mnemonicParsing="false" onAction="#ToPreviewFile" prefHeight="39.0" prefWidth="118.0" text="Preview File" />
@@ -30,5 +54,24 @@
             <Font name="Calibri" size="18.0" />
          </font></TextField>
       <Button layoutX="1069.0" layoutY="644.0" mnemonicParsing="false" onAction="#ConvertHandler" prefHeight="39.0" prefWidth="118.0" text="Convert" />
+=======
+      <Button layoutX="714.0" layoutY="172.0" mnemonicParsing="false" onAction="#CopyClipBoardHandler" prefHeight="58.0" prefWidth="303.0" text="Copy from Clipboard" textAlignment="CENTER">
+         <font>
+            <Font name="Century Gothic" size="25.0" />
+         </font></Button>
+      <TextArea fx:id="textview" layoutX="557.0" layoutY="230.0" prefHeight="489.0" prefWidth="616.0" />
+      <Button layoutX="367.0" layoutY="362.0" mnemonicParsing="false" onAction="#PreviewHandler" prefHeight="25.0" prefWidth="109.0" text="Preview" />
+      <Button layoutX="103.0" layoutY="565.0" mnemonicParsing="false" onAction="#ConvertHandler" prefHeight="73.0" prefWidth="303.0" text="Convert">
+         <font>
+            <Font size="38.0" />
+         </font>
+      </Button>
+      <ListView fx:id="listview" layoutX="138.0" layoutY="358.0" prefHeight="32.0" prefWidth="229.0" />
+      <Label layoutX="163.0" layoutY="525.0" prefHeight="32.0" prefWidth="183.0" text="Convert when ready">
+         <font>
+            <Font name="Century Gothic" size="18.0" />
+         </font>
+      </Label>
+>>>>>>> refs/heads/feature-jamesmqle
    </children>
 </AnchorPane>
