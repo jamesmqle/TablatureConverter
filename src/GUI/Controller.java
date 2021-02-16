@@ -73,6 +73,7 @@ public class Controller {
         	//fileAsString = selectedFile.toString();
         	textPro.setText(selectedFile.getAbsolutePath());
         	System.out.println("path : " + selectedFile.getAbsolutePath());
+        	//System.out.printf("%sn", fileAsString); 
 
             //listview.getItems().add(selectedFile.getParentFile()); 
 
@@ -129,6 +130,18 @@ public class Controller {
           window.show(); 
 
       } 
-     
+      
+      /*
+      Goes back to welcome scene
+       
+      @FXML
+      public void BackToWelcome(ActionEvent event) throws IOException {
+          Parent Home = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
+          Scene welcomeScene = new Scene(Home);
+          Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+          window.setScene(welcomeScene);
+          window.show();
+      }
+     */
 
 }
