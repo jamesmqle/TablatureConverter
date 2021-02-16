@@ -138,6 +138,7 @@ public class Controller {
       public void BackToWelcome(ActionEvent event) throws IOException {
           Parent Home = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
           Scene welcomeScene = new Scene(Home);
+          welcomeScene.getStylesheets().add("GUI/WelcomeStyleSheet.css");
           Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
           window.setScene(welcomeScene);
           window.show();
