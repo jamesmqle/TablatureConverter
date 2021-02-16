@@ -133,7 +133,7 @@ public class Controller {
       
       /*
       Goes back to welcome scene
-       
+       */
       @FXML
       public void BackToWelcome(ActionEvent event) throws IOException {
           Parent Home = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
@@ -142,6 +142,6 @@ public class Controller {
           window.setScene(welcomeScene);
           window.show();
       }
-     */
+     
 
 }
