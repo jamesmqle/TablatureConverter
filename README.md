@@ -55,7 +55,7 @@ TablatureConverter requires the the following to run:
 --module-path "path_here" --add-modules javafx.controls,javafx.fxml
 ```
 4. Go to src/GUI, open application package, right click Main.java -> Run As -> Java Application
-5. Program is now running!
+5. Program is now running! The outputted MusicXML file is in the src/sample package.
 
         
 ## Contributors
