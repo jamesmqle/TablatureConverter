@@ -15,7 +15,7 @@ public class textReader extends Output {
 
 	public static void main(String[] args) throws IOException {
 		// public static List<Output> main(String[] args) throws IOException{
-
+/*
 		List<Output> list = new ArrayList<>();
 
 		String arr[] = new String[6];
@@ -25,6 +25,7 @@ public class textReader extends Output {
 			System.out.println(data);
 			arr[i] = data;
 		}
+
 		myReader.close();
 		for (int i = 2; i < 60; i++) {
 			for (int j = 0; j < 6; j++) {
@@ -58,7 +59,60 @@ public class textReader extends Output {
 			}
 		}
 		printData(list);
-		// return list;
+		// return list;*/
+
+		readTabFile("");
+	}
+
+	public static List<Output> readTabFile(String filepath) throws IOException {
+		// public static List<Output> main(String[] args) throws IOException{
+
+		List<Output> list = new ArrayList<>();
+
+		String arr[] = new String[6];
+		Scanner myReader = new Scanner(new FileReader("C:\\Users\\tukau\\Documents\\GitHub\\TablatureConverter\\src\\sample\\hotCrossBunsGuitarTab"));
+
+		for (int i = 0; i < 6; i++) {
+			String data = myReader.nextLine();
+			System.out.println(data);
+			arr[i] = data;
+		}
+
+		myReader.close();
+
+		for (int i = 2; i < arr[0].length(); i++) {
+			for (int j = 0; j < 6; j++) {
+				if ((getCharFromString(arr[j], i) != '-') && (getCharFromString(arr[j], i) != '|')) {
+					// 1 digit
+					if ((getCharFromString(arr[j], i - 1) == '-') && (getCharFromString(arr[j], i + 1) == '-')) {
+						list.add(new Output(Character.toString(getCharFromString(arr[j], 0)),
+								Integer.parseInt(Character.toString(getCharFromString(arr[j], i))), i));
+					}
+					// 2 digits
+					else if ((getCharFromString(arr[j], i - 1) == '-') && (getCharFromString(arr[j], i + 1) != '-')
+							&& (getCharFromString(arr[j], i + 2) == '-')) {
+						list.add(new Output(Character.toString(getCharFromString(arr[j], 0)),
+								Integer.parseInt(Character.toString(getCharFromString(arr[j], i))
+										+ Character.toString(getCharFromString(arr[j], i + 1))),
+								i));
+						i++;
+
+					}
+					// 3 digits
+					else if ((getCharFromString(arr[j], i - 1) == '-') && (getCharFromString(arr[j], i + 1) != '-')
+							&& (getCharFromString(arr[j], i + 2) != '-') && (getCharFromString(arr[j], i + 3) == '-')) {
+						list.add(new Output(Character.toString(getCharFromString(arr[j], 0)),
+								Integer.parseInt(Character.toString(getCharFromString(arr[j], i))
+										+ Character.toString(getCharFromString(arr[j], i + 1))
+										+ Character.toString(getCharFromString(arr[j], i + 2))),
+								i));
+						i += 2;
+					}
+				}
+			}
+		}
+		printData(list);
+		return list;
 	}
 
 	// Gets character from the line given
