@@ -3,7 +3,6 @@ package GUI;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -17,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import Parser.textReader;
 
 public class Controller {
 
@@ -35,20 +35,6 @@ public class Controller {
     @FXML
     private TextArea textview;
 
-    @FXML
-    public void PreviewHandler(ActionEvent event) {
-        try {
-            if (listview != null) {
-                Desktop.getDesktop().open(file);
-            }
-        } catch (Exception e) {
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("File not found.");
-            errorAlert.setContentText("Please choose a file first.");
-            errorAlert.showAndWait();
-        }
-    }
-
     /*
     Choose file button
      */
@@ -61,12 +47,25 @@ public class Controller {
         // opens file explorer
         file = fc.showOpenDialog(null);
         setFileAsString(file.toString()); // Converts the file to a string
-        //System.out.println(fileAsString);
+        System.out.println(fileAsString);
 
         if (file != null) {
             // adds file to listview
             listview.getItems().add(file.getName());
-            System.out.println(file.getPath());
+        }
+    }
+
+    @FXML
+    public void PreviewHandler(ActionEvent event) {
+        try {
+            if (listview != null) {
+                Desktop.getDesktop().open(file);
+            }
+        } catch (Exception e) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("File not found.");
+            errorAlert.setContentText("Please choose a file first.");
+            errorAlert.showAndWait();
         }
     }
 
@@ -94,10 +93,11 @@ public class Controller {
     }
 
     /*
-  switches from file upload / clipboard scene to conversion complete scene
+  switches from welcome scene to conversion complete scene
    */
     @FXML
     public void ConvertHandler(ActionEvent event) throws IOException {
+        textReader.readTabFile(fileAsString);
         Parent conversionCompleteParent = FXMLLoader.load(getClass().getResource("ConversionComplete.fxml"));
         Scene ClipBoardScene = new Scene(conversionCompleteParent);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();

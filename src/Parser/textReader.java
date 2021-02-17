@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner; // Import the Scanner class to read text files
 
+import static GUI.Controller.fileAsString;
+
 public class textReader extends Output {
 
 	public textReader(String string, int string2, int i) {
@@ -70,7 +72,7 @@ public class textReader extends Output {
 		List<Output> list = new ArrayList<>();
 
 		String arr[] = new String[6];
-		Scanner myReader = new Scanner(new FileReader("C:\\Users\\tukau\\Documents\\GitHub\\TablatureConverter\\src\\sample\\hotCrossBunsGuitarTab"));
+		Scanner myReader = new Scanner(new FileReader(fileAsString));
 
 		for (int i = 0; i < 6; i++) {
 			String data = myReader.nextLine();
