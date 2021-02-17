@@ -123,7 +123,7 @@ public class textReader extends Output {
 	// Print data of the output list that we return
 	public static void printData(List<Output> data) {
 		data.forEach(obj -> System.out.println(
-				"Tunning :" + obj.getletter() + "\t" + "fret num :" + obj.getnum() + "\t" + "i :" + obj.getindex()));
+				"Tuning:	" + obj.getletter() + "\t" + "fret:	" + obj.getnum() + "\t" + "i:	" + obj.getindex()));
 	}
 
 }
