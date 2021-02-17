@@ -10,6 +10,8 @@ public class ScorePart implements Serializable {
     private String partName;
 
     public ScorePart() {
+        id = "";
+        partName = "";
     }
 
     @XmlAttribute

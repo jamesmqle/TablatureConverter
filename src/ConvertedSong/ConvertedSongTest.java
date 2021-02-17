@@ -55,17 +55,20 @@ public class ConvertedSongTest {
     public static void main(String[] args) {
 		String xmlFile = "src\\sample\\ConvertedSong.xml";
 		ConvertedSong song = new ConvertedSong();
-		//song.setKey((new ConvertedSong.Key(0)));
+		// song.setKey((new ConvertedSong.Key(0)));
 
-		//make song.parts not empty
+		// make song.parts not empty
 		song.addPart(new Part());
 
-		//make song.parts.measures not empty
-		song.getParts().get(song.getParts().size()-1).getMeasures().add(new Measure(new Attributes(), new ArrayList<Note>()));
+		// make song.parts.measures not empty
+		song.getParts().get(song.getParts().size()-1).getMeasures().add(new Measure());
 
-		//
-		song.getParts().get(song.getParts().size()-1).getMeasures().get(song.getParts().size()-1).addNoteFromTab("e", 1);
+		// add a note to a given measure
+		// hierarchy is song.part.measures.notes
+		song.getParts().get(0).getMeasures().get(0).addNoteFromTab("e", 1);
 
+
+		// previous makeshift tests
 //		song.addMeasure(new Measure());
 //		song.addMeasure(new Measure());
 //		song.addMeasure(new Measure());

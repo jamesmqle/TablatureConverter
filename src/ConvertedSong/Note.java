@@ -9,6 +9,9 @@ public class Note implements Serializable {
     private Type type;
 
     public Note() {
+        this.pitch = new Pitch();
+        this.duration = 0;
+        this.type = new Type();
     }
 
     public Note(Pitch g) {

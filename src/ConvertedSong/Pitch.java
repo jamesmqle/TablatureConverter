@@ -8,6 +8,8 @@ public class Pitch implements Serializable {
     private int octave;
 
     public Pitch() {
+        step = "";
+        octave = 0;
     }
 
     //redundant?

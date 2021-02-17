@@ -8,6 +8,8 @@ public class Type implements Serializable {
     private String typeStop;
 
     public Type() {
+        this.typeStart = "";
+        this.typeStop = "";
     }
 
     public Type(Type type) {

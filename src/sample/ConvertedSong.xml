@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <score-partwise version="3.1">
+    <part-list>
+        <score-part id="">
+            <part-name></part-name>
+        </score-part>
+    </part-list>
     <part/>
 </score-partwise>

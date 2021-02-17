@@ -17,6 +17,7 @@ public class PartList implements Serializable {
     }
 
     public PartList() {
+        scorePart = new ScorePart();
     }
 
     public PartList(ScorePart scorePart) {
