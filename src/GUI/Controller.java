@@ -108,6 +108,7 @@ public class Controller {
     /*
     Copy from clipboard button
      */
+    // edited
     @FXML
     public void CopyClipBoardHandler(ActionEvent event){
         Clipboard clipboard = Clipboard.getSystemClipboard();

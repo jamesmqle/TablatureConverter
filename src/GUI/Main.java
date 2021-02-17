@@ -21,6 +21,7 @@ public class Main extends Application {
         scene.getStylesheets().add("GUI/WelcomeStyleSheet.css");
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setResizable(false);
         
     }
 }
