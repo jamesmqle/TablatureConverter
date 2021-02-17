@@ -1,17 +1,24 @@
 package ConvertedSong;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
+// Feb 17 change - Changed type from Type to String
+@XmlRootElement(name = "note")
+@XmlType(propOrder = {"pitch", "duration", "type"})
 public class Note implements Serializable {
     private Pitch pitch;
     private int duration;
-    private Type type;
+    //private Type type;
+    private String type;
 
     public Note() {
         this.pitch = new Pitch();
-        this.duration = 0;
-        this.type = new Type();
+        this.duration = 4;
+        //this.type = new Type();
+        this.type = "whole";
     }
 
     public Note(Pitch g) {
@@ -22,11 +29,15 @@ public class Note implements Serializable {
         this.duration = duration;
     }
 
-    public Note(Type type) {
+    /*public Note(Type type) {
+        this.type = type;
+    }
+    */
+    public Note(String type) {
         this.type = type;
     }
 
-    public Note(Pitch pitch, int duration, Type type) {
+    public Note(Pitch pitch, int duration, String type) {
         this.pitch = pitch;
         this.duration = duration;
         this.type = type;
@@ -51,11 +62,11 @@ public class Note implements Serializable {
     }
 
     @XmlElement(name = "type")
-    public Type getType() {
+    public String getType() {
         return this.type;
     }
 
-    public void setType(Type type) {
+    public void setType(String type) {
         this.type = type;
     }
 

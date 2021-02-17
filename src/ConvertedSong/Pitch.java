@@ -1,15 +1,17 @@
 package ConvertedSong;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
+@XmlType(propOrder = {"step", "octave"})
 public class Pitch implements Serializable {
     private String step;
     private int octave;
 
     public Pitch() {
-        step = "";
-        octave = 0;
+        step = "C";
+        octave = 4;
     }
 
     //redundant?

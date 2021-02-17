@@ -60,12 +60,9 @@ public class ConvertedSongTest {
 		// make song.parts not empty
 		song.addPart(new Part());
 
-		// make song.parts.measures not empty
-		song.getParts().get(song.getParts().size()-1).getMeasures().add(new Measure());
-
 		// add a note to a given measure
 		// hierarchy is song.part.measures.notes
-		song.getParts().get(0).getMeasures().get(0).addNoteFromTab("e", 1);
+		song.getParts().get(0).getMeasures().get(0).addNote(new Note());
 
 
 		// previous makeshift tests

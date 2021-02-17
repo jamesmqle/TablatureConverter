@@ -66,7 +66,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 @XmlRootElement(name = "score-partwise")
 public class ConvertedSong implements Serializable {
     @XmlAttribute
-    public static final String VERSION = "3.1";
+    private static final String VERSION = "3.1";
 
     //private Attributes attributes;
     private PartList partList;
@@ -83,6 +83,8 @@ public class ConvertedSong implements Serializable {
 
     public void addPart(Part part){
         this.parts.add(part);
+        this.partList.getScorePart().setId("G" + this.parts.size());
+        this.partList.getScorePart().setPartName("Guitar " + this.parts.size());
     }
 
 //    public void addMeasure(Measure measure){
