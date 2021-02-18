@@ -67,7 +67,7 @@ TablatureConverter requires the the following to run:
 
 ---
 
-## Contact Us
+## Contact us for any errors
 
 Tuan Dau - tdau@my.yorku.ca
 
