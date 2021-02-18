@@ -58,8 +58,6 @@ public class Measure implements Serializable {
         this.notes.add(note);
     }
 
-    // bruh moment
-    // only a hotfix for finding octaves for standard tuning, fix afr after submission
     public void addNoteFromTab(String string, int fret){
         this.notes.add(new Note(new Pitch(NoteConvert.convertToNote(string, fret).getPitch().getStep(),NoteConvert.octaveFinder(string, fret),NoteConvert.convertToNote(string, fret).getPitch().getAlter()), 1, "quarter"/*new Type("0", "1")*/));
     }
