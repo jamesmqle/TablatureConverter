@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner; // Import the Scanner class to read text files
-import ConvertedSong.*;
-
 
 public class textReader extends Output {
 
@@ -17,20 +15,25 @@ public class textReader extends Output {
 
 	public static void main(String[] args) throws IOException {
 		// public static List<Output> main(String[] args) throws IOException{
-/*
+
 		List<Output> list = new ArrayList<>();
 
-		String arr[] = new String[6];
+		String arr[] = new String[10];
 		Scanner myReader = new Scanner(new FileReader("D:\\3221\\gg.txt"));
-		for (int i = 0; i < 6; i++) {
-			String data = myReader.nextLine();
+		String data = null;
+		int k = 0;
+		//Check the number of lines and print it
+		while (myReader.hasNextLine()) {
+			data = myReader.nextLine();
 			System.out.println(data);
-			arr[i] = data;
+			arr[k] = data;
+			k++;
 		}
-
+		
 		myReader.close();
-		for (int i = 2; i < 60; i++) {
-			for (int j = 0; j < 6; j++) {
+		int length = data.length();
+		for (int i = 2; i < length; i++) {
+			for (int j = 0; j < k; j++) {
 				if ((getCharFromString(arr[j], i) != '-') && (getCharFromString(arr[j], i) != '|')) {
 					// 1 digit
 					if ((getCharFromString(arr[j], i - 1) == '-') && (getCharFromString(arr[j], i + 1) == '-')) {
@@ -44,7 +47,7 @@ public class textReader extends Output {
 								Integer.parseInt(Character.toString(getCharFromString(arr[j], i))
 										+ Character.toString(getCharFromString(arr[j], i + 1))),
 								i));
-						i++;
+						// i++;
 
 					}
 					// 3 digits
@@ -55,68 +58,22 @@ public class textReader extends Output {
 										+ Character.toString(getCharFromString(arr[j], i + 1))
 										+ Character.toString(getCharFromString(arr[j], i + 2))),
 								i));
-						i += 2;
+						// i += 2;
 					}
 				}
-			}
-		}
-		printData(list);
-		// return list;*/
-
-		readTabFile("C:\\Users\\tukau\\Documents\\GitHub\\TablatureConverter\\src\\sample\\hotCrossBunsGuitarTab");
-	}
-
-	public static List<Output> readTabFile(String filepath) throws IOException {
-		// public static List<Output> main(String[] args) throws IOException{
-
-		List<Output> list = new ArrayList<>();
-
-		String arr[] = new String[6];
-		Scanner myReader = new Scanner(new FileReader(filepath));
-
-		for (int i = 0; i < 6; i++) {
-			String data = myReader.nextLine();
-			System.out.println(data);
-			arr[i] = data;
-		}
-
-		myReader.close();
-
-		for (int i = 2; i < arr[0].length(); i++) {
-			for (int j = 0; j < 6; j++) {
-				if ((getCharFromString(arr[j], i) != '-') && (getCharFromString(arr[j], i) != '|')) {
-					// 1 digit
-					if ((getCharFromString(arr[j], i - 1) == '-') && (getCharFromString(arr[j], i + 1) == '-')) {
-						list.add(new Output(Character.toString(getCharFromString(arr[j], 0)),
-								Integer.parseInt(Character.toString(getCharFromString(arr[j], i))), i));
-					}
-					// 2 digits
-					else if ((getCharFromString(arr[j], i - 1) == '-') && (getCharFromString(arr[j], i + 1) != '-')
-							&& (getCharFromString(arr[j], i + 2) == '-')) {
-						list.add(new Output(Character.toString(getCharFromString(arr[j], 0)),
-								Integer.parseInt(Character.toString(getCharFromString(arr[j], i))
-										+ Character.toString(getCharFromString(arr[j], i + 1))),
-								i));
+				if(getCharFromString(arr[j], i) == '|') {
+					list.add(new Output("*New Measure*",-1,i));
+					if(i!=length-1) {
 						i++;
-
 					}
-					// 3 digits
-					else if ((getCharFromString(arr[j], i - 1) == '-') && (getCharFromString(arr[j], i + 1) != '-')
-							&& (getCharFromString(arr[j], i + 2) != '-') && (getCharFromString(arr[j], i + 3) == '-')) {
-						list.add(new Output(Character.toString(getCharFromString(arr[j], 0)),
-								Integer.parseInt(Character.toString(getCharFromString(arr[j], i))
-										+ Character.toString(getCharFromString(arr[j], i + 1))
-										+ Character.toString(getCharFromString(arr[j], i + 2))),
-								i));
-						i += 2;
+					else {
+						break;
 					}
 				}
 			}
 		}
 		printData(list);
-		// createXML added here for hotfix
-		ConvertedSongTest.createXML(list);
-		return list;
+		// return list;
 	}
 
 	// Gets character from the line given
@@ -127,7 +84,7 @@ public class textReader extends Output {
 	// Print data of the output list that we return
 	public static void printData(List<Output> data) {
 		data.forEach(obj -> System.out.println(
-				"Tuning:	" + obj.getLetter() + "\t" + "fret:	" + obj.getNum() + "\t" + "i:	" + obj.getIndex()));
+				"Tunning :" + obj.getletter() + "\t" + "fret num :" + obj.getnum() + "\t" + "i :" + obj.getindex()));
 	}
 
 }
