@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 // Feb 17 change - Changed type from Type to String
+
 @XmlRootElement(name = "note")
 @XmlType(propOrder = {"pitch", "duration", "type"})
 public class Note implements Serializable {

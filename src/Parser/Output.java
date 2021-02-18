@@ -15,15 +15,15 @@ public class Output {
 	 * System.out.println("item1" + obj.getletter() + " " + "item2" + obj.getnum() +
 	 * " " + "item2" + obj.getindex())); }
 	 */
-	protected int getindex() {
+	public int getIndex() {
 		// TODO Auto-generated method stub
 		return this.index;
 	}
-	protected int getnum() {
+	public int getNum() {
 		// TODO Auto-generated method stub
 		return this.num;
 	}
-	protected String getletter() {
+	public String getLetter() {
 		// TODO Auto-generated method stub
 		return this.letter;
 	}

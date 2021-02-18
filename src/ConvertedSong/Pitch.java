@@ -4,25 +4,28 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
-@XmlType(propOrder = {"step", "octave"})
+@XmlType(propOrder = {"step", "alter", "octave"})
 public class Pitch implements Serializable {
     private String step;
     private int octave;
+    private int alter;
 
     public Pitch() {
         step = "C";
         octave = 4;
+        alter = 0;
     }
 
-    //redundant?
+/*    //redundant?
     public Pitch(Pitch pitch) {
         this.octave = pitch.getOctave();
         this.step = pitch.getStep();
-    }
+    }*/
 
-    public Pitch(String step, int octave) {
+    public Pitch(String step, int octave, int alter) {
         this.step = step;
         this.octave = octave;
+        this.alter = alter;
     }
 
     @XmlElement(name = "step")
@@ -30,7 +33,7 @@ public class Pitch implements Serializable {
         return this.step;
     }
 
-    public void setsStep(String step) {
+    public void setStep(String step) {
         this.step = step;
     }
 
@@ -41,5 +44,14 @@ public class Pitch implements Serializable {
 
     public void setOctave(int octave) {
         this.octave = octave;
+    }
+
+    @XmlElement(name = "alter")
+    public int getAlter() {
+        return this.alter;
+    }
+
+    public void setAlter(int alter) {
+        this.alter = alter;
     }
 }

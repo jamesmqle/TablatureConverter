@@ -19,9 +19,9 @@ public class Attributes {
 
     public Attributes(){
         this.clef = new Clef("G",2);
-        this.key = new Key(-3, "major");
+        this.key = new Key(0, "major");
         this.time = new TimeSignature(4,4);
-        this.divisions = 24;
+        this.divisions = 1;
     }
 
     /*

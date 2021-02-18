@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner; // Import the Scanner class to read text files
+import ConvertedSong.*;
 
-import static GUI.Controller.fileAsString;
 
 public class textReader extends Output {
 
@@ -63,7 +63,7 @@ public class textReader extends Output {
 		printData(list);
 		// return list;*/
 
-		readTabFile("");
+		readTabFile("C:\\Users\\tukau\\Documents\\GitHub\\TablatureConverter\\src\\sample\\hotCrossBunsGuitarTab");
 	}
 
 	public static List<Output> readTabFile(String filepath) throws IOException {
@@ -72,7 +72,7 @@ public class textReader extends Output {
 		List<Output> list = new ArrayList<>();
 
 		String arr[] = new String[6];
-		Scanner myReader = new Scanner(new FileReader(fileAsString));
+		Scanner myReader = new Scanner(new FileReader(filepath));
 
 		for (int i = 0; i < 6; i++) {
 			String data = myReader.nextLine();
@@ -114,6 +114,7 @@ public class textReader extends Output {
 			}
 		}
 		printData(list);
+		ConvertedSongTest.createXML(list);
 		return list;
 	}
 
@@ -125,7 +126,7 @@ public class textReader extends Output {
 	// Print data of the output list that we return
 	public static void printData(List<Output> data) {
 		data.forEach(obj -> System.out.println(
-				"Tuning:	" + obj.getletter() + "\t" + "fret:	" + obj.getnum() + "\t" + "i:	" + obj.getindex()));
+				"Tuning:	" + obj.getLetter() + "\t" + "fret:	" + obj.getNum() + "\t" + "i:	" + obj.getIndex()));
 	}
 
 }
