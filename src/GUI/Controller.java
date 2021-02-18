@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.*;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,16 +19,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import Parser.textReader;
 
+import javax.swing.*;
+
 public class Controller {
 
     public static String fileAsString;
-    File file; // File Object
-
-    @FXML
-    private Button FileChooser;
-
-    @FXML
-    private Button CopyText;
+    File inputFile = null; // Input file Object
+    File outputFile = new File("src/sample/ConvertedSong.xml"); // Output file Object
 
     @FXML
     private ListView listview;
@@ -45,13 +43,13 @@ public class Controller {
         // filters only text files
         fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text File", "*.txt"));
         // opens file explorer
-        file = fc.showOpenDialog(null);
-        setFileAsString(file.toString()); // Converts the file to a string
+        inputFile = fc.showOpenDialog(null);
+        setFileAsString(inputFile.toString()); // Converts the file to a string
         System.out.println(fileAsString);
 
-        if (file != null) {
+        if (inputFile != null) {
             // adds file to listview
-            listview.getItems().add(file.getName());
+            listview.getItems().add(inputFile.getName());
         }
     }
 
@@ -59,7 +57,7 @@ public class Controller {
     public void PreviewHandler(ActionEvent event) {
         try {
             if (listview != null) {
-                Desktop.getDesktop().open(file);
+                Desktop.getDesktop().open(inputFile);
             }
         } catch (Exception e) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -97,12 +95,20 @@ public class Controller {
    */
     @FXML
     public void ConvertHandler(ActionEvent event) throws IOException {
-        textReader.readTabFile(fileAsString);
+        textReader.readTabFile(fileAsString); // passes the input file to the parser
         Parent conversionCompleteParent = FXMLLoader.load(getClass().getResource("ConversionComplete.fxml"));
         Scene ClipBoardScene = new Scene(conversionCompleteParent);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(ClipBoardScene);
         window.show();
+    }
+
+    /*
+    This button will open the converted xml file
+     */
+    @FXML
+    public void OpenXMLHandler(ActionEvent event) throws IOException {
+        Desktop.getDesktop().open(outputFile);
     }
 
     public String getFileAsString() {
