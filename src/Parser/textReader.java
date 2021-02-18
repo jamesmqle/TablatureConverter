@@ -20,13 +20,15 @@ public class textReader extends Output {
 
 		String arr[] = new String[6];
 		Scanner myReader = new Scanner(new FileReader("D:\\3221\\gg.txt"));
+		String data = null;
 		for (int i = 0; i < 6; i++) {
-			String data = myReader.nextLine();
+			data = myReader.nextLine();
 			System.out.println(data);
 			arr[i] = data;
 		}
 		myReader.close();
-		for (int i = 2; i < 60; i++) {
+		int length=data.length();
+		for (int i = 2; i < length; i++) {
 			for (int j = 0; j < 6; j++) {
 				if ((getCharFromString(arr[j], i) != '-') && (getCharFromString(arr[j], i) != '|')) {
 					// 1 digit
@@ -41,7 +43,7 @@ public class textReader extends Output {
 								Integer.parseInt(Character.toString(getCharFromString(arr[j], i))
 										+ Character.toString(getCharFromString(arr[j], i + 1))),
 								i));
-						i++;
+						//i++;
 
 					}
 					// 3 digits
@@ -52,7 +54,7 @@ public class textReader extends Output {
 										+ Character.toString(getCharFromString(arr[j], i + 1))
 										+ Character.toString(getCharFromString(arr[j], i + 2))),
 								i));
-						i += 2;
+						//i += 2;
 					}
 				}
 			}
