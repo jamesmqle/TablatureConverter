@@ -3,7 +3,6 @@ package ConvertedSong;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /*
  *  Objects: clef, key, time
  *  Attributes: divisions

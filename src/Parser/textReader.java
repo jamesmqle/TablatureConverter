@@ -114,6 +114,7 @@ public class textReader extends Output {
 			}
 		}
 		printData(list);
+		// createXML added here for hotfix
 		ConvertedSongTest.createXML(list);
 		return list;
 	}

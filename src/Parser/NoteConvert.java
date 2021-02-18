@@ -105,7 +105,8 @@ public class NoteConvert {
 		return finalNote;
 	}
 
-	// Finds the octave of a note on the guitar tablature.
+	// bruh moment
+	// hotfix only for standard tuning
 	public static int octaveFinder(String stringTune, int tabNote) {
 		int stringTuneNote, result, addOctave;
 		addOctave = 0;
