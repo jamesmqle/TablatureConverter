@@ -18,18 +18,22 @@ public class textReader extends Output {
 
 		List<Output> list = new ArrayList<>();
 
-		String arr[] = new String[6];
+		String arr[] = new String[10];
 		Scanner myReader = new Scanner(new FileReader("D:\\3221\\gg.txt"));
 		String data = null;
-		for (int i = 0; i < 6; i++) {
+		int k = 0;
+		//Check the number of lines and print it
+		while (myReader.hasNextLine()) {
 			data = myReader.nextLine();
 			System.out.println(data);
-			arr[i] = data;
+			arr[k] = data;
+			k++;
 		}
+		
 		myReader.close();
-		int length=data.length();
+		int length = data.length();
 		for (int i = 2; i < length; i++) {
-			for (int j = 0; j < 6; j++) {
+			for (int j = 0; j < k; j++) {
 				if ((getCharFromString(arr[j], i) != '-') && (getCharFromString(arr[j], i) != '|')) {
 					// 1 digit
 					if ((getCharFromString(arr[j], i - 1) == '-') && (getCharFromString(arr[j], i + 1) == '-')) {
@@ -43,7 +47,7 @@ public class textReader extends Output {
 								Integer.parseInt(Character.toString(getCharFromString(arr[j], i))
 										+ Character.toString(getCharFromString(arr[j], i + 1))),
 								i));
-						//i++;
+						// i++;
 
 					}
 					// 3 digits
@@ -54,7 +58,16 @@ public class textReader extends Output {
 										+ Character.toString(getCharFromString(arr[j], i + 1))
 										+ Character.toString(getCharFromString(arr[j], i + 2))),
 								i));
-						//i += 2;
+						// i += 2;
+					}
+				}
+				if(getCharFromString(arr[j], i) == '|') {
+					list.add(new Output("*New Measure*",-1,i));
+					if(i!=length-1) {
+						i++;
+					}
+					else {
+						break;
 					}
 				}
 			}
