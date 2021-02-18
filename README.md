@@ -71,7 +71,7 @@ TablatureConverter requires the the following to run:
 
 Tuan Dau - tdau@my.yorku.ca
 
-James Le - 
+James Le - jamesmql@my.yorku.ca
 
 Temi Odunfa- odunifa.temi@gmail.com
 
