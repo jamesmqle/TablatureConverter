@@ -73,7 +73,7 @@ Tuan Dau - tdau@my.yorku.ca
 
 James Le - 
 
-Temi - odunifa.temi@gmail.com
+Temi Odunfa- odunifa.temi@gmail.com
 
 ---
 
