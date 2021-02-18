@@ -1,14 +1,15 @@
-package Parser;
+package ConvertedSong;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import Parser.ConvertedSong;
 
+import Parser.Output;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class ConvertedSongTest {
 
@@ -56,11 +57,42 @@ public class ConvertedSongTest {
     public static void main(String[] args) {
 		String xmlFile = "src\\sample\\ConvertedSong.xml";
 		ConvertedSong song = new ConvertedSong();
-		//song.setKey((new ConvertedSong.Key(0)));
+		// song.setKey((new ConvertedSong.Key(0)));
 
-		song.setPartList(new ConvertedSong.PartList(new ConvertedSong.PartList.ScorePart("Music", "P1")));
-		song.setAttributes(new ConvertedSong.Attributes(new ConvertedSong.Attributes.Key(0), new ConvertedSong.Attributes.TimeSignature(4,5), new ConvertedSong.Attributes.Clef("G",4)));
-		song.setNote(new ConvertedSong.Note(new ConvertedSong.Note.Pitch("G",2), 1, new ConvertedSong.Note.Type("Start", "Stop")));
+		// make song.parts not empty
+		song.addPart(new Part());
+
+		// add a note to a given measure
+		// hierarchy is song.part.measures.notes
+		song.getParts().get(0).getMeasures().get(0).addNote(new Note());
+
+		// previous makeshift tests
+//		song.addMeasure(new Measure());
+//		song.addMeasure(new Measure());
+//		song.addMeasure(new Measure());
+//		song.addMeasure(new Measure());
+
+//		song.addNote(new Note());
+//		song.addNote(new Note());
+//		song.addNote(new Note());
+//		song.addNote(new Note());
+
+		serialize(song, xmlFile);
+		deSerialize(xmlFile);
+	}
+
+	public static void createXML(List<Output> notes){
+		String xmlFile = "src\\sample\\ConvertedSong.xml";
+		ConvertedSong song = new ConvertedSong();
+		// song.setKey((new ConvertedSong.Key(0)));
+
+		// Initalize part (and first measure)
+		song.addPart(new Part());
+
+		for (Output note : notes) {
+			song.addNoteToMeasure(note.getLetter(), note.getNum());
+		}
+
 		serialize(song, xmlFile);
 		deSerialize(xmlFile);
 	}

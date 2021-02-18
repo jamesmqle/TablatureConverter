@@ -1,83 +1,133 @@
 package Parser;
 
-import java.io.BufferedReader;
-import java.io.File;  // Import the File class
-import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner; // Import the Scanner class to read text files
-
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-
-public class textReader {
-	public static void main(String[] args) throws IOException {
-		Scanner in = new Scanner(new FileReader("C:\\Users\\James Le\\IdeaProjects\\TablatureConverter\\src\\sample\\hotCrossBunsGuitarTab"));
-		BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\James Le\\IdeaProjects\\TablatureConverter\\src\\sample\\hotCrossBunsGuitarTab"));
-		
-		try {
-		    StringBuilder sb = new StringBuilder();
-		    String line = br.readLine();
-
-		    while (line != null) {
-		        sb.append(line);
-		        sb.append(System.lineSeparator());
-		        line = br.readLine();
-		    }
-		    String everything = sb.toString();
-		    System.out.println(everything);
-
-		   // toVerticalWords(everything);
+import ConvertedSong.*;
 
 
-			Pattern pt = Pattern.compile("\\d");
-			Matcher mt = pt.matcher(everything);
-			while(mt.find()){
-				System.out.print(mt.group());
-			}
-		} 
-		finally {
-		    br.close();
-		}
+public class textReader extends Output {
 
+	public textReader(String string, int string2, int i) {
+		super(string, string2, i);
+		// TODO Auto-generated constructor stub
 	}
 
-	/*// This method will make the String vertical
-	private static void toVerticalWords(String str) {
-		//split the words by whitespace
-		String[] strArr = str.split("\\s");
-		int maxWordLen = 0;
+	public static void main(String[] args) throws IOException {
+		// public static List<Output> main(String[] args) throws IOException{
+/*
+		List<Output> list = new ArrayList<>();
 
-		//get the longest word length
-		for(String strTemp : strArr) {
-			if(strTemp.length() > maxWordLen)
-				maxWordLen = strTemp.length();
+		String arr[] = new String[6];
+		Scanner myReader = new Scanner(new FileReader("D:\\3221\\gg.txt"));
+		for (int i = 0; i < 6; i++) {
+			String data = myReader.nextLine();
+			System.out.println(data);
+			arr[i] = data;
 		}
 
-		//make a matrix of the words with each character in an array block
-		char[][] charArr = new char[strArr.length][maxWordLen];
-		for(int i=0; i<strArr.length; i++) {
-			int j=0;
-			for(char ch : strArr[i].toCharArray()){
-				charArr[i][j] = ch;
-				j++;
+		myReader.close();
+		for (int i = 2; i < 60; i++) {
+			for (int j = 0; j < 6; j++) {
+				if ((getCharFromString(arr[j], i) != '-') && (getCharFromString(arr[j], i) != '|')) {
+					// 1 digit
+					if ((getCharFromString(arr[j], i - 1) == '-') && (getCharFromString(arr[j], i + 1) == '-')) {
+						list.add(new Output(Character.toString(getCharFromString(arr[j], 0)),
+								Integer.parseInt(Character.toString(getCharFromString(arr[j], i))), i));
+					}
+					// 2 digits
+					else if ((getCharFromString(arr[j], i - 1) == '-') && (getCharFromString(arr[j], i + 1) != '-')
+							&& (getCharFromString(arr[j], i + 2) == '-')) {
+						list.add(new Output(Character.toString(getCharFromString(arr[j], 0)),
+								Integer.parseInt(Character.toString(getCharFromString(arr[j], i))
+										+ Character.toString(getCharFromString(arr[j], i + 1))),
+								i));
+						i++;
+
+					}
+					// 3 digits
+					else if ((getCharFromString(arr[j], i - 1) == '-') && (getCharFromString(arr[j], i + 1) != '-')
+							&& (getCharFromString(arr[j], i + 2) != '-') && (getCharFromString(arr[j], i + 3) == '-')) {
+						list.add(new Output(Character.toString(getCharFromString(arr[j], 0)),
+								Integer.parseInt(Character.toString(getCharFromString(arr[j], i))
+										+ Character.toString(getCharFromString(arr[j], i + 1))
+										+ Character.toString(getCharFromString(arr[j], i + 2))),
+								i));
+						i += 2;
+					}
+				}
 			}
 		}
+		printData(list);
+		// return list;*/
 
-		//print the vertical word pattern, or transpose of above matrix (2D array)
-		for(int j=0; j<maxWordLen; j++) {
-			for(int i=0; i<strArr.length; i++) {
-				if (i!=0)
-					System.out.print(" ");
-				System.out.print(charArr[i][j]);
-			}
+		readTabFile("C:\\Users\\tukau\\Documents\\GitHub\\TablatureConverter\\src\\sample\\hotCrossBunsGuitarTab");
+	}
 
-			System.out.println();
+	public static List<Output> readTabFile(String filepath) throws IOException {
+		// public static List<Output> main(String[] args) throws IOException{
+
+		List<Output> list = new ArrayList<>();
+
+		String arr[] = new String[6];
+		Scanner myReader = new Scanner(new FileReader(filepath));
+
+		for (int i = 0; i < 6; i++) {
+			String data = myReader.nextLine();
+			System.out.println(data);
+			arr[i] = data;
 		}
-	}*/
 
+		myReader.close();
 
+		for (int i = 2; i < arr[0].length(); i++) {
+			for (int j = 0; j < 6; j++) {
+				if ((getCharFromString(arr[j], i) != '-') && (getCharFromString(arr[j], i) != '|')) {
+					// 1 digit
+					if ((getCharFromString(arr[j], i - 1) == '-') && (getCharFromString(arr[j], i + 1) == '-')) {
+						list.add(new Output(Character.toString(getCharFromString(arr[j], 0)),
+								Integer.parseInt(Character.toString(getCharFromString(arr[j], i))), i));
+					}
+					// 2 digits
+					else if ((getCharFromString(arr[j], i - 1) == '-') && (getCharFromString(arr[j], i + 1) != '-')
+							&& (getCharFromString(arr[j], i + 2) == '-')) {
+						list.add(new Output(Character.toString(getCharFromString(arr[j], 0)),
+								Integer.parseInt(Character.toString(getCharFromString(arr[j], i))
+										+ Character.toString(getCharFromString(arr[j], i + 1))),
+								i));
+						i++;
 
+					}
+					// 3 digits
+					else if ((getCharFromString(arr[j], i - 1) == '-') && (getCharFromString(arr[j], i + 1) != '-')
+							&& (getCharFromString(arr[j], i + 2) != '-') && (getCharFromString(arr[j], i + 3) == '-')) {
+						list.add(new Output(Character.toString(getCharFromString(arr[j], 0)),
+								Integer.parseInt(Character.toString(getCharFromString(arr[j], i))
+										+ Character.toString(getCharFromString(arr[j], i + 1))
+										+ Character.toString(getCharFromString(arr[j], i + 2))),
+								i));
+						i += 2;
+					}
+				}
+			}
+		}
+		printData(list);
+		// createXML added here for hotfix
+		ConvertedSongTest.createXML(list);
+		return list;
+	}
 
+	// Gets character from the line given
+	public static char getCharFromString(String str, int index) {
+		return str.charAt(index);
+	}
+
+	// Print data of the output list that we return
+	public static void printData(List<Output> data) {
+		data.forEach(obj -> System.out.println(
+				"Tuning:	" + obj.getLetter() + "\t" + "fret:	" + obj.getNum() + "\t" + "i:	" + obj.getIndex()));
+	}
 
 }

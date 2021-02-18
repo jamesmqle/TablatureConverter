@@ -7,6 +7,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+/*
+ * Guitar Tablature Parser
+ *
+ * This class returns the note and string of each note on the guitar tab input.
+ *
+ * Todo:
+ *  Return the string that each note came from
+ *  Chord functionality
+ *
+ */
+
 public class parser extends Controller {
 
 	public static void main(String[] args) throws IOException {
@@ -22,8 +33,10 @@ public class parser extends Controller {
 			System.out.println(data);
 			arr[i] = data;
 		}
+
 		myReader.close();
 
+		//Need to document
 		for(int i=2;i<64;i++) {
 			for(int j=0;j<6;j++) {
 				if((getCharFromString(arr[j],i)!='-') && (getCharFromString(arr[j],i)!='|')) {
