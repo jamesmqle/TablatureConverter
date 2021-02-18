@@ -67,13 +67,13 @@ TablatureConverter requires the the following to run:
 
 ---
 
-## Contact us for any errors
+## Contact Us
 
 Tuan Dau - tdau@my.yorku.ca
 
 James Le - 
 
-Temi - 
+Temi - odunifa.temi@gmail.com
 
 ---
 
