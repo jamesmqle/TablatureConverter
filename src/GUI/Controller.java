@@ -38,13 +38,14 @@ public class Controller {
      */
     @FXML
     public void FileChooserHandler(ActionEvent event) {
-        // creates file chooser object
         FileChooser fc = new FileChooser();
-        // filters only text files
-        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text File", "*.txt"));
-        // opens file explorer
-        inputFile = fc.showOpenDialog(null);
-        setFileAsString(inputFile.toString()); // Converts the file to a string
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text File", "*.txt")); // filters only text files
+        try {
+            inputFile = fc.showOpenDialog(null); // opens file explorer
+            setFileAsString(inputFile.toString()); // Converts the file to a string
+        }
+        catch (Exception e){
+        }
         System.out.println(fileAsString);
 
         if (inputFile != null) {
@@ -62,7 +63,7 @@ public class Controller {
         } catch (Exception e) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("File not found.");
-            errorAlert.setContentText("Please choose a file first.");
+            errorAlert.setContentText("Please choose a file first before you preview");
             errorAlert.showAndWait();
         }
     }
@@ -82,6 +83,7 @@ public class Controller {
      */
     @FXML
     public void BackToWelcome(ActionEvent event) throws IOException {
+        inputFile = null;
         Parent back = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
         Scene welcomeScene = new Scene(back);
         welcomeScene.getStylesheets().add("GUI/WelcomeStyleSheet.css");
@@ -95,12 +97,21 @@ public class Controller {
    */
     @FXML
     public void ConvertHandler(ActionEvent event) throws IOException {
-        textReader.readTabFile(fileAsString); // passes the input file to the parser
-        Parent conversionCompleteParent = FXMLLoader.load(getClass().getResource("ConversionComplete.fxml"));
-        Scene ClipBoardScene = new Scene(conversionCompleteParent);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(ClipBoardScene);
-        window.show();
+        try {
+            if (listview != null) {
+                textReader.readTabFile(fileAsString); // passes the input file to the parser
+                Parent conversionCompleteParent = FXMLLoader.load(getClass().getResource("ConversionComplete.fxml"));
+                Scene ClipBoardScene = new Scene(conversionCompleteParent);
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(ClipBoardScene);
+                window.show();
+            }
+        } catch (Exception e) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("File not found.");
+            errorAlert.setContentText("Please choose a file before you convert.");
+            errorAlert.showAndWait();
+        }
     }
 
     /*
