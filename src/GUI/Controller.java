@@ -2,8 +2,11 @@ package GUI;
 
 import java.awt.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Scanner;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -21,6 +24,9 @@ import Parser.textReader;
 
 import javax.swing.*;
 
+/**
+ * Controller class controls the functionality of the User Interface
+ */
 public class Controller {
 
     public static String fileAsString;
@@ -33,43 +39,77 @@ public class Controller {
     @FXML
     private TextArea textview;
 
-    /*
-    Choose file button
+    /**
+     * This method uploads a file
+     *
+     * @param event
+     * @throws FileNotFoundException
      */
     @FXML
-    public void FileChooserHandler(ActionEvent event) {
+    public void FileChooserHandler(ActionEvent event) throws FileNotFoundException {
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text File", "*.txt")); // filters only text files
         try {
             inputFile = fc.showOpenDialog(null); // opens file explorer
             setFileAsString(inputFile.toString()); // Converts the file to a string
         }
-        catch (Exception e){
+        catch (Exception e) {
         }
         System.out.println(fileAsString);
 
         if (inputFile != null) {
-            // adds file to listview
-            listview.getItems().add(inputFile.getName());
+            listview.getItems().add(inputFile.getName()); // adds file to listview
+
+            // If the user uploads a second file, the second file will override the first file
+            if (listview.getItems().size() == 2) { listview.getItems().remove(0); }
+
         }
+        displayTablature(); // displays file content to textarea
     }
 
-    @FXML
-    public void PreviewHandler(ActionEvent event) {
+    public void setFileAsString(String fileAsString) {
+        this.fileAsString = fileAsString;
+    }
+
+    /**
+     * This method displays the text from the file to the textarea
+     *
+     * @throws FileNotFoundException
+     */
+    private void displayTablature() throws FileNotFoundException {
         try {
-            if (listview != null) {
-                Desktop.getDesktop().open(inputFile);
+            Scanner input = new Scanner(new File(fileAsString)).useDelimiter("\\s");
+            while (input.hasNext()) {
+                if (input.hasNextInt()) { // check if next token is an int
+                    textview.appendText(input.nextInt() + " "); // display the found integer
+                } else {
+                    textview.appendText(input.next() + " "); // else read the next token
+                }
             }
-        } catch (Exception e) {
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("File not found.");
-            errorAlert.setContentText("Please choose a file first before you preview");
-            errorAlert.showAndWait();
+        } catch (FileNotFoundException ex) {
+            System.err.println(ex);
         }
     }
 
-    /*
-    Copy from clipboard button
+
+//    @FXML
+//    public void PreviewHandler(ActionEvent event) {
+//        try {
+//            if (listview != null) {
+//                Desktop.getDesktop().open(inputFile);
+//            }
+//        } catch (Exception e) {
+//            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+//            errorAlert.setHeaderText("File not found.");
+//            errorAlert.setContentText("Please choose a file first before you preview");
+//            errorAlert.showAndWait();
+//        }
+//    }
+
+    /**
+     * Copy and paste to text area
+     *
+     * @param event
      */
     @FXML
     public void CopyClipBoardHandler(ActionEvent event) {
@@ -78,8 +118,11 @@ public class Controller {
         textview.setText(clipBoardText);
     }
 
-    /*
-    Goes back to welcome scene
+    /**
+     * Go back to welcome scene
+     *
+     * @param event
+     * @throws IOException
      */
     @FXML
     public void BackToWelcome(ActionEvent event) throws IOException {
@@ -92,9 +135,12 @@ public class Controller {
         window.show();
     }
 
-    /*
-  switches from welcome scene to conversion complete scene
-   */
+    /**
+     * Go to conversion complete screen
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void ConvertHandler(ActionEvent event) throws IOException {
         try {
@@ -114,19 +160,15 @@ public class Controller {
         }
     }
 
-    /*
-    This button will open the converted xml file
+    /**
+     * Opens the converted xml file
+     *
+     * @param event
+     * @throws IOException
      */
     @FXML
     public void OpenXMLHandler(ActionEvent event) throws IOException {
         Desktop.getDesktop().open(outputFile);
     }
 
-    public String getFileAsString() {
-        return fileAsString;
-    }
-
-    public void setFileAsString(String fileAsString) {
-        this.fileAsString = fileAsString;
-    }
 }
