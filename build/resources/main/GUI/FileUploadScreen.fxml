@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
+   <children>
+      <ListView fx:id="listview" layoutX="283.0" layoutY="211.0" prefHeight="40.0" prefWidth="212.0" />
+      <Button layoutX="309.0" layoutY="405.0" mnemonicParsing="false" onAction="#ConvertHandler" prefHeight="35.0" prefWidth="160.0" text="Convert!">
+         <font>
+            <Font name="Century Gothic" size="22.0" />
+         </font>
+      </Button>
+      <Button layoutX="309.0" layoutY="144.0" mnemonicParsing="false" onAction="#FileChooserHandler" prefHeight="31.0" prefWidth="160.0" text="Select Text File" textAlignment="CENTER">
+         <font>
+            <Font name="Century Gothic" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackToWelcome" text="Back" />
+   </children>
+</AnchorPane>
