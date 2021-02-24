@@ -9,16 +9,16 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import Parser.Output;
-import org.junit.jupiter.api.BeforeEach;
+/*import org.junit.jupiter.api.BeforeEach;*/
 
 public class ConvertedSongTest {
 
     private JAXBContext context;
 
-    @BeforeEach
-    public void init() throws JAXBException {
-        this.context = JAXBContext.newInstance(ConvertedSong.class);
-    }
+	/*
+	 * @BeforeEach public void init() throws JAXBException { this.context =
+	 * JAXBContext.newInstance(ConvertedSong.class); }
+	 */
 
 /*    @Test
     public void serialization() throws JAXBException {
