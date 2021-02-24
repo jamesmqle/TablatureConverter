@@ -11,16 +11,6 @@
       <entry name="!?*.kt" />
       <entry name="!?*.clj" />
     </wildcardResourcePatterns>
-    <annotationProcessing>
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="TablatureConverter" />
-      </profile>
-    </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="TablatureConverter" target="15" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="15" />
   </component>
 </project>

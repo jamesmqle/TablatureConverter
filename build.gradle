@@ -11,11 +11,7 @@ plugins {
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
-    maven {
-        url = uri('http://repo.maven.apache.org/maven2')
-    }
 }
 
 dependencies {
@@ -42,19 +38,19 @@ run {
 
 javafx {
     version = '15.0.1'
-    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media', 'javafx.swing', 'javafx.web' ]
+    modules = [ 'javafx.controls', 'javafx.fxml']
 }
 
-group = 'TablatureConverter'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '15.0.1'
+//group = 'TablatureConverter'
+//version = '0.0.1-SNAPSHOT'
+//sourceCompatibility = '15.0.1'
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from(components.java)
-        }
-    }
-}
+//publishing {
+//    publications {
+//        maven(MavenPublication) {
+//            from(components.java)
+//        }
+//    }
+//}
 
 mainClassName = 'GUI.Main'
