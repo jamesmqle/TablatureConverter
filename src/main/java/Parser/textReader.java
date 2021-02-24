@@ -1,5 +1,7 @@
 package Parser;
 
+import ConvertedSong.ConvertedSongTest;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -97,7 +99,7 @@ public class textReader extends Output {
 		}
 		printData(list);
 		// createXML added here for hotfix
-//		ConvertedSongTest.createXML(list); ==========================================================================GRADLE
+		ConvertedSongTest.createXML(list);
 		return list;
 	}
 
