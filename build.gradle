@@ -30,7 +30,7 @@ test {
     }
 }
 
-run {    
+run {
     if (javafx.platform.classifier == 'win') {
         systemProperty "java.library.path", "C:\tmp"
     }
