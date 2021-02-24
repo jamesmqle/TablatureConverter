@@ -1,7 +1,6 @@
 package Parser;
 
 import GUI.Controller;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
