@@ -2,8 +2,9 @@ package GUI;
 
 import java.awt.*;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.channels.FileChannel;
 import java.util.Scanner;
 
 import javafx.fxml.FXMLLoader;
@@ -19,20 +20,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import Parser.textReader;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
+/**
+ * Controller class controls the functionality of the User Interface
+ */
 public class Controller {
 
-    String fileAsString;
-    File file; // File Object
-
-    @FXML
-    private Button FileChooser;
-
-    @FXML
-    private Button CopyText;
+    public static String fileAsString;
+    File inputFile = null; // Input file Object
+    File outputFile = new File("src/sample/ConvertedSong.xml"); // Output file Object
 
     @FXML
     private ListView listview;
@@ -40,104 +39,137 @@ public class Controller {
     @FXML
     private TextArea textview;
 
-//    /*
-//    switches from welcome scene to file upload scene
-//     */
-//    @FXML
-//    public void ToUploadFileHandler(ActionEvent event) throws IOException {
-//        Parent fileUploadScreenParent = FXMLLoader.load(getClass().getResource("FileUploadScreen.fxml"));
-//        Scene FileUploadScene = new Scene(fileUploadScreenParent);
-//        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-//        window.setScene(FileUploadScene);
-//        window.show();
-//    }
-//
-//    /*
-//    switches from welcome scene to clipboard scene
-//     */
-//    @FXML
-//    public void ToClipBoardHandler(ActionEvent event) throws IOException {
-//        Parent clipBoardScreenParent = FXMLLoader.load(getClass().getResource("ClipBoardScreen.fxml"));
-//        Scene ClipBoardScene = new Scene(clipBoardScreenParent);
-//        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-//        window.setScene(ClipBoardScene);
-//        window.show();
-//    }
-
-    /*
-    Preview File Handler
-     */
-
-    @FXML
-    public void PreviewHandler(ActionEvent event){
-        try{
-            if(listview != null){
-                Desktop.getDesktop().open(file);
-            };
-        }
-        catch(Exception e){
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("File not found.");
-            errorAlert.setContentText("Please choose a file first.");
-            errorAlert.showAndWait();
-        }
-
-    }
-
-    /*
-    Choose file button
+    /**
+     * This method uploads a file
+     *
+     * @param event
+     * @throws FileNotFoundException
      */
     @FXML
-    public void FileChooserHandler(ActionEvent event){
-        // creates file chooser object
+    public void FileChooserHandler(ActionEvent event) throws FileNotFoundException {
         FileChooser fc = new FileChooser();
-        // filters only text files
-        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text File","*.txt"));
-        // opens file explorer
-        file = fc.showOpenDialog(null);
-        fileAsString = file.toString(); // Converts the file to a string
-        //System.out.println(fileAsString);
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text File", "*.txt")); // filters only text files
+        try {
+            inputFile = fc.showOpenDialog(null); // opens file explorer
+            setFileAsString(inputFile.toString()); // Converts the file to a string
+        }
+        catch (Exception e) {
+        }
+        System.out.println(fileAsString);
 
-        if(file != null){
-            // adds file to listview
-            listview.getItems().add(file.getName());
-            System.out.println(file.getPath());
+        if (inputFile != null) {
+            listview.getItems().add(inputFile.getName()); // adds file to listview
+
+            // If the user uploads a second file, the second file will override the first file
+            if (listview.getItems().size() == 2) { listview.getItems().remove(0); }
+
+        }
+        displayTablature(); // displays file content to textarea
+    }
+
+    public void setFileAsString(String fileAsString) {
+        this.fileAsString = fileAsString;
+    }
+
+    /**
+     * This method displays the text from the file to the textarea
+     *
+     * @throws FileNotFoundException
+     */
+    private void displayTablature() throws FileNotFoundException {
+        try {
+            Scanner input = new Scanner(new File(fileAsString)).useDelimiter("\\s");
+            while (input.hasNext()) {
+                if (input.hasNextInt()) { // check if next token is an int
+                    textview.appendText(input.nextInt() + " "); // display the found integer
+                } else {
+                    textview.appendText(input.next() + " "); // else read the next token
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            System.err.println(ex);
         }
     }
 
-    /*
-    Copy from clipboard button
+
+//    @FXML
+//    public void PreviewHandler(ActionEvent event) {
+//        try {
+//            if (listview != null) {
+//                Desktop.getDesktop().open(inputFile);
+//            }
+//        } catch (Exception e) {
+//            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+//            errorAlert.setHeaderText("File not found.");
+//            errorAlert.setContentText("Please choose a file first before you preview");
+//            errorAlert.showAndWait();
+//        }
+//    }
+
+    /**
+     * Copy and paste to text area
+     *
+     * @param event
      */
     // edited
     @FXML
-    public void CopyClipBoardHandler(ActionEvent event){
+    public void CopyClipBoardHandler(ActionEvent event) {
         Clipboard clipboard = Clipboard.getSystemClipboard();
         String clipBoardText = clipboard.getString();
         textview.setText(clipBoardText);
     }
 
-    /*
-    Goes back to welcome scene
+    /**
+     * Go back to welcome scene
+     *
+     * @param event
+     * @throws IOException
      */
     @FXML
     public void BackToWelcome(ActionEvent event) throws IOException {
+        inputFile = null;
         Parent back = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
         Scene welcomeScene = new Scene(back);
         welcomeScene.getStylesheets().add("GUI/WelcomeStyleSheet.css");
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(welcomeScene);
         window.show();
     }
 
-    /*
-  switches from file upload / clipboard scene to conversion complete scene
-   */
+    /**
+     * Go to conversion complete screen
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void ConvertHandler(ActionEvent event) throws IOException {
-        Parent conversionCompleteParent = FXMLLoader.load(getClass().getResource("ConversionComplete.fxml"));
-        Scene ClipBoardScene = new Scene(conversionCompleteParent);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(ClipBoardScene);
-        window.show();
+        try {
+            if (listview != null) {
+                textReader.readTabFile(fileAsString); // passes the input file to the parser
+                Parent conversionCompleteParent = FXMLLoader.load(getClass().getResource("ConversionComplete.fxml"));
+                Scene ClipBoardScene = new Scene(conversionCompleteParent);
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(ClipBoardScene);
+                window.show();
+            }
+        } catch (Exception e) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("File not found.");
+            errorAlert.setContentText("Please choose a file before you convert.");
+            errorAlert.showAndWait();
+        }
     }
+
+    /**
+     * Opens the converted xml file
+     *
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    public void OpenXMLHandler(ActionEvent event) throws IOException {
+        Desktop.getDesktop().open(outputFile);
+    }
+
 }

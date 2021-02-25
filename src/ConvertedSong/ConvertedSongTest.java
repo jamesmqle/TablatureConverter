@@ -1,11 +1,14 @@
 package ConvertedSong;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import Parser.Output;
 import org.junit.jupiter.api.BeforeEach;
 
 public class ConvertedSongTest {
@@ -54,13 +57,16 @@ public class ConvertedSongTest {
     public static void main(String[] args) {
 		String xmlFile = "src\\sample\\ConvertedSong.xml";
 		ConvertedSong song = new ConvertedSong();
-		//song.setKey((new ConvertedSong.Key(0)));
+		// song.setKey((new ConvertedSong.Key(0)));
 
-		song.addPart(new Part());
-		song.addPart(new Part());
-		song.addPart(new Part());
+		// make song.parts not empty
 		song.addPart(new Part());
 
+		// add a note to a given measure
+		// hierarchy is song.part.measures.notes
+		song.getParts().get(0).getMeasures().get(0).addNote(new Note());
+
+		// previous makeshift tests
 //		song.addMeasure(new Measure());
 //		song.addMeasure(new Measure());
 //		song.addMeasure(new Measure());
@@ -70,6 +76,22 @@ public class ConvertedSongTest {
 //		song.addNote(new Note());
 //		song.addNote(new Note());
 //		song.addNote(new Note());
+
+		serialize(song, xmlFile);
+		deSerialize(xmlFile);
+	}
+
+	public static void createXML(List<Output> notes){
+		String xmlFile = "src\\sample\\ConvertedSong.xml";
+		ConvertedSong song = new ConvertedSong();
+		// song.setKey((new ConvertedSong.Key(0)));
+
+		// Initalize part (and first measure)
+		song.addPart(new Part());
+
+		for (Output note : notes) {
+			song.addNoteToMeasure(note.getLetter(), note.getNum());
+		}
 
 		serialize(song, xmlFile);
 		deSerialize(xmlFile);

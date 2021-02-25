@@ -1,12 +1,14 @@
 package ConvertedSong;
 
 import javax.xml.bind.annotation.XmlElement;
-
+import javax.xml.bind.annotation.XmlType;
 
 /*
  *  Objects: clef, key, time
  *  Attributes: divisions
  */
+
+@XmlType(propOrder = {"divisions", "key", "time", "clef"})
 public class Attributes {
 
     private Clef clef;
@@ -15,11 +17,21 @@ public class Attributes {
     private int divisions;
 
     public Attributes(){
+        this.clef = new Clef("G",2);
+        this.key = new Key(0, "major");
+        this.time = new TimeSignature(4,4);
+        this.divisions = 1;
+    }
+
+    /*
+     *
+     public Attributes(){
         this.clef = new Clef();
         this.key = new Key();
         this.time = new TimeSignature();
-        this.divisions = 4;
+        this.divisions = -1;
     }
+     */
 
     public Attributes(Clef c, Key k , TimeSignature t, int d){
         this.clef = c;

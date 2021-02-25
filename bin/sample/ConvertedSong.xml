@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <score-partwise version="3.1">
+<<<<<<< HEAD
     <part>
         <measure>
             <attributes>
@@ -80,4 +81,7 @@
             </note>
         </measure>
     </part>
+=======
+    <part/>
+>>>>>>> refs/heads/feature-jamesmqle
 </score-partwise>

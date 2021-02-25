@@ -1,10 +1,13 @@
 package ConvertedSong;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 /*
  *  The Clef program implements attributes sign and line.
  */
+
+@XmlType(propOrder = {"sign", "line"})
 public class Clef {
 
     private String sign;
@@ -17,7 +20,7 @@ public class Clef {
         this.line = l;
     }
 
-    @XmlElement(name = "Sign")
+    @XmlElement(name = "sign")
     public String getSign() {
         return sign;
     }
@@ -26,7 +29,7 @@ public class Clef {
         this.sign = sign;
     }
 
-    @XmlElement(name = "Line")
+    @XmlElement(name = "line")
     public int getLine() {
         return line;
     }

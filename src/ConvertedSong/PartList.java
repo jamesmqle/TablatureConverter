@@ -1,6 +1,7 @@
 package ConvertedSong;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 public class PartList implements Serializable {
@@ -17,6 +18,7 @@ public class PartList implements Serializable {
     }
 
     public PartList() {
+        scorePart = new ScorePart();
     }
 
     public PartList(ScorePart scorePart) {

@@ -1,8 +1,11 @@
 package ConvertedSong;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
+
+@XmlType(propOrder = {"beats", "beatType"})
 public class TimeSignature implements Serializable {
     private int beats;
     private int beatType;

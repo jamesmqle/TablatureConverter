@@ -8,6 +8,8 @@ public class Type implements Serializable {
     private String typeStop;
 
     public Type() {
+        this.typeStart = "";
+        this.typeStop = "";
     }
 
     public Type(Type type) {
@@ -20,7 +22,7 @@ public class Type implements Serializable {
         this.typeStop = typeStop;
     }
 
-    @XmlElement(name = "type")
+    @XmlElement(name = "type-start")
     public String getTypeStart() {
         return this.typeStart;
     }
@@ -29,7 +31,7 @@ public class Type implements Serializable {
         this.typeStart = typeStart;
     }
 
-    @XmlElement(name = "type")
+    @XmlElement(name = "type-stop")
     public String getTypeStop() {
         return this.typeStop;
     }
