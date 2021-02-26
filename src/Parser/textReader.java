@@ -23,7 +23,7 @@ public class textReader extends Output {
 		Scanner myReader = new Scanner(new FileReader("D:\\3221\\gg.txt"));
 		String data = null;
 		int k = 0;
-		int m = 0;
+		//int m = 0;
 
 		while (myReader.hasNextLine()) {
 
@@ -69,7 +69,7 @@ public class textReader extends Output {
 			} else if (flag == 3) {
 				if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
 					System.out.println("****");
-					m = 1;
+				//	m = 1;
 
 				} else {
 					System.out.println(data);
