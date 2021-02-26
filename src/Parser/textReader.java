@@ -29,11 +29,11 @@ public class textReader extends Output {
 		while (myReader.hasNextLine()) {
 			data = myReader.nextLine();
 			if ((!data.isEmpty()) && (flag == 0)) {
-				if ((data.charAt(0) == 'e') || (data.charAt(0) == 'E')) {	// guitar
+				if ((data.charAt(0) == 'e') || (data.charAt(0) == 'E')) { // guitar
 					flag = 1;
-				} else if (data.charAt(0) == 'G') {							// bass
+				} else if (data.charAt(0) == 'G') { // bass
 					flag = 2;
-				} else {													// drum
+				} else { // drum
 					flag = 3;
 				}
 
@@ -48,16 +48,15 @@ public class textReader extends Output {
 					zoom.add(data);//
 					k++;
 				}
-				if (k==6) {
+				if (k == 6) {
 					list = ParsGuitar(zoom, list);
 					k = 0;
 					zoom.clear();
 				}
-			}
-			else if(flag==2) {
-				if ((data.isEmpty()) || (data.charAt(0) == ' ')||(!myReader.hasNextLine())) {
+			} else if (flag == 2) {
+				if ((data.isEmpty()) || (data.charAt(0) == ' ') || (!myReader.hasNextLine())) {
 					System.out.println("****");
-					m=1;
+					m = 1;
 				} else {
 					System.out.println(data);
 					zoom.add(data);
@@ -68,19 +67,18 @@ public class textReader extends Output {
 					k = 0;
 					zoom.clear();
 				}
-			}
-			else if(flag==3) {
+			} else if (flag == 3) {
 				if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
 					System.out.println("****");
-					m=1;
+					m = 1;
 
 				} else {
 					System.out.println(data);
 					zoom.add(data);
 					k++;
 				}
-				if (k==6) {
-					list = ParsDrum(zoom, list,k);
+				if (k == 6) {
+					list = ParsDrum(zoom, list, k);
 					k = 0;
 					zoom.clear();
 				}
@@ -103,16 +101,21 @@ public class textReader extends Output {
 			for (int j = 0; j < 6; j++) {
 				if ((getCharFromString(zoom.get(j), i) != '-') && (getCharFromString(zoom.get(j), i) != '|')) {
 					// 1 digit
-					if ((getCharFromString(zoom.get(j), i - 1) == '-')
-							&& (getCharFromString(zoom.get(j), i + 1) == '-')) {
+					if (((getCharFromString(zoom.get(j), i - 1) == '-')
+							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
+							&& ((getCharFromString(zoom.get(j), i + 1) == '-')
+									|| (getCharFromString(zoom.get(j), i + 1) == '|'))) {
 						list.add(new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
 								Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))), -1, "-", i));
 
 					}
 					// 2 digits
-					else if ((getCharFromString(zoom.get(j), i - 1) == '-')
-							&& (getCharFromString(zoom.get(j), i + 1) != '-')
-							&& (getCharFromString(zoom.get(j), i + 2) == '-')) {
+					else if (((getCharFromString(zoom.get(j), i - 1) == '-')
+							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
+							&& ((getCharFromString(zoom.get(j), i + 2) == '-')
+									|| (getCharFromString(zoom.get(j), i + 2) == '|'))
+							&& ((getCharFromString(zoom.get(j), i + 1) != '-')
+									|| (getCharFromString(zoom.get(j), i + 1) != '|'))) {
 						list.add(
 								new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
 										Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))
@@ -179,16 +182,21 @@ public class textReader extends Output {
 			for (int j = 0; j < 4; j++) {
 				if ((getCharFromString(zoom.get(j), i) != '-') && (getCharFromString(zoom.get(j), i) != '|')) {
 					// 1 digit
-					if ((getCharFromString(zoom.get(j), i - 1) == '-')
-							&& (getCharFromString(zoom.get(j), i + 1) == '-')) {
+					if (((getCharFromString(zoom.get(j), i - 1) == '-')
+							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
+							&& ((getCharFromString(zoom.get(j), i + 1) == '-')
+									|| (getCharFromString(zoom.get(j), i + 1) == '|'))) {
 						list.add(new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
 								Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))), -1, "-", i));
 
 					}
 					// 2 digits
-					else if ((getCharFromString(zoom.get(j), i - 1) == '-')
-							&& (getCharFromString(zoom.get(j), i + 1) != '-')
-							&& (getCharFromString(zoom.get(j), i + 2) == '-')) {
+					else if (((getCharFromString(zoom.get(j), i - 1) == '-')
+							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
+							&& ((getCharFromString(zoom.get(j), i + 2) == '-')
+									|| (getCharFromString(zoom.get(j), i + 2) == '|'))
+							&& ((getCharFromString(zoom.get(j), i + 1) != '-')
+									|| (getCharFromString(zoom.get(j), i + 1) != '|'))) {
 						list.add(
 								new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
 										Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))
@@ -244,21 +252,29 @@ public class textReader extends Output {
 			for (int j = 0; j < m; j++) {
 				if ((getCharFromString(zoom.get(j), i) != '-') && (getCharFromString(zoom.get(j), i) != '|')) {
 					// 1 digit
-					if (((getCharFromString(zoom.get(j), i - 1) == '-')||(getCharFromString(zoom.get(j), i - 1) == '|'))
-							&& (getCharFromString(zoom.get(j), i + 1) == '-')) {
-						list.add(new Output(Character.toString(getCharFromString(zoom.get(j), 0))+Character.toString(getCharFromString(zoom.get(j), 1)),
+					if (((getCharFromString(zoom.get(j), i - 1) == '-')
+							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
+							&& ((getCharFromString(zoom.get(j), i + 1) == '-')
+									|| (getCharFromString(zoom.get(j), i + 1) == '|'))) {
+						list.add(new Output(
+								Character.toString(getCharFromString(zoom.get(j), 0))
+										+ Character.toString(getCharFromString(zoom.get(j), 1)),
 								-1, -1, Character.toString(getCharFromString(zoom.get(j), i)), i));
 
 					}
 					// 2 digits
-					else if ((getCharFromString(zoom.get(j), i - 1) == '-')
-							&& (getCharFromString(zoom.get(j), i + 1) != '-')
-							&& (getCharFromString(zoom.get(j), i + 2) == '-')) {
-						list.add(
-								new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
-										Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))
-												+ Character.toString(getCharFromString(zoom.get(j), i + 1))),
-										-1, "-", i));
+					else if (((getCharFromString(zoom.get(j), i - 1) == '-')
+							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
+							&& ((getCharFromString(zoom.get(j), i + 2) == '-')
+									|| (getCharFromString(zoom.get(j), i + 2) == '|'))
+							&& ((getCharFromString(zoom.get(j), i + 1) != '-')
+									|| (getCharFromString(zoom.get(j), i + 1) != '|'))) {
+						list.add(new Output(
+								Character.toString(getCharFromString(zoom.get(j), 0))
+										+ Character.toString(getCharFromString(zoom.get(j), 1)),
+								-1, -1, Character.toString(getCharFromString(zoom.get(j), i))
+										+ Character.toString(getCharFromString(zoom.get(j), i)),
+								i));
 						// i++;
 
 					}
@@ -299,4 +315,6 @@ public class textReader extends Output {
 		}
 		return list;
 	}
+
+
 }
