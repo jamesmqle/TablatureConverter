@@ -54,15 +54,15 @@ public class textReader extends Output {
 					zoom.clear();
 				}
 			} else if (flag == 2) {
-				if ((data.isEmpty()) || (data.charAt(0) == ' ') || (!myReader.hasNextLine())) {
+				if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
 					System.out.println("****");
-					m = 1;
+					
 				} else {
 					System.out.println(data);
 					zoom.add(data);
 					k++;
 				}
-				if (m == 1) {
+				if (k==4) {
 					list = ParsBass(zoom, list);
 					k = 0;
 					zoom.clear();
@@ -128,6 +128,7 @@ public class textReader extends Output {
 					else if ((getCharFromString(zoom.get(j), i - 1) == '-')
 							&& (getCharFromString(zoom.get(j), i + 1) != '-')
 							&& (getCharFromString(zoom.get(j), i + 1) != '/')
+							&& (getCharFromString(zoom.get(j), i + 1) != 's')
 							&& (getCharFromString(zoom.get(j), i + 2) != '-')
 							&& (getCharFromString(zoom.get(j), i + 3) == '-')) {
 						list.add(new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
@@ -139,7 +140,7 @@ public class textReader extends Output {
 					}
 					// 3 digit with technique
 					else if ((getCharFromString(zoom.get(j), i - 1) == '-')
-							&& (getCharFromString(zoom.get(j), i + 1) == '/')
+							&& ((getCharFromString(zoom.get(j), i + 1) == '/')||(getCharFromString(zoom.get(j), i + 1) == 's'))
 							&& (getCharFromString(zoom.get(j), i + 2) != '-')
 							&& (getCharFromString(zoom.get(j), i + 3) == '-')) {
 						list.add(new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
