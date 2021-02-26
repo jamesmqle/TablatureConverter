@@ -17,42 +17,70 @@ public class textReader extends Output {
 		// public static List<Output> main(String[] args) throws IOException{
 
 		List<Output> list = new ArrayList<>();
-		List<String> zoom = new ArrayList<>();//
+		List<String> zoom = new ArrayList<>();
+		int flag = 0;
 
 		Scanner myReader = new Scanner(new FileReader("D:\\3221\\gg.txt"));
 		String data = null;
-		int k=0;
+		int k = 0;
+
 		// Check the number of lines and print it
 		while (myReader.hasNextLine()) {
 			data = myReader.nextLine();
-			
-			if ((data.isEmpty())||(data.charAt(0)==' ')) {
-				System.out.println("****");
-				
-				// zoom.add("*");
-			} else {
-				System.out.println(data);
-				zoom.add(data);//
-				k++;
+			if ((!data.isEmpty()) && (flag == 0)) {
+				if ((data.charAt(0) == 'e') || (data.charAt(0) == 'e')) {// guitar
+					flag = 1;
+				} else if (data.charAt(0) == 'G') {// bass
+					flag = 2;
+				} else {// drum
+					flag = 3;
+				}
+
 			}
-			if(k==6) {
-				list=func(zoom,list);
-				k=0;
-				zoom.clear();
+
+			if (flag == 1) {
+				if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
+					System.out.println("****");
+
+				} else {
+					System.out.println(data);
+					zoom.add(data);//
+					k++;
+				}
+				if (k == 6) {
+					list = ParsGuitar(zoom, list);
+					k = 0;
+					zoom.clear();
+				}
+			}
+			else if(flag==2) {
+				if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
+					System.out.println("****");
+
+				} else {
+					System.out.println(data);
+					zoom.add(data);//
+					k++;
+				}
+				if (k == 4) {
+					list = ParsGuitar(zoom, list);
+					k = 0;
+					zoom.clear();
+				}
 			}
 		}
 
 		myReader.close();
-		
+
 		printData(list);
 		// return list;
 	}
 
-	public static List<Output> func(List<String> zoom,List<Output> list) {
-		if(!list.isEmpty()) {
-			list.add(new Output("# NEW TAB #",-1,-1,"-",-1));
+	public static List<Output> ParsGuitar(List<String> zoom, List<Output> list) {
+		if (!list.isEmpty()) {
+			list.add(new Output("# NEW TAB #", -1, -1, "-", -1));
 		}
-		int length=zoom.get(0).length();
+		int length = zoom.get(0).length();
 		for (int i = 2; i < length; i++) {
 			for (int j = 0; j < 6; j++) {
 				if ((getCharFromString(zoom.get(j), i) != '-') && (getCharFromString(zoom.get(j), i) != '|')) {
@@ -112,6 +140,7 @@ public class textReader extends Output {
 		}
 		return list;
 	}
+
 	// Gets character from the line given
 	public static char getCharFromString(String str, int index) {
 		return str.charAt(index);
