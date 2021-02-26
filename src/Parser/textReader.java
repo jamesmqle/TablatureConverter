@@ -25,8 +25,9 @@ public class textReader extends Output {
 		int k = 0;
 		int m = 0;
 
-		// Check the number of lines and print it
 		while (myReader.hasNextLine()) {
+
+			// Check which instrument it is
 			data = myReader.nextLine();
 			if ((!data.isEmpty()) && (flag == 0)) {
 				if ((data.charAt(0) == 'e') || (data.charAt(0) == 'E')) { // guitar
@@ -36,13 +37,11 @@ public class textReader extends Output {
 				} else { // drum
 					flag = 3;
 				}
-
 			}
 
-			if (flag == 1) {
+			if (flag == 1) { // Guitar
 				if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
 					System.out.println("****");
-
 				} else {
 					System.out.println(data);
 					zoom.add(data);//
@@ -53,20 +52,20 @@ public class textReader extends Output {
 					k = 0;
 					zoom.clear();
 				}
-			} else if (flag == 2) {
+			} else if (flag == 2) { // Bass
 				if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
 					System.out.println("****");
-					
+
 				} else {
 					System.out.println(data);
 					zoom.add(data);
 					k++;
 				}
-				if (k==4) {
+				if (k == 4) {
 					list = ParsBass(zoom, list);
 					k = 0;
 					zoom.clear();
-				}
+				} // Drum
 			} else if (flag == 3) {
 				if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
 					System.out.println("****");
@@ -121,7 +120,6 @@ public class textReader extends Output {
 										Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))
 												+ Character.toString(getCharFromString(zoom.get(j), i + 1))),
 										-1, "-", i));
-						// i++;
 
 					}
 					// 3 digits number
@@ -140,7 +138,8 @@ public class textReader extends Output {
 					}
 					// 3 digit with technique
 					else if ((getCharFromString(zoom.get(j), i - 1) == '-')
-							&& ((getCharFromString(zoom.get(j), i + 1) == '/')||(getCharFromString(zoom.get(j), i + 1) == 's'))
+							&& ((getCharFromString(zoom.get(j), i + 1) == '/')
+									|| (getCharFromString(zoom.get(j), i + 1) == 's'))
 							&& (getCharFromString(zoom.get(j), i + 2) != '-')
 							&& (getCharFromString(zoom.get(j), i + 3) == '-')) {
 						list.add(new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
@@ -316,6 +315,5 @@ public class textReader extends Output {
 		}
 		return list;
 	}
-
 
 }
