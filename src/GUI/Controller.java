@@ -69,14 +69,15 @@ public class Controller {
 
     /*
     Copy from clipboard button
-     */
+     
     @FXML
     public void CopyClipBoardHandler(ActionEvent event) {
         Clipboard clipboard = Clipboard.getSystemClipboard();
         String clipBoardText = clipboard.getString();
         textview.setText(clipBoardText);
     }
-
+*/
+    
     /*
     Goes back to welcome scene
      */
