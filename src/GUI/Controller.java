@@ -14,7 +14,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.Clipboard;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -24,10 +28,14 @@ import Parser.textReader;
 
 import javax.swing.*;
 
+
+
 /**
  * Controller class controls the functionality of the User Interface
  */
 public class Controller {
+	 
+	
 
     public static String fileAsString;
     File inputFile = null; // Input file Object
@@ -128,8 +136,15 @@ public class Controller {
     @FXML
     public void BackToWelcome(ActionEvent event) throws IOException {
         inputFile = null;
-        Parent back = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
+        Parent back =FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
         Scene welcomeScene = new Scene(back);
+        //Shortcut for closing the program
+        // closes the program when the "esc" button is pressed...
+        welcomeScene.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent ke) -> {
+            if (KeyCode.ESCAPE == ke.getCode()) {
+                Platform.exit();
+           }
+        });
         welcomeScene.getStylesheets().add("GUI/WelcomeStyleSheet.css");
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(welcomeScene);
@@ -149,6 +164,13 @@ public class Controller {
                 textReader.readTabFile(fileAsString); // passes the input file to the parser
                 Parent conversionCompleteParent = FXMLLoader.load(getClass().getResource("ConversionComplete.fxml"));
                 Scene ClipBoardScene = new Scene(conversionCompleteParent);
+                //Shortcut for closing the program
+                // closes the program when the "esc" button is pressed...
+                ClipBoardScene.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent ke) -> {
+                    if (KeyCode.ESCAPE == ke.getCode()) {
+                        Platform.exit();
+                   }
+                });
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(ClipBoardScene);
                 window.show();
@@ -170,6 +192,10 @@ public class Controller {
     @FXML
     public void OpenXMLHandler(ActionEvent event) throws IOException {
         Desktop.getDesktop().open(outputFile);
-    }
+        
+    
+    
+    
 
+}
 }
