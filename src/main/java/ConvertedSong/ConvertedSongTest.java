@@ -12,7 +12,6 @@ import Parser.Output;
 //import org.junit.jupiter.api.BeforeEach;
 
 public class ConvertedSongTest {
-
     private JAXBContext context;
 
 /*    @BeforeEach
@@ -55,7 +54,7 @@ public class ConvertedSongTest {
 	}
 
     public static void main(String[] args) {
-		String xmlFile = "src\\sample\\ConvertedSong.xml";
+		String xmlFile = "C:\\Users\\tukau\\IdeaProjects\\TablatureConverter\\src\\main\\resources\\sample";
 		ConvertedSong song = new ConvertedSong();
 		// song.setKey((new ConvertedSong.Key(0)));
 
@@ -82,7 +81,7 @@ public class ConvertedSongTest {
 	}
 
 	public static void createXML(List<Output> notes){
-		String xmlFile = "src\\sample\\ConvertedSong.xml";
+		String xmlFile = "C:\\Users\\tukau\\IdeaProjects\\TablatureConverter\\src\\main\\resources\\sample\\convertedSong.xml";
 		ConvertedSong song = new ConvertedSong();
 		// song.setKey((new ConvertedSong.Key(0)));
 
