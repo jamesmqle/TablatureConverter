@@ -89,7 +89,8 @@ public class ConvertedSongTest {
 		song.addPart(new Part());
 
 		for (Output note : notes) {
-			song.addNoteToMeasure(note.getLetter(), note.getNum());
+			if (note.getnote1() == -1);
+			else song.addNoteToMeasure(note.getletter(), note.getnote1());
 		}
 
 		serialize(song, xmlFile);
