@@ -34,8 +34,21 @@ import javax.swing.*;
  * Controller class controls the functionality of the User Interface
  */
 public class Controller {
-	 
 	
+	 
+	private Scene secondScene;
+
+    public void setSecondScene(Scene scene) {
+        secondScene = scene;
+    }
+    
+    public void openSecondScene(ActionEvent actionEvent) {
+        Stage primaryStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        primaryStage.setScene(secondScene);
+    }
+    
+    
+    
 
     public static String fileAsString;
     File inputFile = null; // Input file Object
@@ -46,6 +59,11 @@ public class Controller {
 
     @FXML
     private TextArea textview;
+    
+    
+
+       
+    
 
     /**
      * This method uploads a file
@@ -133,6 +151,7 @@ public class Controller {
      * @param event
      * @throws IOException
      */
+    //HERE
     @FXML
     public void BackToWelcome(ActionEvent event) throws IOException {
         inputFile = null;
@@ -157,6 +176,10 @@ public class Controller {
      * @param event
      * @throws IOException
      */
+    
+    //HERE
+    
+    
     @FXML
     public void ConvertHandler(ActionEvent event) throws IOException {
         try {
@@ -189,6 +212,11 @@ public class Controller {
      * @param event
      * @throws IOException
      */
+    
+    
+    //HERE
+    
+    
     @FXML
     public void OpenXMLHandler(ActionEvent event) throws IOException {
         Desktop.getDesktop().open(outputFile);

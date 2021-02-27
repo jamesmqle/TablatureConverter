@@ -22,12 +22,28 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
-        primaryStage.setTitle("Tablature Converter");
-        Scene scene = new Scene(root, 1200,800);
+    	 // getting loader and a pane for the first scene. 
+        // loader will then give a possibility to get related controller
+    	FXMLLoader firstLoader = new FXMLLoader(getClass().getResource("WelcomeScene.fxml"));
+        Parent root = firstLoader.load();
+        Scene firstScene = new Scene(root, 1200,800);
+        firstScene.getStylesheets().add("GUI/WelcomeStyleSheet.css");
+        
+        // getting loader and a pane for the second scene
+        FXMLLoader conversionCompleteParent = FXMLLoader.load(getClass().getResource("ConversionComplete.fxml"));
+        Parent conversionComplete = conversionCompleteParent.load();
+        Scene ClipBoardScene = new Scene(conversionComplete);
+        
+        
+        // injecting second scene into the controller of the first scene
+        Controller firstController = (Controller) firstLoader.getController();
+        firstController.setSecondScene(secondScene);
+       
+        
+        
         //Shortcut for closing the program
         // closes the program when the "esc" button is pressed...
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        firstScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent ke) {
                 if (ke.getCode() == KeyCode.ESCAPE) {
                     System.out.println("You closed the program by clicking on the: " + ke.getCode() + "button");
@@ -36,45 +52,19 @@ public class Main extends Application {
             }
         });
         
-        scene.getStylesheets().add("GUI/WelcomeStyleSheet.css");
-        primaryStage.setScene(scene);
+        
+        primaryStage.setScene(firstScene);
         primaryStage.show();
+        primaryStage.setTitle("Tablature Converter");
         primaryStage.setResizable(false);
     }
      
     
-     Scene welcomeScreen;
-    // Saved the actual scene and then if the filename argument corresponds to an already created scene then you can switch scene instead of creating a new one
-     void launchScreen(String fileName) {
-        if(fileName.equals("controller") && welcomeScreen != null){
-             /*if we want to open up welcomeScreen and it has been created before (meaning it's not null) then open the already existing scene.*/
-        		Stage primaryStage = null;
-				primaryStage.setTitle("Tablature Converter");
-                primaryStage.setScene(welcomeScreen);
-                primaryStage.show();
-               
-
-        															}
-        else{
-            fileName = "/screens/" + fileName + ".fxml";
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));         
-                FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
-                Scene scene = new Scene(root);
-                primaryStage.setTitle("Tablature Coverter");
-                primaryStage.setScene(scene);
-                primaryStage.show();
-                primaryStage.setOnCloseRequest(t -> {
-                    Platform.exit();
-                    System.exit(420);
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        	}
-     									}
+     
+     									
 
 
 
 
-     }
+     
 }
