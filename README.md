@@ -67,6 +67,16 @@ TablatureConverter requires the the following to run:
 
 ---
 
+## Contact Us
+
+Tuan Dau - tdau@my.yorku.ca
+
+James Le - jamesmql@my.yorku.ca
+
+Temi Odunfa- odunifa.temi@gmail.com
+
+---
+
 ## License
 
 MIT License

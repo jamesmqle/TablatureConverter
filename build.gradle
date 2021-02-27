@@ -11,14 +11,9 @@ plugins {
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
-    maven {
-        url = uri('http://repo.maven.apache.org/maven2')
-    }
 }
 
-/*
 dependencies {
     implementation 'javax.xml.bind:jaxb-api:2.3.0'
     implementation 'com.sun.xml.bind:jaxb-impl:2.3.0'
@@ -26,8 +21,8 @@ dependencies {
     implementation 'javax.activation:activation:1.1.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.1"
 }
-*/
 
 test {
     useJUnitPlatform()
@@ -36,7 +31,7 @@ test {
     }
 }
 
-run {    
+run {
     if (javafx.platform.classifier == 'win') {
         systemProperty "java.library.path", "C:\tmp"
     }
@@ -44,19 +39,19 @@ run {
 
 javafx {
     version = '15.0.1'
-    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media', 'javafx.swing', 'javafx.web' ]
+    modules = [ 'javafx.controls', 'javafx.fxml']
 }
 
-group = 'TablatureConverter'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '15.0.1'
+//group = 'TablatureConverter'
+//version = '0.0.1-SNAPSHOT'
+//sourceCompatibility = '15.0.1'
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from(components.java)
-        }
-    }
-}
+//publishing {
+//    publications {
+//        maven(MavenPublication) {
+//            from(components.java)
+//        }
+//    }
+//}
 
 mainClassName = 'GUI.Main'
