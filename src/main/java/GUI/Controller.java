@@ -146,6 +146,7 @@ public class Controller {
         try {
             if (listview != null) {
                 textReader.readTabFile(fileAsString); // passes the input file to the parser
+
                 Parent conversionCompleteParent = FXMLLoader.load(getClass().getResource("ConversionComplete.fxml"));
                 Scene ClipBoardScene = new Scene(conversionCompleteParent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();

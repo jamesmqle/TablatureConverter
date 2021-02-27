@@ -8,13 +8,14 @@ import javax.xml.bind.annotation.XmlType;
  *  Attributes: divisions
  */
 
-@XmlType(propOrder = {"divisions", "key", "time", "clef"})
+@XmlType(propOrder = {"divisions", "key", "time", "clef", "staffDetails"})
 public class Attributes {
 
     private Clef clef;
     private Key key;
     private TimeSignature time;
     private int divisions;
+    private StaffDetails staffDetails;
 
     public Attributes(){
         this.clef = new Clef("G",2);
@@ -74,5 +75,14 @@ public class Attributes {
 
     public void setDivisions(int divisions) {
         this.divisions = divisions;
+    }
+
+    @XmlElement(name = "staff-details")
+    public StaffDetails getStaffDetails() {
+        return staffDetails;
+    }
+
+    public void setStaffDetails(StaffDetails staffDetails) {
+        this.staffDetails = staffDetails;
     }
 }
