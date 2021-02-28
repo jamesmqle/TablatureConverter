@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner; // Import the Scanner class to read text files
 
+/**
+ * TODO: 	1. Calculate how many dashes from first note to end of measure
+ * 			2. Calculate the shortest note duration (but return 1 if any note duration is odd)
+ */
+
 public class textReader extends Output {
 
 	public textReader(String string, int n1, int n2, String tech, int i) {
@@ -103,7 +108,7 @@ public class textReader extends Output {
 			list.add(new Output("# NEW TAB #", -2, -2, "-", -2));
 		}
 		int length = zoom.get(0).length();
-		for (int i = 2; i < length-1; i++) { //changed so that the final new measure isnt detected - tuan feb 28
+		for (int i = 2; i < length; i++) { //changed so that the final new measure isnt detected - tuan feb 28
 			for (int j = 0; j < 6; j++) {
 				if ((getCharFromString(zoom.get(j), i) != '-') && (getCharFromString(zoom.get(j), i) != '|')) {
 					// 1 digit
