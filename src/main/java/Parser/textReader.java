@@ -1,6 +1,4 @@
-package Parser;
-
-import ConvertedSong.ConvertedSongTest;
+package main.java.Parser;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -9,40 +7,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner; // Import the Scanner class to read text files
 
-/**
- * TODO: 	1. Calculate how many dashes from first note to end of measure
- * 			2. Calculate the shortest note duration (but return 1 if any note duration is odd)
- */
-
 public class textReader extends Output {
 
 	public textReader(String string, int n1, int n2, String tech, int i) {
 		super(string, n1, n2, tech, i);
-		// TODO Auto-generated constructor stub
 	}
 
 	public static void main(String[] args) throws IOException {
-		String path = "src/main/resources/sample/testFile.txt";
+		String path = "D:\\3221\\gg.txt";
 		List<Output> list = new ArrayList<>();
-		list = readTabFile(path);
+		list = parsIt(path);
 		printData(list);
 	}
 
-	public static List<Output> readTabFile(String path) throws FileNotFoundException {
+	public static List<Output> parsIt(String path) throws FileNotFoundException {
 
 		List<Output> list = new ArrayList<>();
 		List<String> zoom = new ArrayList<>();
 		int flag = 0;
 
-		Scanner myReader = new Scanner(new FileReader(path));
+		Scanner myReader = new Scanner(new FileReader("D:\\3221\\gg.txt"));
 		String data = null;
 		int k = 0;
 
 		while (myReader.hasNextLine()) {
 
 			// Check which instrument it is
-			data = myReader.nextLine().trim();
+			data = myReader.nextLine();
 			if ((!data.isEmpty()) && (flag == 0)) {
+
 				if ((data.charAt(0) == 'e') || (data.charAt(0) == 'E')) { // guitar
 					flag = 1;
 				} else if (data.charAt(0) == 'G') { // bass
@@ -61,9 +54,17 @@ public class textReader extends Output {
 					k++;
 				}
 				if (k == 6) {
-					list = ParsGuitar(zoom, list);
-					k = 0;
-					zoom.clear();
+					try {
+						TabIsOK(zoom, flag);
+						list = ParsGuitar(zoom, list);
+						k = 0;
+						zoom.clear();
+
+					} catch (StringIndexOutOfBoundsException e) {
+						// handleException();
+						System.out.println(
+								"Exception occurred . . . . Strings do not have the same length or do have wrong tunning!!");
+					}
 				}
 			} else if (flag == 2) { // Bass
 				if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
@@ -75,47 +76,69 @@ public class textReader extends Output {
 					k++;
 				}
 				if (k == 4) {
-					list = ParsBass(zoom, list);
-					k = 0;
-					zoom.clear();
+					try {
+						TabIsOK(zoom, flag);
+						list = ParsBass(zoom, list);
+						k = 0;
+						zoom.clear();
+
+					} catch (StringIndexOutOfBoundsException e) {
+						// handleException();
+						System.out.println(
+								"Exception occurred . . . . Strings do not have the same length or they do have wrong tunning!!");
+					}
 				}
 			} else if (flag == 3) {// Drum
 				if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
 					System.out.println("****");
-					// m = 1;
 
 				} else {
 					System.out.println(data);
 					zoom.add(data);
 					k++;
 				}
-				if (k == 6) {
-					list = ParsDrum(zoom, list, k);
-					k = 0;
-					zoom.clear();
+				if (data.charAt(0) == 'B') {
+					try {
+						TabIsOK(zoom, flag);
+						list = ParsDrum(zoom, list, k);
+						k = 0;
+						zoom.clear();
+
+					} catch (StringIndexOutOfBoundsException e) {
+						// handleException();
+						System.out.println(
+								"Exception occurred . . . . Strings do not have the same length or They do have wrong tunning!!");
+					}
 				}
 
 			}
 		}
 
 		myReader.close();
-		//ConvertedSongTest.createXML(list);
+
 		return list;
+
 	}
 
 	public static List<Output> ParsGuitar(List<String> zoom, List<Output> list) {
 		if (!list.isEmpty()) {
-			list.add(new Output("# NEW TAB #", -2, -2, "-", -2));
+			list.add(new Output("# NEW TAB #", -1, -1, "-", -1));
 		}
+
 		int length = zoom.get(0).length();
-		for (int i = 2; i < length; i++) { //changed so that the final new measure isnt detected - tuan feb 28
+		for (int i = 2; i < length; i++) {
 			for (int j = 0; j < 6; j++) {
+
+				if (i < 0 || i > length) {
+					throw new IndexOutOfBoundsException("index :" + i + " but size of list:" + length);
+				}
+
 				if ((getCharFromString(zoom.get(j), i) != '-') && (getCharFromString(zoom.get(j), i) != '|')) {
 					// 1 digit
 					if (((getCharFromString(zoom.get(j), i - 1) == '-')
 							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
 							&& ((getCharFromString(zoom.get(j), i + 1) == '-')
-							|| (getCharFromString(zoom.get(j), i + 1) == '|'))) {
+									|| (getCharFromString(zoom.get(j), i + 1) == '|'))) {
 						list.add(new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
 								Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))), -1, "-", i));
 
@@ -124,40 +147,25 @@ public class textReader extends Output {
 					else if (((getCharFromString(zoom.get(j), i - 1) == '-')
 							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
 							&& ((getCharFromString(zoom.get(j), i + 2) == '-')
-							|| (getCharFromString(zoom.get(j), i + 2) == '|'))
+									|| (getCharFromString(zoom.get(j), i + 2) == '|'))
 							&& ((getCharFromString(zoom.get(j), i + 1) != '-')
-							|| (getCharFromString(zoom.get(j), i + 1) != '|'))) {
+									|| (getCharFromString(zoom.get(j), i + 1) != '|'))) {
 						list.add(
 								new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
 										Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))
 												+ Character.toString(getCharFromString(zoom.get(j), i + 1))),
 										-1, "-", i));
 
-					}
-					// 3 digits number
-					/*
-					 * else if ((getCharFromString(zoom.get(j), i - 1) == '-') &&
-					 * (getCharFromString(zoom.get(j), i + 1) != '-') &&
-					 * (getCharFromString(zoom.get(j), i + 1) != '/') &&
-					 * (getCharFromString(zoom.get(j), i + 1) != 's') &&
-					 * (getCharFromString(zoom.get(j), i + 2) != '-') &&
-					 * (getCharFromString(zoom.get(j), i + 3) == '-')) { list.add(new
-					 * Output(Character.toString(getCharFromString(zoom.get(j), 0)),
-					 * Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i)) +
-					 * Character.toString(getCharFromString(zoom.get(j), i + 1)) +
-					 * Character.toString(getCharFromString(zoom.get(j), i + 2))), -1, "-", i)); }
-					 */
-					// 3 digit with technique
-					else if (((getCharFromString(zoom.get(j), i - 1) == '-')
+					} else if (((getCharFromString(zoom.get(j), i - 1) == '-')
 							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
 							&& ((getCharFromString(zoom.get(j), i + 1) == '/')
-							|| (getCharFromString(zoom.get(j), i + 1) == 's')
-							|| (getCharFromString(zoom.get(j), i + 1) == 'p')
-							|| (getCharFromString(zoom.get(j), i + 1) == 'h'))
+									|| (getCharFromString(zoom.get(j), i + 1) == 's')
+									|| (getCharFromString(zoom.get(j), i + 1) == 'p')
+									|| (getCharFromString(zoom.get(j), i + 1) == 'h'))
 							&& ((getCharFromString(zoom.get(j), i + 2) != '-')
-							|| (getCharFromString(zoom.get(j), i + 2) != '|'))
+									|| (getCharFromString(zoom.get(j), i + 2) != '|'))
 							&& ((getCharFromString(zoom.get(j), i + 3) == '-')
-							|| (getCharFromString(zoom.get(j), i + 3) == '|'))) {
+									|| (getCharFromString(zoom.get(j), i + 3) == '|'))) {
 						list.add(new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
 								Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))),
 								Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i + 2))),
@@ -179,7 +187,7 @@ public class textReader extends Output {
 
 	public static List<Output> ParsBass(List<String> zoom, List<Output> list) {
 		if (!list.isEmpty()) {
-			list.add(new Output("# NEW TAB #", -2, -2, "-", -2));
+			list.add(new Output("# NEW TAB #", -1, -1, "-", -1));
 		}
 		int length = zoom.get(0).length();
 		for (int i = 2; i < length; i++) {
@@ -189,7 +197,7 @@ public class textReader extends Output {
 					if (((getCharFromString(zoom.get(j), i - 1) == '-')
 							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
 							&& ((getCharFromString(zoom.get(j), i + 1) == '-')
-							|| (getCharFromString(zoom.get(j), i + 1) == '|'))) {
+									|| (getCharFromString(zoom.get(j), i + 1) == '|'))) {
 						if (isInteger(Character.toString(getCharFromString(zoom.get(j), i)))) {
 							list.add(new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
 									Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))), -1, "-",
@@ -204,9 +212,9 @@ public class textReader extends Output {
 					else if (((getCharFromString(zoom.get(j), i - 1) == '-')
 							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
 							&& ((getCharFromString(zoom.get(j), i + 2) == '-')
-							|| (getCharFromString(zoom.get(j), i + 2) == '|'))
+									|| (getCharFromString(zoom.get(j), i + 2) == '|'))
 							&& ((getCharFromString(zoom.get(j), i + 1) != '-')
-							|| (getCharFromString(zoom.get(j), i + 1) != '|'))) {
+									|| (getCharFromString(zoom.get(j), i + 1) != '|'))) {
 						list.add(
 								new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
 										Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))
@@ -214,30 +222,32 @@ public class textReader extends Output {
 										-1, "-", i));
 
 					}
-					// 3 digits number
-					/*
-					 * else if ((getCharFromString(zoom.get(j), i - 1) == '-') &&
-					 * (getCharFromString(zoom.get(j), i + 1) != '-') &&
-					 * (getCharFromString(zoom.get(j), i + 1) != '/') &&
-					 * (getCharFromString(zoom.get(j), i + 1) != 's') &&
-					 * (getCharFromString(zoom.get(j), i + 2) != '-') &&
-					 * (getCharFromString(zoom.get(j), i + 3) == '-')) { list.add(new
-					 * Output(Character.toString(getCharFromString(zoom.get(j), 0)),
-					 * Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i)) +
-					 * Character.toString(getCharFromString(zoom.get(j), i + 1)) +
-					 * Character.toString(getCharFromString(zoom.get(j), i + 2))), -1, "-", i)); }
-					 */
+					// 3 digits number in parentheses like (0)
+
+					else if ((getCharFromString(zoom.get(j), i - 1) == '-')
+							&& (getCharFromString(zoom.get(j), i + 1) != '-')
+							&& (getCharFromString(zoom.get(j), i + 1) != '/')
+							&& (getCharFromString(zoom.get(j), i + 1) != 's')
+							&& (getCharFromString(zoom.get(j), i + 2) != '-')
+							&& (getCharFromString(zoom.get(j), i + 3) == '-')) {
+						list.add(new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
+								Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))
+										+ Character.toString(getCharFromString(zoom.get(j), i + 1))
+										+ Character.toString(getCharFromString(zoom.get(j), i + 2))),
+								-1, "-", i));
+					}
+
 					// 3 digit with technique
 					else if (((getCharFromString(zoom.get(j), i - 1) == '-')
 							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
 							&& ((getCharFromString(zoom.get(j), i + 1) == '/')
-							|| (getCharFromString(zoom.get(j), i + 1) == 's')
-							|| (getCharFromString(zoom.get(j), i + 1) == 'p')
-							|| (getCharFromString(zoom.get(j), i + 1) == 'h'))
+									|| (getCharFromString(zoom.get(j), i + 1) == 's')
+									|| (getCharFromString(zoom.get(j), i + 1) == 'p')
+									|| (getCharFromString(zoom.get(j), i + 1) == 'h'))
 							&& ((getCharFromString(zoom.get(j), i + 2) != '-')
-							|| (getCharFromString(zoom.get(j), i + 2) != '|'))
+									|| (getCharFromString(zoom.get(j), i + 2) != '|'))
 							&& ((getCharFromString(zoom.get(j), i + 3) == '-')
-							|| (getCharFromString(zoom.get(j), i + 3) == '|'))) {
+									|| (getCharFromString(zoom.get(j), i + 3) == '|'))) {
 						list.add(new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
 								Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))),
 								Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i + 2))),
@@ -259,63 +269,18 @@ public class textReader extends Output {
 
 	public static List<Output> ParsDrum(List<String> zoom, List<Output> list, int m) {
 		if (!list.isEmpty()) {
-			list.add(new Output("# NEW TAB #", -2, -2, "-", -2));
+			list.add(new Output("# NEW TAB #", -1, -1, "-", -1));
 		}
 		int length = zoom.get(0).length();
 		for (int i = 3; i < length; i++) {
 			for (int j = 0; j < m; j++) {
 				if ((getCharFromString(zoom.get(j), i) != '-') && (getCharFromString(zoom.get(j), i) != '|')) {
 					// 1 digit
-					if (((getCharFromString(zoom.get(j), i - 1) == '-')
-							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
-							&& ((getCharFromString(zoom.get(j), i + 1) == '-')
-							|| (getCharFromString(zoom.get(j), i + 1) == '|'))) {
-						list.add(new Output(
-								Character.toString(getCharFromString(zoom.get(j), 0))
-										+ Character.toString(getCharFromString(zoom.get(j), 1)),
-								-1, -1, Character.toString(getCharFromString(zoom.get(j), i)), i));
+					list.add(new Output(
+							Character.toString(getCharFromString(zoom.get(j), 0))
+									+ Character.toString(getCharFromString(zoom.get(j), 1)),
+							-1, -1, Character.toString(getCharFromString(zoom.get(j), i)), i));
 
-					}
-					// 2 digits
-					else if (((getCharFromString(zoom.get(j), i - 1) == '-')
-							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
-							&& ((getCharFromString(zoom.get(j), i + 2) == '-')
-							|| (getCharFromString(zoom.get(j), i + 2) == '|'))
-							&& ((getCharFromString(zoom.get(j), i + 1) != '-')
-							|| (getCharFromString(zoom.get(j), i + 1) != '|'))) {
-						list.add(new Output(
-								Character.toString(getCharFromString(zoom.get(j), 0))
-										+ Character.toString(getCharFromString(zoom.get(j), 1)),
-								-1, -1, Character.toString(getCharFromString(zoom.get(j), i))
-								+ Character.toString(getCharFromString(zoom.get(j), i)),
-								i));
-						// i++;
-
-					}
-					// 3 digits number
-					else if ((getCharFromString(zoom.get(j), i - 1) == '-')
-							&& (getCharFromString(zoom.get(j), i + 1) != '-')
-							&& (getCharFromString(zoom.get(j), i + 1) != '/')
-							&& (getCharFromString(zoom.get(j), i + 2) != '-')
-							&& (getCharFromString(zoom.get(j), i + 3) == '-')) {
-						list.add(new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
-								Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))
-										+ Character.toString(getCharFromString(zoom.get(j), i + 1))
-										+ Character.toString(getCharFromString(zoom.get(j), i + 2))),
-								-1, "-", i));
-						// i += 2;
-					}
-					// 3 digit with technique
-					else if ((getCharFromString(zoom.get(j), i - 1) == '-')
-							&& (getCharFromString(zoom.get(j), i + 1) == '/')
-							&& (getCharFromString(zoom.get(j), i + 2) != '-')
-							&& (getCharFromString(zoom.get(j), i + 3) == '-')) {
-						list.add(new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
-								Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))),
-								Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i + 2))),
-								Character.toString(getCharFromString(zoom.get(j), i + 1)), i));
-						// i += 2;
-					}
 				}
 				if (getCharFromString(zoom.get(j), i) == '|') {
 					list.add(new Output("*New Measure*", -1, -1, "-", i));
@@ -355,4 +320,47 @@ public class textReader extends Output {
 		list.forEach(obj -> System.out.println("Tunning :" + obj.getletter() + "\t" + "note 1 :" + obj.getnote1() + "\t"
 				+ "note 2 :" + obj.getnote2() + "\t" + "Technique :" + obj.gettech() + "\t" + "i :" + obj.getindex()));
 	}
+
+	private static void TabIsOK(List<String> zoom, int flag) {
+		// TODO Auto-generated method stub
+		if (flag == 1) {// Guitar
+
+			for (int i = 0; i < zoom.size() - 1; i++) {
+				if (zoom.get(i).length() != zoom.get(i + 1).length()) {
+					throw new StringIndexOutOfBoundsException();
+				}
+			}
+			if ((getCharFromString(zoom.get(1), 0) != 'B') || (getCharFromString(zoom.get(2), 0) != 'G')
+					|| (getCharFromString(zoom.get(3), 0) != 'D') || (getCharFromString(zoom.get(4), 0) != 'A')
+					|| (getCharFromString(zoom.get(5), 0) != 'D')) {
+				throw new StringIndexOutOfBoundsException();
+			}
+			
+
+		} else if (flag == 2) {// Bass
+			for (int i = 0; i < zoom.size() - 1; i++) {
+				if (zoom.get(i).length() != zoom.get(i + 1).length()) {
+					throw new StringIndexOutOfBoundsException();
+				}
+			}
+			if ((getCharFromString(zoom.get(1), 0) != 'D') || (getCharFromString(zoom.get(2), 0) != 'A')
+					|| (getCharFromString(zoom.get(3), 0) != 'D')) {
+				throw new StringIndexOutOfBoundsException();
+			}
+		} else if (flag == 3) {// Drum
+			for (int i = 0; i < zoom.size() - 1; i++) {
+				if (zoom.get(i).length() != zoom.get(i + 1).length()) {
+					throw new StringIndexOutOfBoundsException();
+				}
+			}
+		}
+	}
+
+	/*
+	 * private static void handleException() { Alert errorAlert = new
+	 * Alert(Alert.AlertType.ERROR); errorAlert.setHeaderText("File not found.");
+	 * errorAlert.setContentText("Please choose a file first before you preview");
+	 * errorAlert.showAndWait(); }
+	 */
+
 }
