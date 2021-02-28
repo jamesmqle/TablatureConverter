@@ -17,7 +17,7 @@ public class textReader extends Output {
 	}
 
 	public static void main(String[] args) throws IOException {
-		String path = "C:\\Users\\tukau\\IdeaProjects\\TablatureConverter\\src\\main\\resources\\sample\\testFile.txt";
+		String path = "src/main/resources/sample/testFile.txt";
 		List<Output> list = new ArrayList<>();
 		list = readTabFile(path);
 		printData(list);
@@ -36,7 +36,7 @@ public class textReader extends Output {
 		while (myReader.hasNextLine()) {
 
 			// Check which instrument it is
-			data = myReader.nextLine();
+			data = myReader.nextLine().trim();
 			if ((!data.isEmpty()) && (flag == 0)) {
 				if ((data.charAt(0) == 'e') || (data.charAt(0) == 'E')) { // guitar
 					flag = 1;
@@ -94,16 +94,16 @@ public class textReader extends Output {
 		}
 
 		myReader.close();
-		ConvertedSongTest.createXML(list);
+		//ConvertedSongTest.createXML(list);
 		return list;
 	}
 
 	public static List<Output> ParsGuitar(List<String> zoom, List<Output> list) {
 		if (!list.isEmpty()) {
-			list.add(new Output("# NEW TAB #", -1, -1, "-", -1));
+			list.add(new Output("# NEW TAB #", -2, -2, "-", -2));
 		}
 		int length = zoom.get(0).length();
-		for (int i = 2; i < length; i++) {
+		for (int i = 2; i < length-1; i++) { //changed so that the final new measure isnt detected - tuan feb 28
 			for (int j = 0; j < 6; j++) {
 				if ((getCharFromString(zoom.get(j), i) != '-') && (getCharFromString(zoom.get(j), i) != '|')) {
 					// 1 digit
@@ -174,7 +174,7 @@ public class textReader extends Output {
 
 	public static List<Output> ParsBass(List<String> zoom, List<Output> list) {
 		if (!list.isEmpty()) {
-			list.add(new Output("# NEW TAB #", -1, -1, "-", -1));
+			list.add(new Output("# NEW TAB #", -2, -2, "-", -2));
 		}
 		int length = zoom.get(0).length();
 		for (int i = 2; i < length; i++) {
@@ -254,7 +254,7 @@ public class textReader extends Output {
 
 	public static List<Output> ParsDrum(List<String> zoom, List<Output> list, int m) {
 		if (!list.isEmpty()) {
-			list.add(new Output("# NEW TAB #", -1, -1, "-", -1));
+			list.add(new Output("# NEW TAB #", -2, -2, "-", -2));
 		}
 		int length = zoom.get(0).length();
 		for (int i = 3; i < length; i++) {

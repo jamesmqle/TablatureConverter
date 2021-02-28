@@ -14,15 +14,23 @@ public class Attributes {
     private Clef clef;
     private Key key;
     private TimeSignature time;
-    private int divisions;
+    private String divisions;
     private StaffDetails staffDetails;
 
-    public Attributes(){
+    public Attributes(){/*
         this.clef = new Clef();
         this.key = new Key(0, "major");
         this.time = new TimeSignature(4,4);
         this.divisions = 1;
-        this.staffDetails = new StaffDetails();
+        this.staffDetails = new StaffDetails();*/
+    }
+
+    public Attributes(Clef clef, Key key, TimeSignature time, String divisions, StaffDetails staffDetails){
+        this.clef = clef;
+        this.key = key;
+        this.time = time;
+        this.divisions = divisions;
+        this.staffDetails = staffDetails;
     }
 
     /*
@@ -35,7 +43,7 @@ public class Attributes {
     }
      */
 
-    public Attributes(Clef c, Key k , TimeSignature t, int d){
+    public Attributes(Clef c, Key k , TimeSignature t, String d){
         this.clef = c;
         this.key = k;
         this.time = t;
@@ -70,11 +78,11 @@ public class Attributes {
     }
 
     @XmlElement(name = "divisions")
-    public int getDivisions() {
+    public String getDivisions() {
         return divisions;
     }
 
-    public void setDivisions(int divisions) {
+    public void setDivisions(String divisions) {
         this.divisions = divisions;
     }
 

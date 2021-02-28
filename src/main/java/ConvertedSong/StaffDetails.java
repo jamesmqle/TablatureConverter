@@ -37,11 +37,11 @@ public class StaffDetails implements Serializable {
     public StaffDetails(){
         staffLines = 6;
         staffTuning = new ArrayList<StaffTuning>();
-        staffTuning.add(new StaffTuning());
-        staffTuning.add(new StaffTuning());
-        staffTuning.add(new StaffTuning());
-        staffTuning.add(new StaffTuning());
-        staffTuning.add(new StaffTuning());
-        staffTuning.add(new StaffTuning());
+        staffTuning.add(new StaffTuning("1", "E", 2));
+        staffTuning.add(new StaffTuning("2", "A", 2));
+        staffTuning.add(new StaffTuning("3", "D", 3));
+        staffTuning.add(new StaffTuning("4", "G", 3));
+        staffTuning.add(new StaffTuning("5", "B", 3));
+        staffTuning.add(new StaffTuning("6", "E", 4));
     }
 }

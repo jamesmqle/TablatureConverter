@@ -18,7 +18,7 @@ public class Measure implements Serializable {
     private String number;
 
     public Measure(){
-        this.attributes = new Attributes();
+        this.attributes = new Attributes(new Clef(), new Key(0, "major"), new TimeSignature(4,4), "1", new StaffDetails());
         this.notes = new ArrayList<Note>();
         this.number = "1";
     }
@@ -34,6 +34,12 @@ public class Measure implements Serializable {
 
     public Measure(Note n){
         this.notes = new ArrayList<Note>();
+    }
+
+    public Measure(Attributes a, List<Note> n, String number){
+        this.attributes = a;
+        this.notes = n;
+        this.number = number;
     }
 
     @XmlElement(name = "attributes")
@@ -59,7 +65,9 @@ public class Measure implements Serializable {
     }
 
     public void addNoteFromTab(String string, int fret){
-        this.notes.add(new Note(new Pitch(NoteConvert.convertToNote(string, fret).getPitch().getStep(),NoteConvert.octaveFinder(string, fret),NoteConvert.convertToNote(string, fret).getPitch().getAlter()), 1, "quarter"/*new Type("0", "1")*/));
+        this.notes.add(new Note(new Pitch(NoteConvert.convertToNote(string, fret).getPitch().getStep(),
+                NoteConvert.octaveFinder(string, fret),NoteConvert.convertToNote(string, fret).getPitch().getAlter()),
+                1, "quarter"/*new Type("0", "1")*/));
     }
 
     @XmlAttribute

@@ -48,9 +48,9 @@ public class StaffTuning implements Serializable {
         tuningOctave = 2;
     }
     public StaffTuning(String line, String tuningStep, int tuningOctave){
-        line = "1";
-        tuningStep = "E";
-        tuningOctave = 2;
+        this.line = line;
+        this.tuningStep = tuningStep;
+        this.tuningOctave = tuningOctave;
     }
 
 }

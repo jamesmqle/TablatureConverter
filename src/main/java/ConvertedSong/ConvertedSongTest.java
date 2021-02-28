@@ -1,6 +1,7 @@
 package ConvertedSong;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
@@ -80,16 +81,29 @@ public class ConvertedSongTest {
 		deSerialize(xmlFile);
 	}
 
-	public static void createXML(List<Output> notes){
-		String xmlFile = "C:\\Users\\tukau\\IdeaProjects\\TablatureConverter\\src\\main\\resources\\sample\\convertedSong.xml";
+	public static void createXML(List<Output> notes, String filePath){
+		String xmlFile = filePath;
 		ConvertedSong song = new ConvertedSong();
+		Part latestPart;
+		Attributes attribs;
 		// song.setKey((new ConvertedSong.Key(0)));
 
 		// Initalize part (and first measure)
 		song.addPart(new Part());
+		// Get attributes from the first measure (for subsequent measures)
+		attribs = song.getParts().get(0).getMeasures().get(0).getAttributes();
 
+		/**
+		 * note1 corresponds to:
+		 * -2 -> new tab line
+		 * -1 -> new measure
+		 * else -> note
+		 */
 		for (Output note : notes) {
-			if (note.getnote1() == -1);
+			if (note.getnote1() == -2 || note.getnote1() == -1){
+				latestPart = song.getParts().get(song.getParts().size()-1);
+				latestPart.addMeasure(new Measure(new Attributes(), new ArrayList<Note>(), Integer.toString(latestPart.getMeasures().size()+1)));
+			}
 			else song.addNoteToMeasure(note.getletter(), note.getnote1());
 		}
 
