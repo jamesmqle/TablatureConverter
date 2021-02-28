@@ -37,7 +37,7 @@ public class Main extends Application {
         
         // injecting second scene into the controller of the first scene
         Controller firstController = (Controller) firstLoader.getController();
-        firstController.setSecondScene(secondScene);
+        firstController.setSecondScene(ClipBoardScene);
        
         
         

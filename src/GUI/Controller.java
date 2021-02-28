@@ -36,15 +36,15 @@ import javax.swing.*;
 public class Controller {
 	
 	 
-	private Scene secondScene;
+	private Scene ClipBoardScene;
 
     public void setSecondScene(Scene scene) {
-        secondScene = scene;
+        ClipBoardScene = scene;
     }
     
     public void openSecondScene(ActionEvent actionEvent) {
         Stage primaryStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        primaryStage.setScene(secondScene);
+        primaryStage.setScene(ClipBoardScene);
     }
     
     
