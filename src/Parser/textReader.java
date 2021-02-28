@@ -25,17 +25,6 @@ public class textReader extends Output {
 		// Call printData function to print and check the list of Output which is our
 		// result
 		printData(list);
-		/////////
-		List<Output> listt = new ArrayList<>();
-		List<String> tab = new ArrayList<>();
-		tab.add("E|--0-----------------------|-------------------------|");
-		tab.add("B|------------------3-----5-|-2-----------------------|");
-		tab.add("G|------------------3-------|-2-----------------------|");
-		tab.add("D|------------------5-------|-2-----------------------|");
-		tab.add("A|--------------------------|-0-----------------------|");
-		tab.add("D|--------------------------|-------------------------|");
-		listt = ParsGuitar(tab, listt);
-		printData(listt);
 	}
 
 	/*
