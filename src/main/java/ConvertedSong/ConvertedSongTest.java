@@ -12,24 +12,22 @@ import Parser.Output;
 //import org.junit.jupiter.api.BeforeEach;
 
 public class ConvertedSongTest {
-
-    private JAXBContext context;
+	private JAXBContext context;
 
 /*    @BeforeEach
     public void init() throws JAXBException {
         this.context = JAXBContext.newInstance(ConvertedSong.class);
     }*/
 
-/*    @Test
-    public void serialization() throws JAXBException {
-        Marshaller marshaller = this.context.createMarshaller();
-        marshaller.marshal(new ConvertedSong("Hot Cross Buns", 100 ) , new File("ConvertedSong.xml"));
-
-        Unmarshaller unmarshaller = this.context.createUnmarshaller();
-        Object unmarshalled = unmarshaller.unmarshal(new File("ConvertedSong.xml"));
-        System.out.println("unmarshalled = " + unmarshalled);
-    }
-*/
+	/*    @Test
+        public void serialization() throws JAXBException {
+            Marshaller marshaller = this.context.createMarshaller();
+            marshaller.marshal(new ConvertedSong("Hot Cross Buns", 100 ) , new File("ConvertedSong.xml"));
+            Unmarshaller unmarshaller = this.context.createUnmarshaller();
+            Object unmarshalled = unmarshaller.unmarshal(new File("ConvertedSong.xml"));
+            System.out.println("unmarshalled = " + unmarshalled);
+        }
+    */
 	private static void serialize(ConvertedSong song, String xmlFile) {
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(ConvertedSong.class);
@@ -54,8 +52,8 @@ public class ConvertedSongTest {
 		}
 	}
 
-    public static void main(String[] args) {
-		String xmlFile = "src\\sample\\ConvertedSong.xml";
+	public static void main(String[] args) {
+		String xmlFile = "C:\\Users\\James Le\\IdeaProjects\\TablatureConverter\\src\\main\\resources\\sample";
 		ConvertedSong song = new ConvertedSong();
 		// song.setKey((new ConvertedSong.Key(0)));
 
@@ -81,8 +79,8 @@ public class ConvertedSongTest {
 		deSerialize(xmlFile);
 	}
 
-	public static void createXML(List<Output> notes){
-		String xmlFile = "src\\sample\\ConvertedSong.xml";
+	public static void createXML(List<Output> notes, String filePath){
+		String xmlFile = filePath;
 		ConvertedSong song = new ConvertedSong();
 		// song.setKey((new ConvertedSong.Key(0)));
 
@@ -90,7 +88,8 @@ public class ConvertedSongTest {
 		song.addPart(new Part());
 
 		for (Output note : notes) {
-			song.addNoteToMeasure(note.getLetter(), note.getNum());
+			if (note.getnote1() == -1);
+			else song.addNoteToMeasure(note.getletter(), note.getnote1());
 		}
 
 		serialize(song, xmlFile);

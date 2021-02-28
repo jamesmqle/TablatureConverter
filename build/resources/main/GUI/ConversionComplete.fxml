@@ -12,10 +12,15 @@
             <Font name="Century Gothic" size="29.0" />
          </font>
       </Label>
-      <Button layoutX="504.0" layoutY="383.0" mnemonicParsing="false" onAction="#OpenXMLHandler" prefHeight="60.0" prefWidth="193.0" text="Open MusicXML">
+      <Button layoutX="504.0" layoutY="467.0" mnemonicParsing="false" onAction="#OpenXMLHandler" prefHeight="60.0" prefWidth="193.0" text="Open MusicXML">
          <font>
             <Font name="Century Gothic" size="20.0" />
          </font></Button>
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackToWelcome" text="Back" />
+      <Button layoutX="504.0" layoutY="387.0" mnemonicParsing="false" onAction="#SaveXMLFileHandler" prefHeight="60.0" prefWidth="193.0" text="Save File">
+         <font>
+            <Font name="Century Gothic" size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

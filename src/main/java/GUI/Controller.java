@@ -75,6 +75,7 @@ public class Controller {
      */
     private void displayTablature() throws IOException {
         try {
+            textview.clear();
             Scanner s = new Scanner(new File(inputFile.toString())).useDelimiter("\\s+");
             while (s.hasNext()) {
                 if (s.hasNextInt()) { // check if next token is an int
@@ -87,8 +88,6 @@ public class Controller {
         } catch (FileNotFoundException ex) {
             System.err.println(ex);
         }
-
-            textViewToFile(textFile, textview);
 
     }
 
@@ -164,6 +163,7 @@ public class Controller {
     public void ConvertHandler(ActionEvent event) throws IOException {
      //   try {
             if (textview != null) { // gives error message if textarea is empty
+                textViewToFile(textFile, textview);
                 ConvertedSongTest.createXML(textReader.readTabFile(textFile.toString()),outputFile.toString()); // Passes textarea file through parser
                 Parent conversionCompleteParent = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/ConversionComplete.fxml"));
                 Scene ClipBoardScene = new Scene(conversionCompleteParent);
