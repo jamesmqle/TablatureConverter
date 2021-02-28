@@ -26,7 +26,6 @@ public class textReaderTest {
 		assertTrue(listt.get(0).getnote1() == 0);
 		assertTrue(listt.get(8).getnote2() == 4);
 		assertEquals("p", listt.get(8).gettech());
-
 	}
 
 	@Test
