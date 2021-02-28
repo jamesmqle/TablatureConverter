@@ -12,6 +12,8 @@ public class Output {
 		this.index=i;
 	}
 
+	public Output(){}
+
 	/*
 	 * public void printData(List<Output> data) { data.forEach(obj ->
 	 * System.out.println("item1" + obj.getletter() + " " + "item2" + obj.getnum() +

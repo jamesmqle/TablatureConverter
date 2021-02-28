@@ -87,6 +87,7 @@ public class ConvertedSongTest {
 		ConvertedSong song = new ConvertedSong();
 		Part latestPart;
 		Attributes attribs;
+		Output prevNote = new Output();
 		// song.setKey((new ConvertedSong.Key(0)));
 
 		// Initalize part (and first measure)
@@ -104,8 +105,14 @@ public class ConvertedSongTest {
 			if (note.getnote1() == -2 || note.getnote1() == -1){
 				latestPart = song.getParts().get(song.getParts().size()-1);
 				latestPart.addMeasure(new Measure(new Attributes(), new ArrayList<Note>(), Integer.toString(latestPart.getMeasures().size()+1)));
+				prevNote = new Output();
 			}
-			else song.addNoteToMeasure(note.getletter(), note.getnote1());
+			else {
+				song.addNoteToMeasure(note.getletter(), note.getnote1());
+				if (prevNote.getindex() == note.getindex())
+					song.getParts().get(song.getParts().size()-1).getMeasures().get(song.getParts().get(song.getParts().size()-1).getMeasures().size()-1).getNotes().get(song.getParts().get(song.getParts().size()-1).getMeasures().get(song.getParts().get(song.getParts().size()-1).getMeasures().size()-1).getNotes().size()-1).chordOn();
+				prevNote = note;
+			}
 		}
 
 		serialize(song, xmlFile);
