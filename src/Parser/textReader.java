@@ -336,7 +336,6 @@ public class textReader extends Output {
 					|| (getCharFromString(zoom.get(5), 0) != 'D')) {
 				throw new StringIndexOutOfBoundsException();
 			}
-			
 
 		} else if (flag == 2) {// Bass
 			for (int i = 0; i < zoom.size() - 1; i++) {
