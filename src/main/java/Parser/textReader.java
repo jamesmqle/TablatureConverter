@@ -1,4 +1,4 @@
-package main.java.Parser;
+package Parser;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

@@ -12,6 +12,7 @@ plugins {
 
 repositories {
     mavenCentral()
+    //jcenter()
 }
 
 dependencies {
@@ -19,9 +20,12 @@ dependencies {
     implementation 'com.sun.xml.bind:jaxb-impl:2.3.0'
     implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.0'
     implementation 'javax.activation:activation:1.1.1'
+    implementation 'junit:junit:4.12'
+    /*testImplementation 'junit:junit:4.12'
+    implementation 'junit:junit:4.12'*/
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.1"
 }
 
 test {
