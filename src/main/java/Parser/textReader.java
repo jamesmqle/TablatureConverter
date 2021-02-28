@@ -108,7 +108,7 @@ public class textReader extends Output {
 			list.add(new Output("# NEW TAB #", -2, -2, "-", -2));
 		}
 		int length = zoom.get(0).length();
-		for (int i = 2; i < length-1; i++) { //changed so that the final new measure isnt detected - tuan feb 28
+		for (int i = 2; i < length; i++) { //changed so that the final new measure isnt detected - tuan feb 28
 			for (int j = 0; j < 6; j++) {
 				if ((getCharFromString(zoom.get(j), i) != '-') && (getCharFromString(zoom.get(j), i) != '|')) {
 					// 1 digit
