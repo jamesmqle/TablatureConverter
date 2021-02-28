@@ -30,6 +30,7 @@ public class ConvertedSongTest {
         System.out.println("unmarshalled = " + unmarshalled);
     }
 */
+
 	private static void serialize(ConvertedSong song, String xmlFile) {
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(ConvertedSong.class);
@@ -55,7 +56,7 @@ public class ConvertedSongTest {
 	}
 
     public static void main(String[] args) {
-		String xmlFile = "C:\\Users\\tukau\\IdeaProjects\\TablatureConverter\\src\\main\\resources\\sample";
+		String xmlFile = "src/main/resources/sample";
 		ConvertedSong song = new ConvertedSong();
 		// song.setKey((new ConvertedSong.Key(0)));
 

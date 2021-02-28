@@ -430,6 +430,9 @@
                 <duration>1</duration>
                 <type>quarter</type>
             </note>
+        </measure>
+        <measure number="3">
+            <attributes/>
             <note>
                 <pitch>
                     <step>G</step>
