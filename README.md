@@ -6,7 +6,7 @@
 
 - [Description](#description)
 - [Getting Started](#getting-started)
-- [Troubleshooting] (#troubleshooting)
+- [Troubleshooting](#troubleshooting)
 - [Usage Scenarios](#usage-scenarios)
 - [Usage Instructions](#usage_instructions)
 - [Contributors](#contributors)
@@ -49,8 +49,6 @@ TablatureConverter requires the the following to run:
 ### How to Access for Eclipse
 
 1. Download ZIP in repository and unzip the file or click on the clipboard icon in order to clone URI on eclipse
- <img width="943" alt="cloneURI" src="https://user-images.githubusercontent.com/68396714/109436020-70b33400-79eb-11eb-9d44-2e01368e05ed.PNG">
-
 
 ![Code](https://res.cloudinary.com/practicaldev/image/fetch/s--L5zkGG8u--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/95r8bqqsnt0losag50b1.png)
 
