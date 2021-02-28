@@ -1,0 +1,13 @@
+.root{
+    -fx-background-image: url("/GUI/img_1.png");
+    -fx-background-size: stretch;
+}
+
+.button:focused {
+    -fx-focus-color: transparent;
+    -fx-background-insets: -1.4, 0, 1, 2;
+}
+
+.label{
+    -fx-background-color: white;
+}
