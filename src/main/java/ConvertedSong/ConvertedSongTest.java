@@ -82,6 +82,11 @@ public class ConvertedSongTest {
 		deSerialize(xmlFile);
 	}
 
+	public static int calculateDuration(int totalDashes, int shortestDuration){
+
+		return -1;
+	}
+
 	public static void createXML(List<Output> notes, String filePath){
 		String xmlFile = filePath;
 		ConvertedSong song = new ConvertedSong();
@@ -101,7 +106,13 @@ public class ConvertedSongTest {
 		 * -1 -> new measure
 		 * else -> note
 		 */
+
+		// is perfect input
+
+
+		//is not perfect input
 		for (Output note : notes) {
+			// implement counter = 0
 			if (note.getnote1() == -2 || note.getnote1() == -1){
 				latestPart = song.getParts().get(song.getParts().size()-1);
 				latestPart.addMeasure(new Measure(new Attributes(), new ArrayList<Note>(), Integer.toString(latestPart.getMeasures().size()+1)));
@@ -112,6 +123,7 @@ public class ConvertedSongTest {
 				if (prevNote.getindex() == note.getindex())
 					song.getParts().get(song.getParts().size()-1).getMeasures().get(song.getParts().get(song.getParts().size()-1).getMeasures().size()-1).getNotes().get(song.getParts().get(song.getParts().size()-1).getMeasures().get(song.getParts().get(song.getParts().size()-1).getMeasures().size()-1).getNotes().size()-1).chordOn();
 				prevNote = note;
+				// if counter = size() - 1, add barline
 			}
 		}
 
