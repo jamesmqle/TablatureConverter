@@ -75,6 +75,7 @@ James Le - jamesmql@my.yorku.ca
 
 Temi Odunfa- odunifa.temi@gmail.com
 
+Amin Mohammadi- amin45mh@gmail.com
 ---
 
 ## License
