@@ -11,7 +11,6 @@ public class textReader extends Output {
 
 	public textReader(String string, int n1, int n2, String tech, int i) {
 		super(string, n1, n2, tech, i);
-		// TODO Auto-generated constructor stub
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -98,7 +97,7 @@ public class textReader extends Output {
 					zoom.add(data);
 					k++;
 				}
-				if (k == 6) {
+				if (data.charAt(0) == 'B') {
 					try {
 						TabIsOK(zoom, flag);
 						list = ParsDrum(zoom, list, k);
@@ -336,6 +335,7 @@ public class textReader extends Output {
 					|| (getCharFromString(zoom.get(5), 0) != 'D')) {
 				throw new StringIndexOutOfBoundsException();
 			}
+			
 
 		} else if (flag == 2) {// Bass
 			for (int i = 0; i < zoom.size() - 1; i++) {
