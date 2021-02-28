@@ -18,10 +18,11 @@ public class Attributes {
     private StaffDetails staffDetails;
 
     public Attributes(){
-        this.clef = new Clef("G",2);
+        this.clef = new Clef();
         this.key = new Key(0, "major");
         this.time = new TimeSignature(4,4);
         this.divisions = 1;
+        this.staffDetails = new StaffDetails();
     }
 
     /*

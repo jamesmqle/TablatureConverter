@@ -11,8 +11,8 @@ public class StaffTuning implements Serializable {
     //I think we need to implement the ScorePart below as a list
 
     private String line;
-    private int tuningOctave;
     private String tuningStep;
+    private int tuningOctave;
 
     @XmlAttribute
     public String getLine() {
@@ -42,5 +42,15 @@ public class StaffTuning implements Serializable {
     }
 
     //constructors - default must fully intialize the object for testing
+    public StaffTuning(){
+        line = "1";
+        tuningStep = "E";
+        tuningOctave = 2;
+    }
+    public StaffTuning(String line, String tuningStep, int tuningOctave){
+        line = "1";
+        tuningStep = "E";
+        tuningOctave = 2;
+    }
 
 }

@@ -2,9 +2,13 @@ package ConvertedSong;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.util.List;
+import java.util.ArrayList;
 
+@XmlRootElement
+@XmlType(propOrder = {"staffLines", "staffTuning"})
 public class StaffDetails implements Serializable {
     //I think we need to implement the ScorePart below as a list
     private int staffLines;
@@ -29,4 +33,15 @@ public class StaffDetails implements Serializable {
     }
 
     //constructors - default must fully intialize the object for testing
+
+    public StaffDetails(){
+        staffLines = 6;
+        staffTuning = new ArrayList<StaffTuning>();
+        staffTuning.add(new StaffTuning());
+        staffTuning.add(new StaffTuning());
+        staffTuning.add(new StaffTuning());
+        staffTuning.add(new StaffTuning());
+        staffTuning.add(new StaffTuning());
+        staffTuning.add(new StaffTuning());
+    }
 }

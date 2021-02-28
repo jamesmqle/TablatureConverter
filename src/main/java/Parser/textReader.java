@@ -17,7 +17,7 @@ public class textReader extends Output {
 	}
 
 	public static void main(String[] args) throws IOException {
-		String path = "D:\\3221\\gg.txt";
+		String path = "C:\\Users\\tukau\\IdeaProjects\\TablatureConverter\\src\\main\\resources\\sample\\testFile.txt";
 		List<Output> list = new ArrayList<>();
 		list = readTabFile(path);
 		printData(list);
