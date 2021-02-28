@@ -26,6 +26,7 @@ public class textReader extends Output {
         List<Output> list = new ArrayList<>();
         list = readTabFile(path);
         printData(list);
+        System.out.println(shortestNoteDuration(path));
     }
 
     public static List<Output> readTabFile(String path) throws FileNotFoundException {
@@ -39,7 +40,6 @@ public class textReader extends Output {
         int k = 0;
 
         while (myReader.hasNextLine()) {
-
             // Check which instrument it is
             data = myReader.nextLine().trim();
             if ((!data.isEmpty()) && (flag == 0)) {
@@ -103,12 +103,163 @@ public class textReader extends Output {
         return list;
     }
 
+    // reads to end of file
+    public static List<Output> readTabFile2(String path) throws FileNotFoundException {
+
+        List<Output> list = new ArrayList<>();
+        List<String> zoom = new ArrayList<>();
+        int flag = 0;
+
+        Scanner myReader = new Scanner(new FileReader(path));
+        String data = null;
+        int k = 0;
+
+        while (myReader.hasNextLine()) {
+
+            // Check which instrument it is
+            data = myReader.nextLine().trim();
+            if ((!data.isEmpty()) && (flag == 0)) {
+                if ((data.charAt(0) == 'e') || (data.charAt(0) == 'E')) { // guitar
+                    flag = 1;
+                } else if (data.charAt(0) == 'G') { // bass
+                    flag = 2;
+                } else { // drum
+                    flag = 3;
+                }
+            }
+
+            if (flag == 1) { // Guitar
+                if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
+                    System.out.println("****");
+                } else {
+                    System.out.println(data);
+                    zoom.add(data);//
+                    k++;
+                }
+                if (k == 6) {
+                    list = ParsGuitar2(zoom, list);
+                    k = 0;
+                    zoom.clear();
+                }
+            } else if (flag == 2) { // Bass
+                if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
+                    System.out.println("****");
+
+                } else {
+                    System.out.println(data);
+                    zoom.add(data);
+                    k++;
+                }
+                if (k == 4) {
+                    list = ParsBass(zoom, list);
+                    k = 0;
+                    zoom.clear();
+                }
+            } else if (flag == 3) {// Drum
+                if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
+                    System.out.println("****");
+                    // m = 1;
+
+                } else {
+                    System.out.println(data);
+                    zoom.add(data);
+                    k++;
+                }
+                if (k == 6) {
+                    list = ParsDrum(zoom, list, k);
+                    k = 0;
+                    zoom.clear();
+                }
+
+            }
+        }
+
+        myReader.close();
+        //ConvertedSongTest.createXML(list);
+        return list;
+    }
+
     public static List<Output> ParsGuitar(List<String> zoom, List<Output> list) {
         if (!list.isEmpty()) {
             list.add(new Output("# NEW TAB #", -2, -2, "-", -2));
         }
         int length = zoom.get(0).length();
-        for (int i = 2; i < length; i++) { //changed so that the final new measure isnt detected - tuan feb 28
+        for (int i = 2; i < length - 1; i++) { //changed so that the final new measure output isnt detected - tuan feb 28
+            for (int j = 0; j < 6; j++) {
+                if ((getCharFromString(zoom.get(j), i) != '-') && (getCharFromString(zoom.get(j), i) != '|')) {
+                    // 1 digit
+                    if (((getCharFromString(zoom.get(j), i - 1) == '-')
+                            || (getCharFromString(zoom.get(j), i - 1) == '|'))
+                            && ((getCharFromString(zoom.get(j), i + 1) == '-')
+                            || (getCharFromString(zoom.get(j), i + 1) == '|'))) {
+                        list.add(new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
+                                Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))), -1, "-", i));
+
+                    }
+                    // 2 digits
+                    else if (((getCharFromString(zoom.get(j), i - 1) == '-')
+                            || (getCharFromString(zoom.get(j), i - 1) == '|'))
+                            && ((getCharFromString(zoom.get(j), i + 2) == '-')
+                            || (getCharFromString(zoom.get(j), i + 2) == '|'))
+                            && ((getCharFromString(zoom.get(j), i + 1) != '-')
+                            || (getCharFromString(zoom.get(j), i + 1) != '|'))) {
+                        list.add(
+                                new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
+                                        Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))
+                                                + Character.toString(getCharFromString(zoom.get(j), i + 1))),
+                                        -1, "-", i));
+
+                    }
+                    // 3 digits number
+                    /*
+                     * else if ((getCharFromString(zoom.get(j), i - 1) == '-') &&
+                     * (getCharFromString(zoom.get(j), i + 1) != '-') &&
+                     * (getCharFromString(zoom.get(j), i + 1) != '/') &&
+                     * (getCharFromString(zoom.get(j), i + 1) != 's') &&
+                     * (getCharFromString(zoom.get(j), i + 2) != '-') &&
+                     * (getCharFromString(zoom.get(j), i + 3) == '-')) { list.add(new
+                     * Output(Character.toString(getCharFromString(zoom.get(j), 0)),
+                     * Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i)) +
+                     * Character.toString(getCharFromString(zoom.get(j), i + 1)) +
+                     * Character.toString(getCharFromString(zoom.get(j), i + 2))), -1, "-", i)); }
+                     */
+                    // 3 digit with technique
+                    else if (((getCharFromString(zoom.get(j), i - 1) == '-')
+                            || (getCharFromString(zoom.get(j), i - 1) == '|'))
+                            && ((getCharFromString(zoom.get(j), i + 1) == '/')
+                            || (getCharFromString(zoom.get(j), i + 1) == 's')
+                            || (getCharFromString(zoom.get(j), i + 1) == 'p')
+                            || (getCharFromString(zoom.get(j), i + 1) == 'h'))
+                            && ((getCharFromString(zoom.get(j), i + 2) != '-')
+                            || (getCharFromString(zoom.get(j), i + 2) != '|'))
+                            && ((getCharFromString(zoom.get(j), i + 3) == '-')
+                            || (getCharFromString(zoom.get(j), i + 3) == '|'))) {
+                        list.add(new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
+                                Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))),
+                                Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i + 2))),
+                                Character.toString(getCharFromString(zoom.get(j), i + 1)), i));
+                    }
+                }
+                if (getCharFromString(zoom.get(j), i) == '|') {
+                    list.add(new Output("*New Measure*", -1, -1, "-", i));
+                    if (i != length - 1) {
+                        i++;
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+        return list;
+    }
+
+    // reads to end of file
+    public static List<Output> ParsGuitar2(List<String> zoom, List<Output> list) {
+        if (!list.isEmpty()) {
+            list.add(new Output("# NEW TAB #", -2, -2, "-", -2));
+        }
+        int length = zoom.get(0).length();
+        for (int i = 2; i < length; i++) {
             for (int j = 0; j < 6; j++) {
                 if ((getCharFromString(zoom.get(j), i) != '-') && (getCharFromString(zoom.get(j), i) != '|')) {
                     // 1 digit
@@ -362,27 +513,83 @@ public class textReader extends Output {
      *	2. Calculate the shortest note duration (but return 1 if any note duration is odd)
      **/
 
-    // TASK ONE
-//    public int firstNoteToMeasure(String filepath) throws FileNotFoundException {
-//        List<Output> list = new ArrayList<>();
-//        list = readTabFile(filepath);
-//        printData(list);
-//
-//        for(int i = 0; i < list.size(); i++){
-//
-//            if(list.get(i) == ){
-//
-//            }
-//
-//        }
-//
-//        return -1;
-//
-//    }
-//
-//    // TASK TWO
-//    public int shortNoteDuration(){
-//return -1;
-//    }
+    public static int numberOfDashes(String filepath) throws FileNotFoundException {
+        List<Output> list = new ArrayList<>();
+        list = readTabFile2(filepath);
+/*        printData(list);*/
+        int firstIndex = -1, measureIndex = -1, numDash = -1, oldNumDash = -1;
+        int counter = 0, isFirst = 0;
+
+        // 1. get first measure index
+        // 2. get measure end index
+        // 3. repeat for every measure
+
+        for (Output note : list){
+            //System.out.println("counter: " + counter);
+            if (counter == 0 && (note.getnote1() != -1 && note.getnote1() != -2) ) {
+                firstIndex = note.getindex();
+                counter++;
+            }
+            if (note.getnote1() == -1) {
+                counter = 0;
+                measureIndex = note.getindex();
+                //System.out.println("measureIndex: " + measureIndex);
+                if (isFirst == 0) {
+                    oldNumDash = measureIndex - firstIndex;
+                    //System.out.println("oldNumDash: " + oldNumDash);
+                    isFirst++;
+                } else {
+                    numDash = measureIndex - firstIndex;
+                    //System.out.println("numDash: " + numDash);
+                    //System.out.println("ond = nd " + (oldNumDash == numDash));
+                    if (oldNumDash == numDash);
+                    else return -1;
+                }
+            }
+        }
+
+        return oldNumDash;
+    }
+
+    /**
+     * Calculate the shortest note duration (but return 1 if any note duration is odd)
+     * @param filepath
+     * @return
+     * @throws FileNotFoundException
+     */
+
+    public static int shortestNoteDuration(String filepath)throws FileNotFoundException{
+        /**
+         * 1. Declare first note
+         * 2. Subtract note.index - prevNote.index
+         * 3. Compare the difference to min note dur
+         * 4. Check for odd
+         */
+        List<Output> list = new ArrayList<>();
+        list = readTabFile2(filepath);
+        int shortestDuration; // compare there 2 indexes to find the difference
+        int noteDur = 1002, minNoteDur = 1000; // Duration and shortest duration between notes
+        Output prevNote = new Output();
+
+        int counter = 0;
+        for(Output note : list){
+            if(counter == 0) counter++;
+            else{
+                noteDur = note.getindex() - prevNote.getindex();
+                //System.out.println(noteDur);
+            }
+
+            if(noteDur % 2 == 1 ){ // if odd then return 1
+                return 1;
+            }
+            else if(minNoteDur > noteDur && noteDur != 0){
+                minNoteDur = noteDur;
+            }
+
+            prevNote = note;
+        }
+
+        return minNoteDur;
+    }
 
 }

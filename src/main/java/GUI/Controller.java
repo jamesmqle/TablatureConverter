@@ -157,7 +157,7 @@ public class Controller {
         //   try {
         if (textview != null) { // gives error message if textarea is empty
             textViewToFile(textFile, textview);
-            ConvertedSongTest.createXML(textReader.readTabFile(textFile.toString()),outputFile.toString()); // Passes textarea file through parser
+            ConvertedSongTest.createXML(textReader.readTabFile2(textFile.toString()),outputFile.toString(), inputFile.toString()); // Passes textarea file through parser
             Parent conversionCompleteParent = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/ConversionComplete.fxml"));
             Scene ClipBoardScene = new Scene(conversionCompleteParent);
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
