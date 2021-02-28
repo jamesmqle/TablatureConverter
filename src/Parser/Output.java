@@ -11,6 +11,15 @@ public class Output {
 		 this.technique=tech;
 		 this.index=i;
 	}
+	
+	public Output() {
+		// TODO Auto-generated constructor stub
+		 this.letter="";
+		 this.note1=0;
+		 this.note2=0;
+		 this.technique="";
+		 this.index=0;
+	}
 
 	/*
 	 * public void printData(List<Output> data) { data.forEach(obj ->
