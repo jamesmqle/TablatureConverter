@@ -10,9 +10,7 @@ import java.util.Scanner;
 
 import org.junit.Test;
 
-public class textReaderTest{
-
-	
+public class textReaderTest {
 
 	@Test
 	public void testParsGuitar() {
@@ -21,21 +19,42 @@ public class textReaderTest{
 		tab.add("E|--0-----------------------|-------------------------|");
 		tab.add("B|------------------3-----5-|-2-----------------------|");
 		tab.add("G|------------------3-------|-2-----------------------|");
-		tab.add("D|------------------5-------|-2-----------------------|");
+		tab.add("D|------------------5-------|-2p4---------------------|");
 		tab.add("A|--------------------------|-0-----------------------|");
 		tab.add("D|--------------------------|-------------------------|");
-		listt = ParsGuitar(tab, listt);
-		assertTrue(listt.get(0).getnote1()==0);
+		listt = textReader.ParsGuitar(tab, listt);
+		assertTrue(listt.get(0).getnote1() == 0);
+		assertTrue(listt.get(8).getnote2() == 4);
+		assertEquals("p", listt.get(8).gettech());
+
 	}
 
 	@Test
 	public void testParsBass() {
-		fail("Not yet implemented");
+		List<Output> listt = new ArrayList<>();
+		List<String> tab = new ArrayList<>();
+		tab.add("G|---------------|----------------|");
+		tab.add("D|---------------|----------------|");
+		tab.add("A|-5-5-6-5-5-5-5-|-5-5-5-5-5-5-5--|");
+		tab.add("D|---------------|----------------|");
+		listt = textReader.ParsDrum(tab, listt);
+		assertTrue(listt.get(0).getletter() == "A");
+		assertEquals(6, listt.get(3).getnote1());
 	}
 
 	@Test
 	public void testParsDrum() {
-		fail("Not yet implemented");
+		List<Output> listt = new ArrayList<>();
+		List<String> tab = new ArrayList<>();
+		tab.add("CC|x---------------|--------x-------|");
+		tab.add("HH|--x-x-x-x-x-x-x-|----------------|");
+		tab.add("SD|----o-------o---|oooo------------|");
+		tab.add("HT|----------------|----oo----------|");
+		tab.add("MT|----------------|------oo--------|");
+		tab.add("BD|o-------o-------|o-------o-------|");
+		listt = textReader.ParsDrum(tab, listt);
+		assertTrue(listt.get(0).getletter() == "CC");
+		assertEquals("x", listt.get(3).gettech());
 	}
 
 	@Test

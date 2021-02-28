@@ -426,8 +426,6 @@ public class textReader extends Output {
 
 	/*
 	 * "handleException" handles the exception if there is a throw
-	 */
-	/*
 	 * private static void handleException() { Alert errorAlert = new
 	 * Alert(Alert.AlertType.ERROR); errorAlert.setHeaderText("File not found.");
 	 * errorAlert.setContentText("Please choose a file first before you preview");
