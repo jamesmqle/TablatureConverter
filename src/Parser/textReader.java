@@ -207,19 +207,21 @@ public class textReader extends Output {
 										-1, "-", i));
 
 					}
-					// 3 digits number
-					/*
-					 * else if ((getCharFromString(zoom.get(j), i - 1) == '-') &&
-					 * (getCharFromString(zoom.get(j), i + 1) != '-') &&
-					 * (getCharFromString(zoom.get(j), i + 1) != '/') &&
-					 * (getCharFromString(zoom.get(j), i + 1) != 's') &&
-					 * (getCharFromString(zoom.get(j), i + 2) != '-') &&
-					 * (getCharFromString(zoom.get(j), i + 3) == '-')) { list.add(new
-					 * Output(Character.toString(getCharFromString(zoom.get(j), 0)),
-					 * Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i)) +
-					 * Character.toString(getCharFromString(zoom.get(j), i + 1)) +
-					 * Character.toString(getCharFromString(zoom.get(j), i + 2))), -1, "-", i)); }
-					 */
+					// 3 digits number in parentheses like (0)
+
+					else if ((getCharFromString(zoom.get(j), i - 1) == '-')
+							&& (getCharFromString(zoom.get(j), i + 1) != '-')
+							&& (getCharFromString(zoom.get(j), i + 1) != '/')
+							&& (getCharFromString(zoom.get(j), i + 1) != 's')
+							&& (getCharFromString(zoom.get(j), i + 2) != '-')
+							&& (getCharFromString(zoom.get(j), i + 3) == '-')) {
+						list.add(new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
+								Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))
+										+ Character.toString(getCharFromString(zoom.get(j), i + 1))
+										+ Character.toString(getCharFromString(zoom.get(j), i + 2))),
+								-1, "-", i));
+					}
+
 					// 3 digit with technique
 					else if (((getCharFromString(zoom.get(j), i - 1) == '-')
 							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
