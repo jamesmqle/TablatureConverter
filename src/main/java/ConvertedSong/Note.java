@@ -10,10 +10,12 @@ import java.io.Serializable;
 @XmlRootElement(name = "note")
 @XmlType(propOrder = {"pitch", "duration", "type"})
 public class Note implements Serializable {
+
     private Pitch pitch;
     private int duration;
-    //private Type type;
     private String type;
+    Notation notation;
+    String voice;
 
     public Note() {
         this.pitch = new Pitch();
@@ -38,7 +40,7 @@ public class Note implements Serializable {
         this.type = type;
     }
 
-    public Note(Pitch pitch, int duration, String type) {
+    public Note(Pitch pitch, int duration, String type, Notation notations, String voice) {
         this.pitch = pitch;
         this.duration = duration;
         this.type = type;
@@ -69,6 +71,22 @@ public class Note implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @XmlElement(name = "notation")
+    public Notation getNotations() {
+        return this.notation;
+    }
+    public void setNotations(Notation notations) {
+        this.notation = notations;
+    }
+
+    @XmlElement(name = "voice")
+    public String getVoice() {
+        return this.voice;
+    }
+    public void setVoice(String voice) {
+        this.voice = voice;
     }
 
 }
