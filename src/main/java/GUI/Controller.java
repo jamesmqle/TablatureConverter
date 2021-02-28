@@ -1,12 +1,14 @@
 package GUI;
 
+import ConvertedSong.ConvertedSongTest;
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Iterator;
 import java.util.Scanner;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -29,9 +31,9 @@ import javax.swing.*;
  */
 public class Controller {
 
-    public static String fileAsString;
     File inputFile = null; // Input file Object
     File outputFile = new File("src/main/resources/sample/ConvertedSong.xml"); // Output file Object
+    File textFile = new File("src/main/resources/sample/textarea.txt");
 
     @FXML
     private ListView listview;
@@ -46,16 +48,14 @@ public class Controller {
      * @throws FileNotFoundException
      */
     @FXML
-    public void FileChooserHandler(ActionEvent event) throws FileNotFoundException {
+    public void FileChooserHandler(ActionEvent event) throws IOException {
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text File", "*.txt")); // filters only text files
         try {
             inputFile = fc.showOpenDialog(null); // opens file explorer
-            setFileAsString(inputFile.toString()); // Converts the file to a string
         }
         catch (Exception e) {
         }
-        System.out.println(fileAsString);
 
         if (inputFile != null) {
             listview.getItems().add(inputFile.getName()); // adds file to listview
@@ -64,11 +64,8 @@ public class Controller {
             if (listview.getItems().size() == 2) { listview.getItems().remove(0); }
 
         }
-        displayTablature(); // displays file content to textarea
-    }
 
-    public void setFileAsString(String fileAsString) {
-        this.fileAsString = fileAsString;
+        displayTablature(); // displays file content to textarea
     }
 
     /**
@@ -76,19 +73,41 @@ public class Controller {
      *
      * @throws FileNotFoundException
      */
-    private void displayTablature() throws FileNotFoundException {
+    private void displayTablature() throws IOException {
         try {
-            Scanner input = new Scanner(new File(fileAsString)).useDelimiter("\\s");
-            while (input.hasNext()) {
-                if (input.hasNextInt()) { // check if next token is an int
-                    textview.appendText(input.nextInt() + " "); // display the found integer
+            Scanner s = new Scanner(new File(inputFile.toString())).useDelimiter("\\s+");
+            while (s.hasNext()) {
+                if (s.hasNextInt()) { // check if next token is an int
+                    textview.appendText(s.nextInt() + " "); // display the found integer
                 } else {
-                    textview.appendText(input.next() + " "); // else read the next token
+                    textview.appendText(s.next() + " "); // else read the next token
                 }
+                textview.appendText("\n");
             }
         } catch (FileNotFoundException ex) {
             System.err.println(ex);
         }
+
+            textViewToFile(textFile, textview);
+
+    }
+
+    /**
+     * This method creates a file from the textarea
+     * @param textFile
+     * @param textview
+     */
+    public void textViewToFile(File textFile, TextArea textview) {
+        try {
+            BufferedWriter bf = new BufferedWriter(new FileWriter(textFile));
+            bf.write(textview.getText());
+            bf.flush();
+            bf.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(textFile.toString());
+        System.out.println(outputFile.toString());
     }
 
 
@@ -143,20 +162,37 @@ public class Controller {
      */
     @FXML
     public void ConvertHandler(ActionEvent event) throws IOException {
-        try {
-            if (listview != null) {
-                textReader.readTabFile(fileAsString); // passes the input file to the parser
-                Parent conversionCompleteParent = FXMLLoader.load(getClass().getResource("ConversionComplete.fxml"));
+     //   try {
+            if (textview != null) { // gives error message if textarea is empty
+                ConvertedSongTest.createXML(textReader.readTabFile(textFile.toString()),outputFile.toString()); // Passes textarea file through parser
+                Parent conversionCompleteParent = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/ConversionComplete.fxml"));
                 Scene ClipBoardScene = new Scene(conversionCompleteParent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(ClipBoardScene);
                 window.show();
             }
-        } catch (Exception e) {
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("File not found.");
-            errorAlert.setContentText("Please choose a file before you convert.");
-            errorAlert.showAndWait();
+//        } catch (Exception e) {
+//            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+//            errorAlert.setHeaderText("File not found.");
+//            errorAlert.setContentText("Please choose a file before you convert.");
+//            errorAlert.showAndWait();
+//        }
+    }
+
+    /**
+     * This button in conversion complete scene will save the xml file to local desktop
+     * @param event
+     */
+    @FXML
+    public void SaveXMLFileHandler(ActionEvent event){
+        FileChooser fc = new FileChooser();
+        File dest = fc.showSaveDialog(null);
+        if (dest != null) {
+            try {
+                Files.copy(outputFile.toPath(), dest.toPath());
+            } catch (IOException ex) {
+                // handle exception...
+            }
         }
     }
 
@@ -166,7 +202,6 @@ public class Controller {
      * @param event
      * @throws IOException
      */
-
     @FXML
     public void OpenXMLHandler(ActionEvent event) throws IOException {
         Desktop.getDesktop().open(outputFile);
