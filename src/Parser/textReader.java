@@ -126,22 +126,7 @@ public class textReader extends Output {
 												+ Character.toString(getCharFromString(zoom.get(j), i + 1))),
 										-1, "-", i));
 
-					}
-					// 3 digits number
-					/*
-					 * else if ((getCharFromString(zoom.get(j), i - 1) == '-') &&
-					 * (getCharFromString(zoom.get(j), i + 1) != '-') &&
-					 * (getCharFromString(zoom.get(j), i + 1) != '/') &&
-					 * (getCharFromString(zoom.get(j), i + 1) != 's') &&
-					 * (getCharFromString(zoom.get(j), i + 2) != '-') &&
-					 * (getCharFromString(zoom.get(j), i + 3) == '-')) { list.add(new
-					 * Output(Character.toString(getCharFromString(zoom.get(j), 0)),
-					 * Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i)) +
-					 * Character.toString(getCharFromString(zoom.get(j), i + 1)) +
-					 * Character.toString(getCharFromString(zoom.get(j), i + 2))), -1, "-", i)); }
-					 */
-					// 3 digit with technique
-					else if (((getCharFromString(zoom.get(j), i - 1) == '-')
+					} else if (((getCharFromString(zoom.get(j), i - 1) == '-')
 							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
 							&& ((getCharFromString(zoom.get(j), i + 1) == '/')
 									|| (getCharFromString(zoom.get(j), i + 1) == 's')
@@ -261,56 +246,11 @@ public class textReader extends Output {
 			for (int j = 0; j < m; j++) {
 				if ((getCharFromString(zoom.get(j), i) != '-') && (getCharFromString(zoom.get(j), i) != '|')) {
 					// 1 digit
-					if (((getCharFromString(zoom.get(j), i - 1) == '-')
-							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
-							&& ((getCharFromString(zoom.get(j), i + 1) == '-')
-									|| (getCharFromString(zoom.get(j), i + 1) == '|'))) {
-						list.add(new Output(
-								Character.toString(getCharFromString(zoom.get(j), 0))
-										+ Character.toString(getCharFromString(zoom.get(j), 1)),
-								-1, -1, Character.toString(getCharFromString(zoom.get(j), i)), i));
+					list.add(new Output(
+							Character.toString(getCharFromString(zoom.get(j), 0))
+									+ Character.toString(getCharFromString(zoom.get(j), 1)),
+							-1, -1, Character.toString(getCharFromString(zoom.get(j), i)), i));
 
-					}
-					// 2 digits
-					else if (((getCharFromString(zoom.get(j), i - 1) == '-')
-							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
-							&& ((getCharFromString(zoom.get(j), i + 2) == '-')
-									|| (getCharFromString(zoom.get(j), i + 2) == '|'))
-							&& ((getCharFromString(zoom.get(j), i + 1) != '-')
-									|| (getCharFromString(zoom.get(j), i + 1) != '|'))) {
-						list.add(new Output(
-								Character.toString(getCharFromString(zoom.get(j), 0))
-										+ Character.toString(getCharFromString(zoom.get(j), 1)),
-								-1, -1, Character.toString(getCharFromString(zoom.get(j), i))
-										+ Character.toString(getCharFromString(zoom.get(j), i)),
-								i));
-						// i++;
-
-					}
-					// 3 digits number
-					else if ((getCharFromString(zoom.get(j), i - 1) == '-')
-							&& (getCharFromString(zoom.get(j), i + 1) != '-')
-							&& (getCharFromString(zoom.get(j), i + 1) != '/')
-							&& (getCharFromString(zoom.get(j), i + 2) != '-')
-							&& (getCharFromString(zoom.get(j), i + 3) == '-')) {
-						list.add(new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
-								Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))
-										+ Character.toString(getCharFromString(zoom.get(j), i + 1))
-										+ Character.toString(getCharFromString(zoom.get(j), i + 2))),
-								-1, "-", i));
-						// i += 2;
-					}
-					// 3 digit with technique
-					else if ((getCharFromString(zoom.get(j), i - 1) == '-')
-							&& (getCharFromString(zoom.get(j), i + 1) == '/')
-							&& (getCharFromString(zoom.get(j), i + 2) != '-')
-							&& (getCharFromString(zoom.get(j), i + 3) == '-')) {
-						list.add(new Output(Character.toString(getCharFromString(zoom.get(j), 0)),
-								Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i))),
-								Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i + 2))),
-								Character.toString(getCharFromString(zoom.get(j), i + 1)), i));
-						// i += 2;
-					}
 				}
 				if (getCharFromString(zoom.get(j), i) == '|') {
 					list.add(new Output("*New Measure*", -1, -1, "-", i));
