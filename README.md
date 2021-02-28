@@ -66,14 +66,21 @@ TablatureConverter requires the the following to run:
 
 
 
-## usage_instructions
+## Usage_instructions
 1.) Choose option to upload file or copy from clipboard
+
 2.) After choosing to upload file, the contents of the file would display on the clipboard
+
 3.) Edit file if need be from the clipboard
+
 4.) Click on convert after choosing file; NOTE: An error message would be displayed if file is not chosen
+
 5.) A new screen would come up after clicking on the convert button
+
 6.) Click on the "back" button to go back to the home page
+
 7.) Click on the "open MusicXML" button to show converted musicXML file
+
 8.) View or download MusicXML file depending on users preference.
 
 
