@@ -5,15 +5,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@ConversionComplete.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
    <children>
-      <Label layoutX="241.0" layoutY="216.0" prefHeight="60.0" prefWidth="318.0" text="Conversion Complete" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="415.0" layoutY="302.0" prefHeight="60.0" prefWidth="371.0" text="Conversion Complete">
          <font>
             <Font name="Century Gothic" size="29.0" />
          </font>
       </Label>
-      <Button layoutX="330.0" layoutY="300.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="140.0" text="Open MusicXML" />
+      <Button layoutX="504.0" layoutY="383.0" mnemonicParsing="false" onAction="#OpenXMLHandler" prefHeight="60.0" prefWidth="193.0" text="Open MusicXML">
+         <font>
+            <Font name="Century Gothic" size="20.0" />
+         </font></Button>
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackToWelcome" text="Back" />
    </children>
 </AnchorPane>

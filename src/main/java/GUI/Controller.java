@@ -1,30 +1,23 @@
 package GUI;
 
 import ConvertedSong.ConvertedSongTest;
-import java.awt.*;
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Iterator;
-import java.util.Scanner;
-
-import javafx.collections.ObservableList;
+import Parser.textReader;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.Clipboard;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import Parser.textReader;
 
-import javax.swing.*;
+import java.awt.*;
+import java.io.*;
+import java.nio.file.Files;
+import java.util.Scanner;
 
 /**
  * Controller class controls the functionality of the User Interface
@@ -161,16 +154,16 @@ public class Controller {
      */
     @FXML
     public void ConvertHandler(ActionEvent event) throws IOException {
-     //   try {
-            if (textview != null) { // gives error message if textarea is empty
-                textViewToFile(textFile, textview);
-                ConvertedSongTest.createXML(textReader.readTabFile(textFile.toString()),outputFile.toString()); // Passes textarea file through parser
-                Parent conversionCompleteParent = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/ConversionComplete.fxml"));
-                Scene ClipBoardScene = new Scene(conversionCompleteParent);
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(ClipBoardScene);
-                window.show();
-            }
+        //   try {
+        if (textview != null) { // gives error message if textarea is empty
+            textViewToFile(textFile, textview);
+            ConvertedSongTest.createXML(textReader.readTabFile(textFile.toString()),outputFile.toString()); // Passes textarea file through parser
+            Parent conversionCompleteParent = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/ConversionComplete.fxml"));
+            Scene ClipBoardScene = new Scene(conversionCompleteParent);
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(ClipBoardScene);
+            window.show();
+        }
 //        } catch (Exception e) {
 //            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
 //            errorAlert.setHeaderText("File not found.");

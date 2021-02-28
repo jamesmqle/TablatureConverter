@@ -13,7 +13,10 @@ public class Clef {
     private String sign;
     private int line;
 
-    public Clef(){}
+    public Clef(){
+        this.sign = "TAB";
+        this.line = 5;
+    }
 
     public Clef(String s, int l ){
         this.sign = s;
