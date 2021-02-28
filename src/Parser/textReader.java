@@ -36,6 +36,7 @@ public class textReader extends Output {
 			// Check which instrument it is
 			data = myReader.nextLine();
 			if ((!data.isEmpty()) && (flag == 0)) {
+
 				if ((data.charAt(0) == 'e') || (data.charAt(0) == 'E')) { // guitar
 					flag = 1;
 				} else if (data.charAt(0) == 'G') { // bass
@@ -54,9 +55,17 @@ public class textReader extends Output {
 					k++;
 				}
 				if (k == 6) {
-					list = ParsGuitar(zoom, list);
-					k = 0;
-					zoom.clear();
+					try {
+						TabIsOK(zoom, flag);
+						list = ParsGuitar(zoom, list);
+						k = 0;
+						zoom.clear();
+
+					} catch (StringIndexOutOfBoundsException e) {
+						// handleException();
+						System.out.println(
+								"Exception occurred . . . . Strings do not have the same length or do have wrong tunning!!");
+					}
 				}
 			} else if (flag == 2) { // Bass
 				if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
@@ -68,14 +77,21 @@ public class textReader extends Output {
 					k++;
 				}
 				if (k == 4) {
-					list = ParsBass(zoom, list);
-					k = 0;
-					zoom.clear();
+					try {
+						TabIsOK(zoom, flag);
+						list = ParsBass(zoom, list);
+						k = 0;
+						zoom.clear();
+
+					} catch (StringIndexOutOfBoundsException e) {
+						// handleException();
+						System.out.println(
+								"Exception occurred . . . . Strings do not have the same length or they do have wrong tunning!!");
+					}
 				}
 			} else if (flag == 3) {// Drum
 				if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
 					System.out.println("****");
-					// m = 1;
 
 				} else {
 					System.out.println(data);
@@ -83,9 +99,17 @@ public class textReader extends Output {
 					k++;
 				}
 				if (k == 6) {
-					list = ParsDrum(zoom, list, k);
-					k = 0;
-					zoom.clear();
+					try {
+						TabIsOK(zoom, flag);
+						list = ParsDrum(zoom, list, k);
+						k = 0;
+						zoom.clear();
+
+					} catch (StringIndexOutOfBoundsException e) {
+						// handleException();
+						System.out.println(
+								"Exception occurred . . . . Strings do not have the same length or They do have wrong tunning!!");
+					}
 				}
 
 			}
@@ -94,15 +118,22 @@ public class textReader extends Output {
 		myReader.close();
 
 		return list;
+
 	}
 
 	public static List<Output> ParsGuitar(List<String> zoom, List<Output> list) {
 		if (!list.isEmpty()) {
 			list.add(new Output("# NEW TAB #", -1, -1, "-", -1));
 		}
+
 		int length = zoom.get(0).length();
 		for (int i = 2; i < length; i++) {
 			for (int j = 0; j < 6; j++) {
+
+				if (i < 0 || i > length) {
+					throw new IndexOutOfBoundsException("index :" + i + " but size of list:" + length);
+				}
+
 				if ((getCharFromString(zoom.get(j), i) != '-') && (getCharFromString(zoom.get(j), i) != '|')) {
 					// 1 digit
 					if (((getCharFromString(zoom.get(j), i - 1) == '-')
@@ -290,4 +321,47 @@ public class textReader extends Output {
 		list.forEach(obj -> System.out.println("Tunning :" + obj.getletter() + "\t" + "note 1 :" + obj.getnote1() + "\t"
 				+ "note 2 :" + obj.getnote2() + "\t" + "Technique :" + obj.gettech() + "\t" + "i :" + obj.getindex()));
 	}
+
+	private static void TabIsOK(List<String> zoom, int flag) {
+		// TODO Auto-generated method stub
+		if (flag == 1) {// Guitar
+
+			for (int i = 0; i < zoom.size() - 1; i++) {
+				if (zoom.get(i).length() != zoom.get(i + 1).length()) {
+					throw new StringIndexOutOfBoundsException();
+				}
+			}
+			if ((getCharFromString(zoom.get(1), 0) != 'B') || (getCharFromString(zoom.get(2), 0) != 'G')
+					|| (getCharFromString(zoom.get(3), 0) != 'D') || (getCharFromString(zoom.get(4), 0) != 'A')
+					|| (getCharFromString(zoom.get(5), 0) != 'D')) {
+				throw new StringIndexOutOfBoundsException();
+			}
+			
+
+		} else if (flag == 2) {// Bass
+			for (int i = 0; i < zoom.size() - 1; i++) {
+				if (zoom.get(i).length() != zoom.get(i + 1).length()) {
+					throw new StringIndexOutOfBoundsException();
+				}
+			}
+			if ((getCharFromString(zoom.get(1), 0) != 'D') || (getCharFromString(zoom.get(2), 0) != 'A')
+					|| (getCharFromString(zoom.get(3), 0) != 'D')) {
+				throw new StringIndexOutOfBoundsException();
+			}
+		} else if (flag == 3) {// Drum
+			for (int i = 0; i < zoom.size() - 1; i++) {
+				if (zoom.get(i).length() != zoom.get(i + 1).length()) {
+					throw new StringIndexOutOfBoundsException();
+				}
+			}
+		}
+	}
+
+	/*
+	 * private static void handleException() { Alert errorAlert = new
+	 * Alert(Alert.AlertType.ERROR); errorAlert.setHeaderText("File not found.");
+	 * errorAlert.setContentText("Please choose a file first before you preview");
+	 * errorAlert.showAndWait(); }
+	 */
+
 }
