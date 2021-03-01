@@ -1,6 +1,6 @@
 package GUI;
 
-import ConvertedSong.ConvertedSongTest;
+import ConvertedSong.*;
 import Parser.textReader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
