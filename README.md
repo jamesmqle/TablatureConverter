@@ -6,8 +6,7 @@
 
 - [Description](#description)
 - [System Requirements](#system-requirements)
-- [Troubleshooting](#troubleshooting)
-- [Program Exit Shortcut](#shortcut)
+- [Set Up and Run Program](#set-up-and-run-program)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -44,10 +43,13 @@ TablatureConverter requires the the following to run:
 - [IntelliJ](https://www.jetbrains.com/idea/download/#section=windows) or [Eclipse](https://www.eclipse.org/downloads/)
 - Java version 11 - 14
 
+---
 
-### How to Set Up and Run Program
+## Set Up and Run Program
 
-[User Manual](https://github.com/jamesmqle/TablatureConverter/blob/main/Documentation/User%20Manual.pdf)
+Follow this [User Manual](https://github.com/jamesmqle/TablatureConverter/blob/main/Documentation/User%20Manual.pdf) to access and run the program.
+
+---
 
 
 ## Contributors
@@ -94,4 +96,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
 
