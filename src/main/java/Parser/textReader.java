@@ -39,7 +39,7 @@ public class textReader extends Output {
 		int flag = 0;
 
 		// scan the txt file
-		Scanner myReader = new Scanner(new FileReader("D:\\3221\\gg.txt"));
+		Scanner myReader = new Scanner(new FileReader(path));
 		String data = null;
 		int k = 0;
 

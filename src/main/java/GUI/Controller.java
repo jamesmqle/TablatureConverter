@@ -2,6 +2,7 @@ package GUI;
 
 import ConvertedSong.ConvertedSongTest;
 import Parser.textReader;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.Clipboard;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -160,6 +163,13 @@ public class Controller {
             ConvertedSongTest.createXML(textReader.readTabFile(textFile.toString()),outputFile.toString()); // Passes textarea file through parser
             Parent conversionCompleteParent = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/ConversionComplete.fxml"));
             Scene ClipBoardScene = new Scene(conversionCompleteParent);
+            //Shortcut for closing the program
+            // closes the program when the "esc" button is pressed...
+            ClipBoardScene.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent ke) -> {
+                if (KeyCode.ESCAPE == ke.getCode()) {
+                    Platform.exit();
+               }
+            });
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(ClipBoardScene);
             window.show();
