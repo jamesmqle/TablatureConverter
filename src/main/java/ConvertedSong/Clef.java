@@ -3,7 +3,7 @@ package ConvertedSong;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-/*
+/**
  *  The Clef program implements attributes sign and line.
  */
 
