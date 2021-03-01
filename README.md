@@ -6,7 +6,9 @@
 
 - [Description](#description)
 - [System Requirements](#system-requirements)
-- [Set Up and Run Program](#set-up-and-run-program)
+- [User Manual](#user-manual)
+- [Requirements Document](requirements-document)
+- [Testing Document](testing-document)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -45,12 +47,22 @@ TablatureConverter requires the the following to run:
 
 ---
 
-## Set Up and Run Program
+## User Manual
 
-Follow this [User Manual](https://github.com/jamesmqle/TablatureConverter/blob/main/Documentation/User%20Manual.pdf) to access and run the program.
+This [user manual](https://github.com/jamesmqle/TablatureConverter/blob/main/Documentation/User%20Manual.pdf) includes installation instructions, "how to get started", and common usage scenarios.
 
 ---
 
+## Requirements Document
+This [requirements document](https://github.com/jamesmqle/TablatureConverter/blob/main/Documentation/Requirements%20Document.pdf) describes the needs of the customer. All required features are described in detail. Use cases and user stories are provided.
+
+---
+
+## Testing Document
+
+The [testing document](https://github.com/jamesmqle/TablatureConverter/blob/main/Documentation/User%20Manual.pdf) describes the test cases, the way they were derived, and the way they were implemented.
+
+---
 
 ## Contributors
 
