@@ -9,6 +9,7 @@
 - [Troubleshooting](#troubleshooting)
 - [Usage Instructions](#usage_instructions)
 - [Usage Scenarios](#usage-scenarios)
+- [Program Exit Shortcut](#shortcut)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -79,7 +80,9 @@ TablatureConverter requires the the following to run:
 
 6.) Click on the "back" button to go back to the home page
 
-7.) Click on the "open MusicXML" button to show converted musicXML file
+7.) Click on the "Save File" button to save converted MusicXML file 
+
+7.) Click on the "open MusicXML" button to open converted musicXML file
 
 8.) View or download MusicXML file depending on users preference.
 
@@ -121,7 +124,8 @@ The program opens the converted MusicXML in the browser
 John downloads the MusicXML file
 
 
-
+## Shortcut
+You can easily close the program using the "esc" key on your keyboard
 
 
 
