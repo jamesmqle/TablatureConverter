@@ -41,7 +41,7 @@ E|------3-------3--3-3-3-3------------3-----------------------|
 
 TablatureConverter requires the the following to run:
 - [IntelliJ](https://www.jetbrains.com/idea/download/#section=windows) or [Eclipse](https://www.eclipse.org/downloads/)
-- Java version 11 - 14
+- Java version 11 or newer
 
 ---
 
