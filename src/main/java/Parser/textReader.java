@@ -22,15 +22,44 @@ public class textReader extends Output {
     }
 
     public static void main(String[] args) throws IOException {
-        String path = "src/main/resources/sample/testFile.txt";
+        String path = "src/main/resources/sample/LetHerGoTest.txt";
+        String instrument;
         List<Output> list = new ArrayList<>();
-        list = readTabFile(path);
+        list = readTabFile2(path);
         printData(list);
-        System.out.println(shortestNoteDuration(path));
+        if (detectInstrument(path) == 1) instrument = "Guitar";
+        else if (detectInstrument(path) == 2) instrument = "Bass";
+        else if (detectInstrument(path) == 3) instrument = "Drums";
+        else instrument = "Failure";
+        System.out.println(instrument);
+    }
+
+    public static int detectInstrument(String path) throws FileNotFoundException {
+        List<Output> list = new ArrayList<>();
+        List<String> zoom = new ArrayList<>();
+        int flag = 0;
+
+        Scanner myReader = new Scanner(new FileReader(path));
+        String data = null;
+        int k = 0;
+
+        while (myReader.hasNextLine()) {
+            // Check which instrument it is
+            data = myReader.nextLine().trim();
+            if ((!data.isEmpty()) && (flag == 0)) {
+                if ((data.charAt(0) == 'e') || (data.charAt(0) == 'E')) { // guitar
+                    flag = 1;
+                } else if (data.charAt(0) == 'G') { // bass
+                    flag = 2;
+                } else { // drum
+                    flag = 3;
+                }
+            }
+        }
+        return flag;
     }
 
     public static List<Output> readTabFile(String path) throws FileNotFoundException {
-
         List<Output> list = new ArrayList<>();
         List<String> zoom = new ArrayList<>();
         int flag = 0;
@@ -558,7 +587,7 @@ public class textReader extends Output {
      * @throws FileNotFoundException
      */
 
-    public static int shortestNoteDuration(String filepath)throws FileNotFoundException{
+    public static int shortestNoteDuration(String filepath) throws FileNotFoundException{
         /**
          * 1. Declare first note
          * 2. Subtract note.index - prevNote.index
