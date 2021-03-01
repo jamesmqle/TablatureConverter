@@ -125,7 +125,7 @@ John downloads the MusicXML file
 
 
 ## Shortcut
-You can easily close the program using the "esc" key on your keyboard
+You can easily close the program by pressing the "esc" key on your keyboard
 
 
 
