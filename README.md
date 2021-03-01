@@ -5,7 +5,7 @@
 ### Table of Contents
 
 - [Description](#description)
-- [Getting Started](#getting-started)
+- [System Requirements](#system-requirements)
 - [Troubleshooting](#troubleshooting)
 - [Usage Instructions](#usage_instructions)
 - [Usage Scenarios](#usage-scenarios)
@@ -40,11 +40,11 @@ E|------3-------3--3-3-3-3------------3-----------------------|
 
 ---
 
-## Getting Started
+## System Requirements
 
 TablatureConverter requires the the following to run:
-- Download [IntelliJ](https://www.jetbrains.com/idea/download/#section=windows) or [Eclipse](https://www.eclipse.org/downloads/)
-- Download [JavaFX SDK](https://gluonhq.com/products/javafx/)
+- [IntelliJ](https://www.jetbrains.com/idea/download/#section=windows) or [Eclipse](https://www.eclipse.org/downloads/)
+- Java version 11 - 14
 
 
 ### How to Run Program
@@ -68,6 +68,8 @@ TablatureConverter requires the the following to run:
 
 
 ## Usage_instructions
+
+./Documentation/User Manual.pdf
 1.) Choose option to upload file or copy from clipboard
 
 2.) After choosing to upload file, the contents of the file would display on the clipboard
