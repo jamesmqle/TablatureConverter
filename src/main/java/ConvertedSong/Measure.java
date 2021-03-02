@@ -42,6 +42,12 @@ public class Measure implements Serializable {
         this.number = number;
     }
 
+    public void setMeasure(Measure measure){
+        this.attributes = measure.attributes;
+        this.notes = measure.notes;
+        this.number = measure.number;
+    }
+
     @XmlElement(name = "attributes")
     public Attributes getAttributes(){
         return this.attributes;
@@ -54,6 +60,10 @@ public class Measure implements Serializable {
     @XmlElement(name = "note")
     public List<Note> getNotes(){
         return this.notes;
+    }
+
+    public Note getLastNote(){
+        return this.notes.get(this.notes.size()-1);
     }
 
     public void setNotes(List<Note> notes){

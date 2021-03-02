@@ -33,6 +33,11 @@ public class Part implements Serializable {
         this.measures.add(measure);
     }
 
+    public Measure getLastMeasure(){
+        return this.measures.get(this.measures.size()-1);
+    }
+
+
     @XmlAttribute
     public String getId() {
         return this.id;
