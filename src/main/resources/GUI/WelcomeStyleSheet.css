@@ -8,6 +8,7 @@
     -fx-background-insets: -1.4, 0, 1, 2;
 }
 
+
 .button:hover{
     -fx-background-color: lightgray;
     -fx-text-fill: black;

@@ -1,4 +1,4 @@
-package main.java.Parser;
+package Parser;
 
 import GUI.Controller;
 import java.io.FileReader;
