@@ -12,9 +12,9 @@ import java.io.Serializable;
 public class Note implements Serializable {
     private Pitch pitch;
     private int duration;
-    //private Type type;
     private String type;
     private String chord;
+    private Notations notations;
 
     public Note() {
         this.pitch = new Pitch();

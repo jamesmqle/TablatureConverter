@@ -179,6 +179,7 @@ public class Controller {
     @FXML
     public void SaveXMLFileHandler(ActionEvent event){
         FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML File", "*.XML"));
         File dest = fc.showSaveDialog(null);
         if (dest != null) {
             try {

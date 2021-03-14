@@ -1,13 +1,18 @@
 package ConvertedSong;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
+@XmlRootElement(name = "technical")
 public class Technical {
 
     String string;
     String fret;
 
     public Technical() {}
+
     public Technical(String string, String fret) {
         this.string = string;
         this.fret = fret;
