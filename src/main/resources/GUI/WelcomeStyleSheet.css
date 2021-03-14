@@ -1,7 +1,7 @@
-.root{
-    -fx-background-image: url("/GUI/img_1.png");
-    -fx-background-size: stretch;
-}
+/*.root{*/
+/*    -fx-background-image: url("/GUI/img_1.png");*/
+/*    -fx-background-size: stretch;*/
+/*}*/
 
 .button:focused {
     -fx-focus-color: transparent;
@@ -9,8 +9,9 @@
 }
 
 
-.button:hover{
-    -fx-background-color: lightgray;
-    -fx-text-fill: black;
+#UploadFileButton:hover{
+    -fx-background-color: darkgrey;
+    -fx-text-fill: blue;
 }
+
 

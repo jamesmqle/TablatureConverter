@@ -22,8 +22,7 @@ public class Main extends Application {
 		Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/WelcomeScene.fxml"));
 		primaryStage.setTitle("Tablature Converter");
 		Scene scene = new Scene(root, 1200, 800);
-		//Shortcut for closing the program
-        // closes the program when the "esc" button is pressed...
+		//Shortcut for closing the program closes the program when the "esc" button is pressed...
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent ke) {
                 if (ke.getCode() == KeyCode.ESCAPE) {
@@ -32,8 +31,7 @@ public class Main extends Application {
                 }
             }
         });
-		scene.getStylesheets()
-				.add(getClass().getClassLoader().getResource("GUI/WelcomeStyleSheet.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getClassLoader().getResource("GUI/WelcomeStyleSheet.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		primaryStage.setResizable(false);
