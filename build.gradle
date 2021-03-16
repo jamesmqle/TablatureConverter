@@ -21,6 +21,8 @@ dependencies {
     implementation 'javax.activation:activation:1.1.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.1"
 }
 
 test {
@@ -30,7 +32,7 @@ test {
     }
 }
 
-run {    
+run {
     if (javafx.platform.classifier == 'win') {
         systemProperty "java.library.path", "C:\tmp"
     }

@@ -19,8 +19,6 @@
         <module name="TablatureConverter" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="TablatureConverter" target="15" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="15" />
   </component>
 </project>
