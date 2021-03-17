@@ -19,7 +19,7 @@ Tablature notation is a way of writing down an instrument’s parts in an access
 
 The software product will consist of a desktop application. Upon the upload of a tablature in *.txt form, the system will convert the tab to a MusicXML file format.
 
-### Sample Guitar Tablature
+### Sample XMLTags.Guitar Tablature
 
 ```
 e|------------------------------------------------------------|

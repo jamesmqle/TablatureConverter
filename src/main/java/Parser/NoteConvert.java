@@ -8,8 +8,8 @@ package Parser;
  *
  */
 
-import ConvertedSong.Pitch;
-import ConvertedSong.*;
+import XMLTags.Common.Note;
+import XMLTags.Common.Pitch;
 
 public class NoteConvert {
 
@@ -103,6 +103,16 @@ public class NoteConvert {
 		finalNote.setPitch(new Pitch(intToStep(result), addOctave, intToAlter(result)));
 		
 		return finalNote;
+	}
+
+	public static int convertToStringInt(String stringTune) {
+		if (stringTune.equals("E")) return 1;
+		else if (stringTune.equals("A")) return 2;
+		else if (stringTune.equals("D")) return 3;
+		else if (stringTune.equals("G")) return 4;
+		else if (stringTune.equals("B")) return 5;
+		else if (stringTune.equals("e")) return 6;
+		else return -1;
 	}
 
 	// bruh moment

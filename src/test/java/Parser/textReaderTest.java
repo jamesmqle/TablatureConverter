@@ -18,7 +18,7 @@ class textReaderTest {
         tab.add("D|------------------5-------|-2-----------------------|");
         tab.add("A|--------------------------|-0-----------------------|");
         tab.add("D|--------------------------|-------------------------|");
-        listt = textReader.ParsGuitar(tab, listt);
+        listt = textReader.ParseGuitar(tab, listt);
         assertTrue(listt.get(0).getnote1()==0);
     }
 
