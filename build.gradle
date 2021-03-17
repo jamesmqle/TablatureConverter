@@ -3,14 +3,15 @@
  */
 
 plugins {
-    id 'java'
+    // Apply the java-library plugin to add support for Java Library
     id 'java-library'
-    id 'maven-publish'
+    id 'jacoco'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
 repositories {
+    jcenter()
     mavenCentral()
 }
 
@@ -19,10 +20,13 @@ dependencies {
     implementation 'com.sun.xml.bind:jaxb-impl:2.3.0'
     implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.0'
     implementation 'javax.activation:activation:1.1.1'
+    implementation 'junit:junit:4.12'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.1"
+    testCompile 'org.testfx:testfx-core:4.0.16-alpha'
+    testCompile 'org.testfx:testfx-junit5:4.0.16-alpha'
+    testCompile group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
 }
 
 test {
@@ -30,6 +34,16 @@ test {
     testLogging {
         events 'passed', 'skipped','failed'
     }
+    finalizedBy jacocoTestReport
+}
+
+jacoco {
+    toolVersion = "0.8.6"
+  //  reportsDirectory = file("$buildDir/customJacocoReportDir")
+}
+
+jacocoTestReport{
+    dependsOn test
 }
 
 run {
@@ -43,16 +57,5 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml']
 }
 
-//group = 'TablatureConverter'
-//version = '0.0.1-SNAPSHOT'
-//sourceCompatibility = '15.0.1'
-
-//publishing {
-//    publications {
-//        maven(MavenPublication) {
-//            from(components.java)
-//        }
-//    }
-//}
 
 mainClassName = 'GUI.Main'
