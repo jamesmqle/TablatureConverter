@@ -5,7 +5,10 @@
 ### Table of Contents
 
 - [Description](#description)
-- [Getting Started](#getting-started)
+- [System Requirements](#system-requirements)
+- [User Manual](#user-manual)
+- [Requirements Document](requirements-document)
+- [Testing Document](testing-document)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -36,28 +39,31 @@ E|------3-------3--3-3-3-3------------3-----------------------|
 
 ---
 
-## Getting Started
+## System Requirements
 
 TablatureConverter requires the the following to run:
-- Download [IntelliJ](https://www.jetbrains.com/idea/download/#section=windows) or [Eclipse](https://www.eclipse.org/downloads/)
-- Download [JavaFX SDK](https://gluonhq.com/products/javafx/)
+- [IntelliJ](https://www.jetbrains.com/idea/download/#section=windows) or [Eclipse](https://www.eclipse.org/downloads/)
+- Java version 11 or newer
 
+---
 
-### How to Access for Eclipse
+## User Manual
 
-1. Download ZIP in repository and unzip the file
+This [user manual](https://github.com/jamesmqle/TablatureConverter/blob/main/Documentation/User%20Manual.pdf) includes installation instructions, "how to get started", and common usage scenarios.
 
-![Code](https://res.cloudinary.com/practicaldev/image/fetch/s--L5zkGG8u--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/95r8bqqsnt0losag50b1.png)
+---
 
-2. Open Eclipse -> Import -> Exisiting project into workspace -> Select the unzipped file "TablatureConverter"
-3. Add text below to VM arguments in run configurations
-```
---module-path "path_here" --add-modules javafx.controls,javafx.fxml
-```
-4. Go to src/GUI, open application package, right click Main.java -> Run As -> Java Application
-5. Program is now running! The outputted MusicXML file is in the src/sample package.
+## Requirements Document
+This [requirements document](https://github.com/jamesmqle/TablatureConverter/blob/main/Documentation/Requirements%20Document.pdf) describes the needs of the customer. All required features are described in detail. Use cases and user stories are provided.
 
-        
+---
+
+## Testing Document
+
+The [testing document](https://github.com/jamesmqle/TablatureConverter/blob/main/Documentation/Testing%20Document.pdf) describes the test cases, the way they were derived, and the way they were implemented.
+
+---
+
 ## Contributors
 
 - https://github.com/jamesmqle
@@ -74,6 +80,8 @@ Tuan Dau - tdau@my.yorku.ca
 James Le - jamesmql@my.yorku.ca
 
 Temi Odunfa- odunifa.temi@gmail.com
+
+Amin Mohammadi- amin45mh@gmail.com
 
 ---
 
@@ -100,4 +108,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
 
