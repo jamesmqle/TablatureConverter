@@ -22,6 +22,7 @@ dependencies {
     implementation 'javax.activation:activation:1.1.1'
     implementation 'junit:junit:4.12'
     implementation 'junit:junit:4.12'
+    implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
@@ -47,11 +48,11 @@ jacocoTestReport{
 }
 */
 
-run {
+/*run {
     if (javafx.platform.classifier == 'win') {
-        systemProperty "java.library.path", "C:\tmp"
+        systemProperty "java.library.path", "C:/tmp"
     }
-}
+}*/
 
 javafx {
     version = '15.0.1'
