@@ -4,8 +4,8 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class Barline {
 
-    String location;
-    String barStyle;
+    private String location;
+    private String barStyle;
 
     public Barline(){}
 

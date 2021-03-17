@@ -88,7 +88,7 @@ public class textReader extends Output {
 					k++;
 				}
 				if (k == 6) {
-					list = ParsGuitar(zoom, list);
+					list = ParseGuitar(zoom, list);
 					k = 0;
 					zoom.clear();
 				}
@@ -206,7 +206,7 @@ public class textReader extends Output {
 		return list;
 	}
 
-	public static List<Output> ParsGuitar(List<String> zoom, List<Output> list) {
+	public static List<Output> ParseGuitar(List<String> zoom, List<Output> list) {
 		if (!list.isEmpty()) {
 			list.add(new Output("# NEW TAB #", -2, -2, "-", -2));
 		}
