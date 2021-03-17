@@ -8,8 +8,8 @@ package Parser;
  *
  */
 
-import ConvertedSong.Pitch;
-import ConvertedSong.*;
+import XMLTags.Common.Note;
+import XMLTags.Common.Pitch;
 
 public class NoteConvert {
 

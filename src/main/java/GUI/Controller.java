@@ -1,6 +1,6 @@
 package GUI;
 
-import ConvertedSong.*;
+import XMLTags.Common.ConvertedSongTest;
 import Parser.textReader;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -14,13 +14,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.awt.*;
-import java.awt.event.PaintEvent;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.Scanner;

@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /*
- * Guitar Tablature Parser
+ * XMLTags.Guitar Tablature Parser
  *
  * This class returns the note and string of each note on the guitar tab input.
  *

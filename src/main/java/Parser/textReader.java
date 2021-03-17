@@ -1,7 +1,5 @@
 package Parser;
 
-import ConvertedSong.ConvertedSongTest;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -27,9 +25,9 @@ public class textReader extends Output {
 		List<Output> list = new ArrayList<>();
 		list = readTabFile2(path);
 		printData(list);
-		if (detectInstrument(path) == 1) instrument = "Guitar";
+		if (detectInstrument(path) == 1) instrument = "XMLTags/Guitar";
 		else if (detectInstrument(path) == 2) instrument = "Bass";
-		else if (detectInstrument(path) == 3) instrument = "Drums";
+		else if (detectInstrument(path) == 3) instrument = "XMLTags/Drums";
 		else instrument = "Failure";
 		System.out.println(instrument);
 	}
@@ -81,7 +79,7 @@ public class textReader extends Output {
 				}
 			}
 
-			if (flag == 1) { // Guitar
+			if (flag == 1) { // XMLTags.Guitar
 				if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
 					System.out.println("****");
 				} else {
@@ -157,7 +155,7 @@ public class textReader extends Output {
 				}
 			}
 
-			if (flag == 1) { // Guitar
+			if (flag == 1) { // XMLTags.Guitar
 				if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
 					System.out.println("****");
 				} else {
