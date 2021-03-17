@@ -3,15 +3,15 @@
  */
 
 plugins {
-    id 'java'
+    // Apply the java-library plugin to add support for Java Library
     id 'java-library'
-    //id 'jacoco'
-    id 'maven-publish'
+    id 'jacoco'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
 repositories {
+    jcenter()
     mavenCentral()
 }
 
@@ -21,12 +21,13 @@ dependencies {
     implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.0'
     implementation 'javax.activation:activation:1.1.1'
     implementation 'junit:junit:4.12'
-    implementation 'junit:junit:4.12'
-    implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
+    implementation 'org.testng:testng:7.1.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.1"
+    testCompile 'org.testfx:testfx-core:4.0.16-alpha'
+    testCompile 'org.testfx:testfx-junit5:4.0.16-alpha'
+    testCompile group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
 }
 
 test {
@@ -34,41 +35,28 @@ test {
     testLogging {
         events 'passed', 'skipped','failed'
     }
-//    finalizedBy jacocoTestReport
+    finalizedBy jacocoTestReport
 }
 
-/*
 jacoco {
     toolVersion = "0.8.6"
-    reportsDirectory = file("$buildDir/customJacocoReportDir")
+    //  reportsDirectory = file("$buildDir/customJacocoReportDir")
 }
 
 jacocoTestReport{
     dependsOn test
 }
-*/
 
-/*run {
+run {
     if (javafx.platform.classifier == 'win') {
-        systemProperty "java.library.path", "C:/tmp"
+        systemProperty "java.library.path", "C:\tmp"
     }
-}*/
+}
 
 javafx {
     version = '15.0.1'
     modules = [ 'javafx.controls', 'javafx.fxml']
 }
 
-//group = 'TablatureConverter'
-//version = '0.0.1-SNAPSHOT'
-//sourceCompatibility = '15.0.1'
-
-//publishing {
-//    publications {
-//        maven(MavenPublication) {
-//            from(components.java)
-//        }
-//    }
-//}
 
 mainClassName = 'GUI.Main'
