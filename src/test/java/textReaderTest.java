@@ -1,12 +1,10 @@
-/*
-package Parser;
-
 import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import Parser.*;
 import java.util.Scanner;
 import org.junit.Test;
 
@@ -75,4 +73,4 @@ class textReaderTest {
         Output o = new Output("e", 2, 3, "4", 1);
         assertEquals("4", o.gettech());
     }
-}*/
+}
