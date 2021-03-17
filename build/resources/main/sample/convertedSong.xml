@@ -2,7 +2,7 @@
 <score-partwise version="3.1">
     <part-list>
         <score-part id="G1">
-            <part-name>Guitar 1</part-name>
+            <part-name>XMLTags.Guitar 1</part-name>
         </score-part>
     </part-list>
     <part id="G1">

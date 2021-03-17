@@ -1,6 +1,7 @@
 package XMLTags.Common;
 
 import Parser.NoteConvert;
+import XMLTags.Drums.Backup;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -16,6 +17,8 @@ public class Measure implements Serializable {
     private Attributes attributes;
     private List<Note> notes;
     private String number;
+    private Barline barline; // for drums
+    private Backup backup; // for drums
 
     public Measure(){
         this.attributes = new Attributes(new Clef(), new Key(0, "major"), new TimeSignature(4,4), "1", new StaffDetails());
@@ -40,6 +43,17 @@ public class Measure implements Serializable {
         this.attributes = a;
         this.notes = n;
         this.number = number;
+    }
+
+    /**
+     * ============== FOR DRUMS ===============
+     */
+    public Measure(Attributes attributes, ArrayList<Note> note,String number, Barline barline, Backup backup){
+        this.attributes = attributes;
+        this.notes = note;
+        this.number = number;
+        this.barline = barline;
+        this.backup = backup;
     }
 
     public void setMeasure(Measure measure){
@@ -89,13 +103,26 @@ public class Measure implements Serializable {
         this.number = number;
     }
 
-//    @XmlElement(name = "note")
-//    public Note getNote(){
-//        return this.note;
-//    }
-//
-//    public void setNote(Note note){
-//        this.note = note;
-//    }
+
+    /**
+     * ============== FOR DRUMS ===============
+     */
+
+    @XmlElement(name = "barline")
+    public Barline getBarline() {
+        return barline;
+    }
+    public void setBarline(Barline barline) {
+        this.barline = barline;
+    }
+
+    @XmlElement(name = "backup")
+    public void setBackup(Backup backup) {
+        this.backup = backup;
+    }
+    public Backup getBackup() {
+        return backup;
+    }
+
 
 }

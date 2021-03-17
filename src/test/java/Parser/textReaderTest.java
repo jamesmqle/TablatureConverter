@@ -1,14 +1,11 @@
-/*
 package Parser;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import org.junit.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class textReaderTest {
     @Test
@@ -25,15 +22,15 @@ class textReaderTest {
         assertTrue(listt.get(0).getnote1()==0);
     }
 
-    @Test
-    public void testParsBass() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testParsDrum() {
-        fail("Not yet implemented");
-    }
+//    @Test
+//    public void testParsBass() {
+//        fail("Not yet implemented");
+//    }
+//
+//    @Test
+//    public void testParsDrum() {
+//        fail("Not yet implemented");
+//    }
 
     @Test
     public void testOutput() {
@@ -75,4 +72,4 @@ class textReaderTest {
         Output o = new Output("e", 2, 3, "4", 1);
         assertEquals("4", o.gettech());
     }
-}*/
+}
