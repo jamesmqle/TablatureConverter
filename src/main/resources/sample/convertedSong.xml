@@ -51,25 +51,16 @@
             </attributes>
             <note>
                 <pitch>
-                    <step>C</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
                     <step>G</step>
                     <alter>0</alter>
-                    <octave>3</octave>
+                    <octave>4</octave>
                 </pitch>
                 <duration>1</duration>
                 <type>half</type>
             </note>
             <note>
                 <pitch>
-                    <step>C</step>
+                    <step>A</step>
                     <alter>0</alter>
                     <octave>4</octave>
                 </pitch>
@@ -78,16 +69,7 @@
             </note>
             <note>
                 <pitch>
-                    <step>E</step>
-                    <alter>0</alter>
-                    <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>C</step>
+                    <step>B</step>
                     <alter>0</alter>
                     <octave>4</octave>
                 </pitch>
@@ -98,38 +80,6 @@
                 <pitch>
                     <step>G</step>
                     <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-        </measure>
-        <measure number="2">
-            <attributes>
-                <divisions>2</divisions>
-            </attributes>
-            <note>
-                <pitch>
-                    <step>A</step>
-                    <alter>0</alter>
-                    <octave>2</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>A</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>C</step>
-                    <alter>0</alter>
                     <octave>4</octave>
                 </pitch>
                 <duration>1</duration>
@@ -138,174 +88,6 @@
             <note>
                 <pitch>
                     <step>E</step>
-                    <alter>0</alter>
-                    <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>C</step>
-                    <alter>0</alter>
-                    <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>A</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-        </measure>
-        <measure number="3">
-            <attributes>
-                <divisions>2</divisions>
-            </attributes>
-            <note>
-                <pitch>
-                    <step>C</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>G</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>C</step>
-                    <alter>0</alter>
-                    <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>E</step>
-                    <alter>0</alter>
-                    <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>C</step>
-                    <alter>0</alter>
-                    <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>G</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-        </measure>
-        <measure number="4">
-            <attributes>
-                <divisions>2</divisions>
-            </attributes>
-            <note>
-                <pitch>
-                    <step>A</step>
-                    <alter>0</alter>
-                    <octave>2</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>A</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>C</step>
-                    <alter>0</alter>
-                    <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>E</step>
-                    <alter>0</alter>
-                    <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>C</step>
-                    <alter>0</alter>
-                    <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>A</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-        </measure>
-        <measure number="5">
-            <attributes>
-                <divisions>2</divisions>
-            </attributes>
-            <note>
-                <pitch>
-                    <step>F</step>
-                    <alter>0</alter>
-                    <octave>2</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>A</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>C</step>
                     <alter>0</alter>
                     <octave>4</octave>
                 </pitch>
@@ -315,7 +97,7 @@
             <note>
                 <pitch>
                     <step>F</step>
-                    <alter>0</alter>
+                    <alter>1</alter>
                     <octave>4</octave>
                 </pitch>
                 <duration>1</duration>
@@ -323,7 +105,7 @@
             </note>
             <note>
                 <pitch>
-                    <step>C</step>
+                    <step>G</step>
                     <alter>0</alter>
                     <octave>4</octave>
                 </pitch>
@@ -334,115 +116,6 @@
                 <pitch>
                     <step>A</step>
                     <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-        </measure>
-        <measure number="6">
-            <attributes>
-                <divisions>2</divisions>
-            </attributes>
-            <note>
-                <pitch>
-                    <step>G</step>
-                    <alter>0</alter>
-                    <octave>2</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>G</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>B</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>G</step>
-                    <alter>0</alter>
-                    <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>B</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>G</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-        </measure>
-        <measure number="7">
-            <attributes>
-                <divisions>2</divisions>
-            </attributes>
-            <note>
-                <pitch>
-                    <step>C</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>G</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>C</step>
-                    <alter>0</alter>
-                    <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>E</step>
-                    <alter>0</alter>
-                    <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>C</step>
-                    <alter>0</alter>
                     <octave>4</octave>
                 </pitch>
                 <duration>1</duration>
@@ -452,39 +125,7 @@
                 <pitch>
                     <step>G</step>
                     <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-        </measure>
-        <measure number="8">
-            <attributes>
-                <divisions>2</divisions>
-            </attributes>
-            <note>
-                <pitch>
-                    <step>G</step>
-                    <alter>0</alter>
-                    <octave>2</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>G</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>B</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
+                    <octave>4</octave>
                 </pitch>
                 <duration>1</duration>
                 <type>half</type>
@@ -492,17 +133,8 @@
             <note>
                 <pitch>
                     <step>F</step>
-                    <alter>0</alter>
+                    <alter>1</alter>
                     <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>B</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
                 </pitch>
                 <duration>1</duration>
                 <type>half</type>
@@ -510,56 +142,6 @@
             <note>
                 <pitch>
                     <step>G</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-        </measure>
-        <measure number="9">
-            <attributes>
-                <divisions>2</divisions>
-            </attributes>
-            <note>
-                <pitch>
-                    <step>C</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>G</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>C</step>
-                    <alter>0</alter>
-                    <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>E</step>
-                    <alter>0</alter>
-                    <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>C</step>
                     <alter>0</alter>
                     <octave>4</octave>
                 </pitch>
@@ -570,21 +152,7 @@
                 <pitch>
                     <step>G</step>
                     <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-        </measure>
-        <measure number="10">
-            <attributes>
-                <divisions>2</divisions>
-            </attributes>
-            <note>
-                <pitch>
-                    <step>F</step>
-                    <alter>0</alter>
-                    <octave>2</octave>
+                    <octave>4</octave>
                 </pitch>
                 <duration>1</duration>
                 <type>half</type>
@@ -593,14 +161,14 @@
                 <pitch>
                     <step>A</step>
                     <alter>0</alter>
-                    <octave>3</octave>
+                    <octave>4</octave>
                 </pitch>
                 <duration>1</duration>
                 <type>half</type>
             </note>
             <note>
                 <pitch>
-                    <step>C</step>
+                    <step>B</step>
                     <alter>0</alter>
                     <octave>4</octave>
                 </pitch>
@@ -611,16 +179,25 @@
                 <pitch>
                     <step>G</step>
                     <alter>0</alter>
-                    <octave>2</octave>
+                    <octave>4</octave>
                 </pitch>
                 <duration>1</duration>
                 <type>half</type>
             </note>
             <note>
                 <pitch>
-                    <step>B</step>
+                    <step>F</step>
+                    <alter>1</alter>
+                    <octave>4</octave>
+                </pitch>
+                <duration>1</duration>
+                <type>half</type>
+            </note>
+            <note>
+                <pitch>
+                    <step>E</step>
                     <alter>0</alter>
-                    <octave>3</octave>
+                    <octave>4</octave>
                 </pitch>
                 <duration>1</duration>
                 <type>half</type>
@@ -634,29 +211,6 @@
                 <duration>1</duration>
                 <type>half</type>
             </note>
-        </measure>
-        <measure number="11">
-            <attributes>
-                <divisions>2</divisions>
-            </attributes>
-            <note>
-                <pitch>
-                    <step>A</step>
-                    <alter>0</alter>
-                    <octave>2</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>A</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
             <note>
                 <pitch>
                     <step>C</step>
@@ -668,86 +222,9 @@
             </note>
             <note>
                 <pitch>
-                    <step>E</step>
+                    <step>G</step>
                     <alter>0</alter>
                     <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>C</step>
-                    <alter>0</alter>
-                    <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>A</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-        </measure>
-        <measure number="12">
-            <attributes>
-                <divisions>2</divisions>
-            </attributes>
-            <note>
-                <pitch>
-                    <step>F</step>
-                    <alter>0</alter>
-                    <octave>2</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>A</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>C</step>
-                    <alter>0</alter>
-                    <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>F</step>
-                    <alter>0</alter>
-                    <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>C</step>
-                    <alter>0</alter>
-                    <octave>4</octave>
-                </pitch>
-                <duration>1</duration>
-                <type>half</type>
-            </note>
-            <note>
-                <pitch>
-                    <step>A</step>
-                    <alter>0</alter>
-                    <octave>3</octave>
                 </pitch>
                 <duration>1</duration>
                 <type>half</type>

@@ -54,11 +54,12 @@ class MainGuiTest {
         FxAssert.verifyThat("#title", LabeledMatchers.hasText("Tablature Converter"));
 
     }
-    /*@Test
-    void should_contain_button_with_text4(FxRobot robot) {
-        FxAssert.verifyThat("#ConvertButton", LabeledMatchers.hasText("Convert File \uD83D\uDD01"));
+    @Test
+    //void should_contain_button_with_text4(FxRobot robot) {
+      //  FxAssert.verifyThat("#viewButton", LabeledMatchers.hasText("View"));
 
-    }
+    //}
+    /*
     @Test
     void should_contain_button_with_text5(FxRobot robot) {
         FxAssert.verifyThat("#ConvertButton", LabeledMatchers.hasText("Convert File \uD83D\uDD01"));
