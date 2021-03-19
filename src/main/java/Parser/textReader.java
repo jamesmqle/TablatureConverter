@@ -88,7 +88,7 @@ public class textReader extends Output {
 					k++;
 				}
 				if (k == 6) {
-					list = ParsGuitar(zoom, list);
+					list = ParseGuitar(zoom, list);
 					k = 0;
 					zoom.clear();
 				}
@@ -102,7 +102,7 @@ public class textReader extends Output {
 					k++;
 				}
 				if (k == 4) {
-					list = ParsBass(zoom, list);
+					list = ParseBass(zoom, list);
 					k = 0;
 					zoom.clear();
 				}
@@ -117,7 +117,7 @@ public class textReader extends Output {
 					k++;
 				}
 				if (k == 6) {
-					list = ParsDrum(zoom, list, k);
+					list = ParseDrum(zoom, list, k);
 					k = 0;
 					zoom.clear();
 				}
@@ -164,7 +164,7 @@ public class textReader extends Output {
 					k++;
 				}
 				if (k == 6) {
-					list = ParsGuitar2(zoom, list);
+					list = ParseGuitar2(zoom, list);
 					k = 0;
 					zoom.clear();
 				}
@@ -178,7 +178,7 @@ public class textReader extends Output {
 					k++;
 				}
 				if (k == 4) {
-					list = ParsBass(zoom, list);
+					list = ParseBass(zoom, list);
 					k = 0;
 					zoom.clear();
 				}
@@ -193,7 +193,7 @@ public class textReader extends Output {
 					k++;
 				}
 				if (k == 6) {
-					list = ParsDrum(zoom, list, k);
+					list = ParseDrum(zoom, list, k);
 					k = 0;
 					zoom.clear();
 				}
@@ -206,7 +206,7 @@ public class textReader extends Output {
 		return list;
 	}
 
-	public static List<Output> ParsGuitar(List<String> zoom, List<Output> list) {
+	public static List<Output> ParseGuitar(List<String> zoom, List<Output> list) {
 		if (!list.isEmpty()) {
 			list.add(new Output("# NEW TAB #", -2, -2, "-", -2));
 		}
@@ -237,19 +237,7 @@ public class textReader extends Output {
 										-1, "-", i));
 
 					}
-					// 3 digits number
-					/*
-					 * else if ((getCharFromString(zoom.get(j), i - 1) == '-') &&
-					 * (getCharFromString(zoom.get(j), i + 1) != '-') &&
-					 * (getCharFromString(zoom.get(j), i + 1) != '/') &&
-					 * (getCharFromString(zoom.get(j), i + 1) != 's') &&
-					 * (getCharFromString(zoom.get(j), i + 2) != '-') &&
-					 * (getCharFromString(zoom.get(j), i + 3) == '-')) { list.add(new
-					 * Output(Character.toString(getCharFromString(zoom.get(j), 0)),
-					 * Integer.parseInt(Character.toString(getCharFromString(zoom.get(j), i)) +
-					 * Character.toString(getCharFromString(zoom.get(j), i + 1)) +
-					 * Character.toString(getCharFromString(zoom.get(j), i + 2))), -1, "-", i)); }
-					 */
+
 					// 3 digit with technique
 					else if (((getCharFromString(zoom.get(j), i - 1) == '-')
 							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
@@ -281,7 +269,7 @@ public class textReader extends Output {
 	}
 
 	// reads to end of file
-	public static List<Output> ParsGuitar2(List<String> zoom, List<Output> list) {
+	public static List<Output> ParseGuitar2(List<String> zoom, List<Output> list) {
 		if (!list.isEmpty()) {
 			list.add(new Output("# NEW TAB #", -2, -2, "-", -2));
 		}
@@ -355,7 +343,7 @@ public class textReader extends Output {
 		return list;
 	}
 
-	public static List<Output> ParsBass(List<String> zoom, List<Output> list) {
+	public static List<Output> ParseBass(List<String> zoom, List<Output> list) {
 		if (!list.isEmpty()) {
 			list.add(new Output("# NEW TAB #", -2, -2, "-", -2));
 		}
@@ -435,7 +423,7 @@ public class textReader extends Output {
 		return list;
 	}
 
-	public static List<Output> ParsDrum(List<String> zoom, List<Output> list, int m) {
+	public static List<Output> ParseDrum(List<String> zoom, List<Output> list, int m) {
 		if (!list.isEmpty()) {
 			list.add(new Output("# NEW TAB #", -2, -2, "-", -2));
 		}

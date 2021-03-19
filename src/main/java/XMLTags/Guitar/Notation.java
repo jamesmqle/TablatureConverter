@@ -8,6 +8,8 @@ public class Notation {
 
     public Notation(){}
 
+    public Notation(Technical technical){ this.technical = technical; }
+
     public Notation(Technical technical, Slur slur){ this.technical = technical; this.slur = slur; }
 
     @XmlElement(name = "technical")
