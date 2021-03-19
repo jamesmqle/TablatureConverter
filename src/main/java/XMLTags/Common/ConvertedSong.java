@@ -68,7 +68,7 @@ public class ConvertedSong implements Serializable {
     public void addNoteToMeasure(String tuning, int fret){
         int stringNum = NoteConvert.convertToStringInt(tuning);
         this.getParts().get(this.getParts().size()-1).getMeasures().get(this.getParts().get(this.getParts().size()-1).getMeasures().size()-1).addNoteFromTab(tuning, fret);
-        this.getParts().get(this.getParts().size()-1).getMeasures().get(this.getParts().get(this.getParts().size()-1).getMeasures().size()-1).getNotes().get(this.getParts().get(this.getParts().size()-1).getMeasures().get(this.getParts().get(this.getParts().size()-1).getMeasures().size()-1).getNotes().size()-1).setNotations(new Notation(new Technical(stringNum, fret)));
+        this.getParts().get(this.getParts().size()-1).getMeasures().get(this.getParts().get(this.getParts().size()-1).getMeasures().size()-1).getNotes().get(this.getParts().get(this.getParts().size()-1).getMeasures().get(this.getParts().get(this.getParts().size()-1).getMeasures().size()-1).getNotes().size()-1).setNotations(new Notation(new Technical(String.valueOf(stringNum), String.valueOf(fret))));
     }
 
     /*
