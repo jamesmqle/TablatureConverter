@@ -2,25 +2,61 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.CubicCurve?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@ConversionComplete.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
    <children>
-      <Label alignment="CENTER" layoutX="415.0" layoutY="302.0" prefHeight="60.0" prefWidth="371.0" text="Conversion Complete">
+      <ImageView fitHeight="289.0" fitWidth="335.0" layoutX="845.0" layoutY="484.0">
+         <image>
+            <Image url="@circleshape.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="199.0" fitWidth="200.0" layoutX="886.0" layoutY="21.0">
+         <image>
+            <Image url="@gridshape.png" />
+         </image>
+      </ImageView>
+      <CubicCurve controlX1="-374.1308288574219" controlX2="-83.51937866210938" controlY1="-280.152099609375" controlY2="-250.16754150390625" endX="1054.0" endY="193.0" fill="#0044ff" layoutX="146.0" layoutY="607.0" startX="-146.0" startY="193.0" stroke="BLACK" />
+      <ImageView fitHeight="740.0" fitWidth="728.0" layoutX="271.0" layoutY="46.0">
+         <image>
+            <Image url="@img_2.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="title" layoutX="331.0" layoutY="69.0" prefHeight="32.0" prefWidth="273.0" text="Tablature Converter">
+         <font>
+            <Font name="Century Gothic" size="28.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="468.0" layoutY="190.0" prefHeight="60.0" prefWidth="371.0" text="Conversion Complete!">
          <font>
             <Font name="Century Gothic" size="29.0" />
          </font>
       </Label>
-      <Button layoutX="504.0" layoutY="467.0" mnemonicParsing="false" onAction="#OpenXMLHandler" prefHeight="60.0" prefWidth="193.0" text="Open MusicXML">
+      <Line endX="592.9999389648438" layoutX="406.0" layoutY="115.0" startX="-125.0" />
+      <Button layoutX="715.0" layoutY="330.0" mnemonicParsing="false" onAction="#OpenXMLHandler" prefHeight="36.0" prefWidth="130.0" text="View">
          <font>
-            <Font name="Century Gothic" size="20.0" />
+            <Font name="Calibri" size="15.0" />
          </font></Button>
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackToWelcome" text="Back" />
-      <Button layoutX="504.0" layoutY="387.0" mnemonicParsing="false" onAction="#SaveXMLFileHandler" prefHeight="60.0" prefWidth="193.0" text="Save File">
+      <Button layoutX="715.0" layoutY="413.0" mnemonicParsing="false" onAction="#SaveXMLFileHandler" prefHeight="36.0" prefWidth="130.0" text="Save">
          <font>
-            <Font name="Century Gothic" size="20.0" />
+            <Font name="Calibri" size="15.0" />
          </font>
       </Button>
+      <Label layoutX="443.0" layoutY="335.0" prefHeight="25.0" prefWidth="263.0" text="View MusicXML File in Browser:">
+         <font>
+            <Font name="Calibri" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="468.0" layoutY="416.0" prefHeight="30.0" prefWidth="222.0" text="Save File to File Explorer:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
