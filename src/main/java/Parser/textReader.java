@@ -18,7 +18,7 @@ public class textReader extends Output {
 		super(string, n1, n2, tech, i);
 		// TODO Auto-generated constructor stub
 	}
-
+//////new
 	public static void main(String[] args) throws IOException {
 		String path = "src/main/resources/sample/LetHerGoTest.txt";
 		String instrument;
