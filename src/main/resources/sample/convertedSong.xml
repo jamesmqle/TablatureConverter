@@ -2,7 +2,7 @@
 <score-partwise version="3.1">
     <part-list>
         <score-part id="G1">
-            <part-name>XMLTags.Guitar 1</part-name>
+            <part-name>XMLTags/Guitar 1</part-name>
         </score-part>
     </part-list>
     <part id="G1">
@@ -56,7 +56,14 @@
                     <octave>2</octave>
                 </pitch>
                 <duration>1</duration>
+                <voice>1</voice>
                 <type>eighth</type>
+                <notations>
+                    <technical>
+                        <string>6</string>
+                        <fret>0</fret>
+                    </technical>
+                </notations>
             </note>
             <note>
                 <pitch>
@@ -65,7 +72,14 @@
                     <octave>2</octave>
                 </pitch>
                 <duration>1</duration>
+                <voice>1</voice>
                 <type>eighth</type>
+                <notations>
+                    <technical>
+                        <string>5</string>
+                        <fret>2</fret>
+                    </technical>
+                </notations>
             </note>
             <note>
                 <pitch>
@@ -74,7 +88,14 @@
                     <octave>3</octave>
                 </pitch>
                 <duration>1</duration>
+                <voice>1</voice>
                 <type>eighth</type>
+                <notations>
+                    <technical>
+                        <string>4</string>
+                        <fret>2</fret>
+                    </technical>
+                </notations>
             </note>
             <note>
                 <pitch>
@@ -83,7 +104,14 @@
                     <octave>3</octave>
                 </pitch>
                 <duration>1</duration>
+                <voice>1</voice>
                 <type>eighth</type>
+                <notations>
+                    <technical>
+                        <string>3</string>
+                        <fret>1</fret>
+                    </technical>
+                </notations>
             </note>
             <note>
                 <pitch>
@@ -92,7 +120,14 @@
                     <octave>3</octave>
                 </pitch>
                 <duration>1</duration>
+                <voice>1</voice>
                 <type>eighth</type>
+                <notations>
+                    <technical>
+                        <string>2</string>
+                        <fret>0</fret>
+                    </technical>
+                </notations>
             </note>
             <note>
                 <pitch>
@@ -101,7 +136,14 @@
                     <octave>4</octave>
                 </pitch>
                 <duration>1</duration>
+                <voice>1</voice>
                 <type>eighth</type>
+                <notations>
+                    <technical>
+                        <string>1</string>
+                        <fret>0</fret>
+                    </technical>
+                </notations>
             </note>
             <note>
                 <pitch>
@@ -110,7 +152,14 @@
                     <octave>3</octave>
                 </pitch>
                 <duration>1</duration>
+                <voice>1</voice>
                 <type>eighth</type>
+                <notations>
+                    <technical>
+                        <string>2</string>
+                        <fret>0</fret>
+                    </technical>
+                </notations>
             </note>
             <note>
                 <pitch>
@@ -119,7 +168,14 @@
                     <octave>3</octave>
                 </pitch>
                 <duration>1</duration>
+                <voice>1</voice>
                 <type>eighth</type>
+                <notations>
+                    <technical>
+                        <string>3</string>
+                        <fret>1</fret>
+                    </technical>
+                </notations>
             </note>
         </measure>
         <measure number="2">
@@ -131,7 +187,14 @@
                     <octave>4</octave>
                 </pitch>
                 <duration>8</duration>
+                <voice>1</voice>
                 <type>whole</type>
+                <notations>
+                    <technical>
+                        <string>1</string>
+                        <fret>0</fret>
+                    </technical>
+                </notations>
             </note>
             <note>
                 <chord></chord>
@@ -141,7 +204,14 @@
                     <octave>3</octave>
                 </pitch>
                 <duration>8</duration>
+                <voice>1</voice>
                 <type>whole</type>
+                <notations>
+                    <technical>
+                        <string>2</string>
+                        <fret>0</fret>
+                    </technical>
+                </notations>
             </note>
             <note>
                 <chord></chord>
@@ -151,7 +221,14 @@
                     <octave>3</octave>
                 </pitch>
                 <duration>8</duration>
+                <voice>1</voice>
                 <type>whole</type>
+                <notations>
+                    <technical>
+                        <string>3</string>
+                        <fret>1</fret>
+                    </technical>
+                </notations>
             </note>
             <note>
                 <chord></chord>
@@ -161,7 +238,14 @@
                     <octave>3</octave>
                 </pitch>
                 <duration>8</duration>
+                <voice>1</voice>
                 <type>whole</type>
+                <notations>
+                    <technical>
+                        <string>4</string>
+                        <fret>2</fret>
+                    </technical>
+                </notations>
             </note>
             <note>
                 <chord></chord>
@@ -171,7 +255,14 @@
                     <octave>2</octave>
                 </pitch>
                 <duration>8</duration>
+                <voice>1</voice>
                 <type>whole</type>
+                <notations>
+                    <technical>
+                        <string>5</string>
+                        <fret>2</fret>
+                    </technical>
+                </notations>
             </note>
             <note>
                 <chord></chord>
@@ -181,7 +272,14 @@
                     <octave>2</octave>
                 </pitch>
                 <duration>8</duration>
+                <voice>1</voice>
                 <type>whole</type>
+                <notations>
+                    <technical>
+                        <string>6</string>
+                        <fret>0</fret>
+                    </technical>
+                </notations>
             </note>
         </measure>
     </part>

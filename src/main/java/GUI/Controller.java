@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
@@ -21,7 +22,10 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.io.*;
 import java.nio.file.Files;
+import java.util.List;
 import java.util.Scanner;
+
+import static Parser.textReader.*;
 
 /**
  * Controller class controls the functionality of the User Interface
@@ -31,6 +35,8 @@ public class Controller {
     File inputFile = null; // Input file Object
     File outputFile = new File("src/main/resources/sample/ConvertedSong.xml"); // Output file Object
     File textFile = new File("src/main/resources/sample/textarea.txt");
+
+    int error = 0; // this will handle errors
 
     @FXML
     public Button ConvertButton;
@@ -125,8 +131,6 @@ public class Controller {
         }
         System.out.println(textFile.toString());
         System.out.println(outputFile.toString());
-
-
     }
 
     /**
@@ -137,24 +141,45 @@ public class Controller {
      */
     @FXML
     public void ConvertHandler(ActionEvent event) throws IOException {
-        //   try {
         if (textview != null) { // gives error message if textarea is empty
             textViewToFile(textFile, textview);
-            ConvertedSongTest.createXML(textReader.readTabFile2(textFile.toString()), outputFile.toString(), inputFile.toString()); // Passes textarea file through parser
-            Parent conversionCompleteParent = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/ConversionComplete.fxml"));
-            Scene ClipBoardScene = new Scene(conversionCompleteParent);
-            //Shortcut for closing the program
-            // closes the program when the "esc" button is pressed...
-            ClipBoardScene.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent ke) -> {
-                if (KeyCode.ESCAPE == ke.getCode()) {
-                    Platform.exit();
-                }
-            });
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(ClipBoardScene);
-            window.show();
+            if(ErrorHandler() == 0){
+                ConvertedSongTest.createXML(textReader.readTabFile2(textFile.toString()), outputFile.toString(), inputFile.toString()); // Passes textarea file through parser
+                Parent conversionCompleteParent = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/ConversionComplete.fxml"));
+                Scene ClipBoardScene = new Scene(conversionCompleteParent);
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(ClipBoardScene);
+                window.show();
+            }
         }
     }
+
+    /**
+     * This method will handle errors within the given text tablature
+     * @throws FileNotFoundException
+     */
+    @FXML
+    public int ErrorHandler() throws FileNotFoundException {
+
+        error = TabIsOK(getTab(textFile.toString()),detectInstrument(textFile.toString())); // this will assign the error
+
+        if(error == 1){ // error 1 if all lines are not the same length
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Tablature Format Error.");
+            errorAlert.setContentText("Please make sure all lines are the same length.");
+            errorAlert.showAndWait();
+        }
+        else if(error == 2){ // error 2 if incorrect tuning letters
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Tablature Format Error.");
+            errorAlert.setContentText("Please make sure all lines have the correct tuning letter");
+            errorAlert.showAndWait();
+        }
+
+        System.out.println("Controller Error: " + error);
+        return error;
+    }
+
 
     /**
      * This button in conversion complete scene will save the xml file to local desktop
@@ -204,17 +229,3 @@ public class Controller {
     }
 
 }
-
-//    @FXML
-//    public void PreviewHandler(ActionEvent event) {
-//        try {
-//            if (listview != null) {
-//                Desktop.getDesktop().open(inputFile);
-//            }
-//        } catch (Exception e) {
-//            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-//            errorAlert.setHeaderText("File not found.");
-//            errorAlert.setContentText("Please choose a file first before you preview");
-//            errorAlert.showAndWait();
-//        }
-//    }
