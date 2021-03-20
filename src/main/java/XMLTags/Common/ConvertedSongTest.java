@@ -106,6 +106,8 @@ public class ConvertedSongTest {
 		Attributes attribs;
 		Output prevNote = new Output();
 
+
+
 		boolean isPerfect,  lastNoteChord = false;;
 		double divisionCalc, doubleNoteDur;
 		int instrument, realDivisionCalc, counter = 0, noteDur, noteDashes, totalSpaces = -1, elementCounter = 0;
@@ -210,12 +212,16 @@ public class ConvertedSongTest {
 				attribs.setDivisions(Integer.toString(2));
 				song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);
 				for (Output note : notes) {
-					if ((/*note.getnote1() == -2 || */note.getnote1() == -1) && counter != notes.size() - 1) { //TEST THIS: before, the getnote1 == -2 condition was commented
+					if ((note.getnote1() == -1) && counter != notes.size() - 1) { //TEST THIS: before, the getnote1 == -2 condition was commented
 						lastPart = song.getParts().get(song.getParts().size() - 1);
 						lastPart.addMeasure(new Measure(new Attributes(), new ArrayList<Note>(), Integer.toString(lastPart.getMeasures().size() + 1)));
 						lastPart.getMeasures().get(lastPart.getMeasures().size() - 1).getAttributes().setDivisions("2");
 						prevNote = new Output();
-					} else {
+					}
+					else if (note.getnote1() == -1 && counter == notes.size() - 1){
+						song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).setBarline(new Barline("right", "light-heavy"));
+					}
+					else {
 						if (counter != notes.size() - 1 && (note.getnote1() != -1 && note.getnote1() != -2)) {
 							song.addNoteToMeasure(note.getletter(), note.getnote1());
 							song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().get(song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().size() - 1).setType("half");
