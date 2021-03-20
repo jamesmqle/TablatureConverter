@@ -37,7 +37,6 @@ public class Part implements Serializable {
         return this.measures.get(this.measures.size()-1);
     }
 
-
     @XmlAttribute
     public String getId() {
         return this.id;
@@ -47,12 +46,4 @@ public class Part implements Serializable {
         this.id = id;
     }
 
-//    @XmlElement(name = "measure")
-//    public Measure getMeasure() {
-//        return this.measures;
-//    }
-//
-//    public void setMeasure(Measure measure) {
-//        this.measure = measure;
-//    }
 }

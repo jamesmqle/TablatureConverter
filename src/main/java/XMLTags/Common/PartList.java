@@ -24,3 +24,15 @@ public class PartList implements Serializable {
         this.scorePart = scorePart;
     }
 }
+
+/** ADD THIS LATER
+ private ArrayList<ScorePart> scorePart;
+
+ @XmlElement(name = "score-part")
+ public ArrayList<ScorePart> getScorePart() {
+ return scorePart;
+ }
+ public void setScoreParts(ArrayList<ScorePart> scorePart) {
+ this.scorePart = scorePart;
+ }
+ */

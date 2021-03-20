@@ -7,7 +7,6 @@ public class Backup {
     String duration;
 
     public Backup() {}
-
     public Backup(String duration) {
         this.duration = duration;
 
