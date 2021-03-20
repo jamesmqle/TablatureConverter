@@ -50,6 +50,16 @@ run {
     if (javafx.platform.classifier == 'win') {
         systemProperty "java.library.path", "C:\tmp"
     }
+    finalizedBy jacocoTestReport
+}
+
+jacoco {
+    toolVersion = "0.8.6"
+    reportsDirectory = file("$buildDir/customJacocoReportDir")
+}
+
+jacocoTestReport{
+    dependsOn test
 }
 
 javafx {
