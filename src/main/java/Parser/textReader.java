@@ -50,6 +50,7 @@ public class textReader extends Output {
 			// Check which instrument it is
 			data = myReader.nextLine().trim();
 			if ((!data.isEmpty()) && (flag == 0)) {
+				// It is guitar if it starts with "e" or "E"
 				if ((data.charAt(0) == 'e') || (data.charAt(0) == 'E')) { // guitar
 					flag = 1;
 				} else if (data.charAt(0) == 'G') { // bass
@@ -67,6 +68,7 @@ public class textReader extends Output {
 		List<String> zoom = new ArrayList<>();
 		int flag = 0;
 
+		// scan the txt file
 		Scanner myReader = new Scanner(new FileReader(path));
 		String data = null;
 		int k = 0;
@@ -74,22 +76,29 @@ public class textReader extends Output {
 		while (myReader.hasNextLine()) {
 			// Check which instrument it is
 			data = myReader.nextLine().trim();
+			// Check which instrument it is (Guitar, Bass, Drum)
 			if ((!data.isEmpty()) && (flag == 0)) {
 				if ((data.charAt(0) == 'e') || (data.charAt(0) == 'E')) { // guitar
 					flag = 1;
+					// It is Bass if it starts with "G"
 				} else if (data.charAt(0) == 'G') { // bass
 					flag = 2;
+					// It is Bass otherwise
 				} else { // drum
 					flag = 3;
 				}
 			}
 
+			/*
+			 * If instrument is guitar it adds lines of tab to the tab list until if ends
+			 * which is after 6 strings or lines
+			 */
 			if (flag == 1) { // XMLTags.Guitar
 				if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
-					System.out.println("****");
+					//System.out.println("****");
 				} else {
-					System.out.println(data);
-					zoom.add(data);//
+					//System.out.println(data);
+					zoom.add(data);
 					k++;
 				}
 				if (k == 6) {
@@ -97,39 +106,67 @@ public class textReader extends Output {
 					k = 0;
 					zoom.clear();
 				}
+				/*
+				 * If instrument is bass it adds lines of tab to the tab list until if ends
+				 * which is after 4 strings or lines
+				 */
 			} else if (flag == 2) { // Bass
 				if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
-					System.out.println("****");
+					//System.out.println("****");
 
 				} else {
-					System.out.println(data);
+					//System.out.println(data);
 					zoom.add(data);
 					k++;
 				}
 				if (k == 4) {
-					list = ParseBass(zoom, list);
-					k = 0;
-					zoom.clear();
+					// first handle exceptions and check if it is correct tab, then call the
+					// parsBass function
+					try {
+						TabIsOK(zoom, flag);
+						list = ParseBass(zoom, list);
+						k = 0;
+						zoom.clear();
+
+					} catch (StringIndexOutOfBoundsException e) {
+						// handleException();
+						System.out.println(
+								"Exception occurred . . . . Strings do not have the same length or they do have wrong tunning!!");
+					}
 				}
+				/*
+				 * If instrument is bass it adds lines of tab to the tab list until if ends
+				 * which is after getting the last line that starts with "B"
+				 */
 			} else if (flag == 3) {// Drum
 				if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
-					System.out.println("****");
-					// m = 1;
+					// System.out.println("****");
 
 				} else {
-					System.out.println(data);
+					// System.out.println(data);
 					zoom.add(data);
 					k++;
 				}
-				if (k == 6) {
-					list = ParseDrum(zoom, list, k);
-					k = 0;
-					zoom.clear();
+				if (data.charAt(0) == 'B') {
+					// first handle exceptions and check if it is correct tab, then call the
+					// parsDrum function
+					try {
+						TabIsOK(zoom, flag);
+						list = ParseDrum(zoom, list, k);
+						k = 0;
+						zoom.clear();
+
+					} catch (StringIndexOutOfBoundsException e) {
+						// handleException();
+						System.out.println(
+								"Exception occurred . . . . Strings do not have the same length or They do have wrong tunning!!");
+					}
 				}
 
 			}
 		}
 
+		// close the file and return the result
 		myReader.close();
 		//ConvertedSongTest.createXML(list);
 		return list;
@@ -278,6 +315,7 @@ public class textReader extends Output {
 			for (int j = 0; j < 6; j++) {
 				if ((getCharFromString(zoom.get(j), i) != '-') && (getCharFromString(zoom.get(j), i) != '|')) {
 					// 1 digit
+					// Check if the note is proper 1 digit to add new tab element to the list
 					if (((getCharFromString(zoom.get(j), i - 1) == '-')
 							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
 							&& ((getCharFromString(zoom.get(j), i + 1) == '-')
@@ -287,6 +325,7 @@ public class textReader extends Output {
 
 					}
 					// 2 digits
+					// Check if the note is proper 2 digit to add new tab element to the list
 					else if (((getCharFromString(zoom.get(j), i - 1) == '-')
 							|| (getCharFromString(zoom.get(j), i - 1) == '|'))
 							&& ((getCharFromString(zoom.get(j), i + 2) == '-')
@@ -318,6 +357,7 @@ public class textReader extends Output {
 								Character.toString(getCharFromString(zoom.get(j), i + 1)), i));
 					}
 				}
+				// Check if the element is "|" to add new tab element to the list
 				if (getCharFromString(zoom.get(j), i) == '|') {
 					list.add(new Output("*New Measure*", -1, -1, "-", i));
 					if (i != length - 1) {
@@ -533,41 +573,46 @@ public class textReader extends Output {
 	 * "TabIsOK" Takes the tab and flag which tells the instrument. check the tab if
 	 * it is correct or not. throw an exception if something is wrong
 	 */
-	static void TabIsOK(List<String> zoom, int flag) {
+	public static int TabIsOK(List<String> tab, int flag) {
+
+		int error = 0;
+
 		if (flag == 1) {// Guitar
 			// check all lines have the same length
-			for (int i = 0; i < zoom.size() - 1; i++) {
-				if (zoom.get(i).length() != zoom.get(i + 1).length()) {
-					throw new StringIndexOutOfBoundsException();
+			for (int i = 0; i < tab.size() - 1; i++) {
+				if (tab.get(i).length() != tab.get(i + 1).length()) {
+					error = 1; // error 1 if all lines are not the same length
 				}
 			}
 			// check all lines have the correct tuning letter
-			if ((getCharFromString(zoom.get(1), 0) != 'B') || (getCharFromString(zoom.get(2), 0) != 'G')
-					|| (getCharFromString(zoom.get(3), 0) != 'D') || (getCharFromString(zoom.get(4), 0) != 'A')
-					|| (getCharFromString(zoom.get(5), 0) != 'D')) {
-				throw new StringIndexOutOfBoundsException();
+			if ((getCharFromString(tab.get(1), 0) != 'B') || (getCharFromString(tab.get(2), 0) != 'G')
+					|| (getCharFromString(tab.get(3), 0) != 'D') || (getCharFromString(tab.get(4), 0) != 'A')
+					|| (getCharFromString(tab.get(5), 0) != 'D')) {
+				error = 2; // error 2 if incorrect tuning letter
 			}
 
 		} else if (flag == 2) {// Bass
 			// check all lines have the same length
-			for (int i = 0; i < zoom.size() - 1; i++) {
-				if (zoom.get(i).length() != zoom.get(i + 1).length()) {
-					throw new StringIndexOutOfBoundsException();
+			for (int i = 0; i < tab.size() - 1; i++) {
+				if (tab.get(i).length() != tab.get(i + 1).length()) {
+					error = 1; // error 1 if all ines are not the same length
 				}
 			}
 			// check all lines have the correct tuning letter
-			if ((getCharFromString(zoom.get(1), 0) != 'D') || (getCharFromString(zoom.get(2), 0) != 'A')
-					|| (getCharFromString(zoom.get(3), 0) != 'D')) {
-				throw new StringIndexOutOfBoundsException();
+			if ((getCharFromString(tab.get(1), 0) != 'D') || (getCharFromString(tab.get(2), 0) != 'A')
+					|| (getCharFromString(tab.get(3), 0) != 'D')) {
+				error = 2; // error 2 if incorrect tuning letter
 			}
 		} else if (flag == 3) {// Drum
 			// check all lines have the same length
-			for (int i = 0; i < zoom.size() - 1; i++) {
-				if (zoom.get(i).length() != zoom.get(i + 1).length()) {
-					throw new StringIndexOutOfBoundsException();
+			for (int i = 0; i < tab.size() - 1; i++) {
+				if (tab.get(i).length() != tab.get(i + 1).length()) {
+					error = 1; // error 1 if all lines are not the same length
 				}
 			}
 		}
+
+		return error;
 	}
 
 	/*
