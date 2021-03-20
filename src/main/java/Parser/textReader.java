@@ -303,6 +303,30 @@ public class textReader extends Output {
 		return list;
 	}
 
+
+	/*
+	 * "getTab" Takes the path of the file and reads it and return
+	 * the tab as a list of string
+	 */
+	public static List<String> getTab(String path) throws FileNotFoundException {
+
+		// define the result list
+		// and list of string which is a single tab
+		List<String> tab = new ArrayList<>();
+
+		// scan the txt file
+		Scanner myReader = new Scanner(new FileReader(path));
+		String data = null;
+
+		while (myReader.hasNextLine()) {
+
+			// assigning new line of the file into data variable which is string
+			data = myReader.nextLine().trim();
+			tab.add(data);
+		}
+		return tab;
+	}
+
 	/*
 	 needs comment
 	 */

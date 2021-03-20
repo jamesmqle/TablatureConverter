@@ -54,15 +54,91 @@ class textReaderTest {
     }
 
 
-//    @Test
-//    public void testParsBass() {
-//        fail("Not yet implemented");
-//    }
-//
-//    @Test
-//    public void testParsDrum() {
-//        fail("Not yet implemented");
-//    }
+    @Test
+    public void testParsBass() {
+        List<Output> listt = new ArrayList<>();
+        List<String> tab = new ArrayList<>();
+        tab.add("G|-----------------------------------------------|");
+        tab.add("D|-----------------------------------------------|");
+        tab.add("A|-5-55-5-5-0--4-44-4-4-0--2-22-2-2-0-----------2|");
+        tab.add("E|-------------------------------------3-33-3-5--|");
+        listt = textReader.ParseBass(tab, listt);
+        assertTrue(listt.get(1).getnote1()==55);
+    }
+
+    @Test
+    public void testTabIsOK_bass_1() {
+        assertThrows(StringIndexOutOfBoundsException.class, () -> {
+            int flag=2;         //Its bass
+            List<String> basstab = new ArrayList<>();
+            basstab.add("G|-----------------------------------------------|");
+            basstab.add("D|-----------------------------------------------|");
+            basstab.add("A|-5-55-5-5-0--4-44-4-4-0--2-22-2-2-0-----------2|");
+            basstab.add("E|------------------------------------3-33-3-5--|");
+            textReader.TabIsOK(basstab, flag);
+        });
+    }
+
+    @Test
+    public void testTabIsOK_bass_2() {
+        assertThrows(StringIndexOutOfBoundsException.class, () -> {
+            int flag=2;         //Its bass
+            List<String> basstab = new ArrayList<>();
+            basstab.add("G|-----------------------------------------------|");
+            basstab.add("D|-----------------------------------------------|");
+            basstab.add("A|-5-55-5-5-0--4-44-4-4-0--2-22-2-2-0-----------2|");
+            basstab.add("P|-------------------------------------3-33-3-5--|");
+            textReader.TabIsOK(basstab, flag);
+        });
+    }
+
+
+    @Test
+    public void testParsDrum() {
+        List<Output> listt = new ArrayList<>();
+        List<String> tab = new ArrayList<>();
+        tab.add("CC|x---------------|--------x-------|");
+        tab.add("HH|--x-x-x-x-x-x-x-|----------------|");
+        tab.add("SD|----o-------o---|oooo------------|");
+        tab.add("HT|----------------|----oo----------|");
+        tab.add("MT|----------------|------oo--------|");
+        tab.add("BD|o-------o-------|o-------o-------|");
+        listt = textReader.ParseDrum(tab, listt,tab.size());
+        assertTrue(listt.get(0).gettech().charAt(0)=='x');
+        assertTrue(listt.get(1).gettech().charAt(0)=='o');
+    }
+
+    @Test
+    public void testTabIsOK_drum_1() {
+        assertThrows(StringIndexOutOfBoundsException.class, () -> {
+            int flag=3;         //Its drum
+            List<String> drumtab = new ArrayList<>();
+            drumtab.add("CC|x---------------|--------x-------|");
+            drumtab.add("HH|--x-x-x-x-x-x-x-|---------------|");
+            drumtab.add("SD|----o-------o---|oooo------------|");
+            drumtab.add("HT|----------------|----oo----------|");
+            drumtab.add("MT|----------------|------oo--------|");
+            drumtab.add("BD|o-------o-------|o-------o-------|");
+            textReader.TabIsOK(drumtab, flag);
+        });
+    }
+
+    /*
+    @Test
+    public void testTabIsOK_drum_2() {
+        assertThrows(StringIndexOutOfBoundsException.class, () -> {
+            int flag=3;         //Its drum
+            List<String> drumtab = new ArrayList<>();
+            drumtab.add("CC|x---------------|--------x-------|");
+            drumtab.add("HH|--x-x-x-x-x-x-x-|----------------|");
+            drumtab.add("SD|----o-------o---|oooo------------|");
+            drumtab.add("HT|----------------|----oo----------|");
+            drumtab.add("MT|----------------|------oo--------|");
+            drumtab.add("BD|o-------o-------|o-------o-------|");
+            textReader.TabIsOK(drumtab, flag);
+        });
+    }
+    */
 
     @Test
     public void testOutput() {
