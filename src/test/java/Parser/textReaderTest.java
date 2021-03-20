@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,6 +22,37 @@ class textReaderTest {
         listt = textReader.ParseGuitar(tab, listt);
         assertTrue(listt.get(0).getnote1()==0);
     }
+
+    @Test
+    public void testTabIsOK_guitar_1() {
+        assertThrows(StringIndexOutOfBoundsException.class, () -> {
+            int flag=1;         //Its guitar
+            List<String> guitartab = new ArrayList<>();
+            guitartab.add("E|--0-----------------------|-------------------------|");
+            guitartab.add("B|------------------3-----5-|-2----------------------|");
+            guitartab.add("G|------------------3-------|-2-----------------------|");
+            guitartab.add("D|------------------5-------|-2-----------------------|");
+            guitartab.add("A|--------------------------|-0-----------------------|");
+            guitartab.add("D|--------------------------|-------------------------|");
+            textReader.TabIsOK(guitartab, flag);
+        });
+    }
+
+    @Test
+    public void testTabIsOK_guitar_2() {
+        assertThrows(StringIndexOutOfBoundsException.class, () -> {
+            int flag=1;         //Its guitar
+            List<String> guitartab = new ArrayList<>();
+            guitartab.add("E|--0-----------------------|-------------------------|");
+            guitartab.add("B|------------------3-----5-|-2-----------------------|");
+            guitartab.add("G|------------------3-------|-2-----------------------|");
+            guitartab.add("P|------------------5-------|-2-----------------------|");
+            guitartab.add("A|--------------------------|-0-----------------------|");
+            guitartab.add("D|--------------------------|-------------------------|");
+            textReader.TabIsOK(guitartab, flag);
+        });
+    }
+
 
 //    @Test
 //    public void testParsBass() {

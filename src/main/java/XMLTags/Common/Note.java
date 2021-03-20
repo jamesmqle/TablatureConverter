@@ -1,8 +1,6 @@
 package XMLTags.Common;
 
-import XMLTags.Drums.Beam;
-import XMLTags.Drums.Instrument;
-import XMLTags.Drums.Unpitched;
+import XMLTags.Guitar.Notation;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -12,49 +10,36 @@ import java.io.Serializable;
 // Feb 17 change - Changed type from Type to String
 
 @XmlRootElement(name = "note")
-@XmlType(propOrder = {"chord", "pitch", "duration", "type"})
+@XmlType(propOrder = {"chord", "pitch", "duration", "voice", "type", "notations"})
 public class Note implements Serializable {
-
     private Pitch pitch;
     private int duration;
+    //private Type type;
     private String type;
     private String chord;
-    // added below recently - jamesmqle
-    private Unpitched unpitch;
-    private Instrument instrument;
-    private String voice;
-    private String stem;
-    private String notehead;
-    Beam beam1;
-    Beam beam2;
+    private int voice;
+    Notation notations;
 
     public Note() {
         this.pitch = new Pitch();
         this.duration = 4;
         //this.type = new Type();
         this.type = "whole";
-    }
-
-    public Note(Pitch g) {
-        this.pitch = g;
-    }
-
-    public Note(int duration) {
-        this.duration = duration;
-    }
-
-    /*public Note(Type type) {
-        this.type = type;
-    }
-    */
-    public Note(String type) {
-        this.type = type;
+        this.voice = 1;
     }
 
     public Note(Pitch pitch, int duration, String type) {
         this.pitch = pitch;
         this.duration = duration;
         this.type = type;
+        this.voice = 1;
+    }
+
+    public Note(Pitch pitch, int duration, String type, int voice) {
+        this.pitch = pitch;
+        this.duration = duration;
+        this.type = type;
+        this.voice = voice;
     }
 
     @XmlElement(name = "pitch")
@@ -97,74 +82,21 @@ public class Note implements Serializable {
         this.setChord("");
     }
 
-    /**
-     * ========= DRUMS? ===========
-     */
-    @XmlElement(name = "unpitch")
-    public void setUnpitch(Unpitched unpitch) {
-        unpitch = unpitch;
+    @XmlElement(name = "notations")
+    public Notation getNotations() {
+        return this.notations;
     }
 
-    public Unpitched getUnpitch() {
-        return unpitch;
+    public void setNotations(Notation notations) {
+        this.notations = notations;
     }
 
     @XmlElement(name = "voice")
-    public void setVoice(String voice) {
+    public int getVoice() {
+        return this.voice;
+    }
+
+    public void setVoice(int voice) {
         this.voice = voice;
-    }
-
-    public String getVoice() {
-        return voice;
-    }
-
-    @XmlElement(name = "stem")
-    public void setStem(String stem) {
-        this.stem = stem;
-    }
-
-    public String getStem() {
-        return stem;
-    }
-
-    @XmlElement(name = "instrument")
-    public void setInstrument(Instrument instrument) {
-        this.instrument = instrument;
-
-    }
-    public Instrument getInstrument() {
-        return instrument;
-    }
-
-    @XmlElement(name = "beam1")
-    public void setBeam1(Beam beam) {
-        this.beam1 = beam;
-    }
-
-    public Beam getBeam1() {
-        return beam1;
-    }
-
-    @XmlElement(name = "beam2")
-    public void setBeam2(Beam beam) {
-        this.beam2 = beam;
-    }
-    public Beam getBeam2() {
-        return beam2;
-    }
-
-    public Note(Unpitched pitch, int duration, String voice, String stem, String type, String notehead, Instrument instrument, Beam beam1, Beam beam2) {
-
-        this.beam1 = beam1;
-        this.beam2 = beam2;
-        this.instrument = instrument;
-        this.unpitch = pitch;
-        this.duration = duration;
-        this.voice = voice;
-        this.type = type;
-        this.stem = stem;
-        this.voice = voice;
-        this.notehead = notehead;
-
     }
 }

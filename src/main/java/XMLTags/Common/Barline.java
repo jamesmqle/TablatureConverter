@@ -1,7 +1,10 @@
 package XMLTags.Common;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "barline")
 public class Barline {
 
     private String location;
@@ -14,7 +17,7 @@ public class Barline {
         this.barStyle = barStyle;
     }
 
-    @XmlElement(name = "location")
+    @XmlAttribute
     public String getLocation(){
         return this.location;
     }

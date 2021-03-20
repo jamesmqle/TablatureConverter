@@ -19,6 +19,7 @@ public class Output {
 	 * System.out.println("item1" + obj.getletter() + " " + "item2" + obj.getnum() +
 	 * " " + "item2" + obj.getindex())); }
 	 */
+
 	public int getindex() {
 		// TODO Auto-generated method stub
 		return this.index;

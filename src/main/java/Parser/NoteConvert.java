@@ -106,12 +106,12 @@ public class NoteConvert {
 	}
 
 	public static int convertToStringInt(String stringTune) {
-		if (stringTune.equals("E")) return 1;
-		else if (stringTune.equals("A")) return 2;
-		else if (stringTune.equals("D")) return 3;
-		else if (stringTune.equals("G")) return 4;
-		else if (stringTune.equals("B")) return 5;
-		else if (stringTune.equals("e")) return 6;
+		if (stringTune.equals("E")) return 6;
+		else if (stringTune.equals("A")) return 5;
+		else if (stringTune.equals("D")) return 4;
+		else if (stringTune.equals("G")) return 3;
+		else if (stringTune.equals("B")) return 2;
+		else if (stringTune.equals("e")) return 1;
 		else return -1;
 	}
 
