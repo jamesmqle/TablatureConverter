@@ -8,29 +8,29 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"string", "fret"})
 public class Technical {
 
-    int string;
-    int fret;
+    String string;
+    String fret;
 
     public Technical() {}
 
-    public Technical(int string, int fret) {
+    public Technical(String string, String fret) {
         this.string = string;
         this.fret = fret;
     }
 
     @XmlElement(name = "string")
-    public int getString() {
+    public String getString() {
         return this.string;
     }
-    public void setString(int string) {
+    public void setString(String string) {
         this.string = string;
     }
 
     @XmlElement(name = "fret")
-    public int getFret() {
+    public String getFret() {
         return this.fret;
     }
-    public void setFret(int fret) {
+    public void setFret(String fret) {
         this.fret = fret;
     }
 }

@@ -19,8 +19,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlAttribute;
 
-//@XmlRootElement
-
 @XmlRootElement(name = "score-partwise")
 public class ConvertedSong implements Serializable {
     @XmlAttribute
@@ -44,25 +42,6 @@ public class ConvertedSong implements Serializable {
         this.partList.getScorePart().setId("G" + this.parts.size());
         this.partList.getScorePart().setPartName("XMLTags/Guitar " + this.parts.size());
     }
-
-//    public void addMeasure(Measure measure){
-//        this.measures.add(measure);
-//    }
-
-  //  public void addNote(Note note){
-  //      this.notes.add(note);
- //   }
-
-    /*
-    @XmlElement(name = "attributes")
-    public Attributes getAttributes() {
-        return this.attributes;
-    }
-
-    public void setAttributes(Attributes attributes) {
-        this.attributes = attributes;
-    }
-*/
 
     @XmlElement(name = "part-list")
     public PartList getPartList() {
@@ -89,7 +68,7 @@ public class ConvertedSong implements Serializable {
     public void addNoteToMeasure(String tuning, int fret){
         int stringNum = NoteConvert.convertToStringInt(tuning);
         this.getParts().get(this.getParts().size()-1).getMeasures().get(this.getParts().get(this.getParts().size()-1).getMeasures().size()-1).addNoteFromTab(tuning, fret);
-        this.getParts().get(this.getParts().size()-1).getMeasures().get(this.getParts().get(this.getParts().size()-1).getMeasures().size()-1).getNotes().get(this.getParts().get(this.getParts().size()-1).getMeasures().get(this.getParts().get(this.getParts().size()-1).getMeasures().size()-1).getNotes().size()-1).setNotations(new Notation(new Technical(stringNum, fret)));
+        this.getParts().get(this.getParts().size()-1).getMeasures().get(this.getParts().get(this.getParts().size()-1).getMeasures().size()-1).getNotes().get(this.getParts().get(this.getParts().size()-1).getMeasures().get(this.getParts().get(this.getParts().size()-1).getMeasures().size()-1).getNotes().size()-1).setNotations(new Notation(new Technical(String.valueOf(stringNum), String.valueOf(fret))));
     }
 
     /*

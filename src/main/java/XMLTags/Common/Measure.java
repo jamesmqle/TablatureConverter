@@ -4,6 +4,7 @@ import Parser.NoteConvert;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +12,14 @@ import java.util.List;
 /*
  *  The Measure program implements objects attributes and note
  */
+
+@XmlType(propOrder = {"attributes", "notes", "barline"})
 public class Measure implements Serializable {
 
     private Attributes attributes;
     private List<Note> notes;
     private String number;
+    private Barline barline;
 
     public Measure(){
         this.attributes = new Attributes(new Clef(), new Key(0, "major"), new TimeSignature(4,4), "1", new StaffDetails());
@@ -88,6 +92,17 @@ public class Measure implements Serializable {
     public void setNumber(String number) {
         this.number = number;
     }
+
+    @XmlElement (name = "barline")
+    public Barline getBarline() {
+        return this.barline;
+    }
+
+    public void setBarline(Barline barline) {
+        this.barline = barline;
+    }
+
+
 
 //    @XmlElement(name = "note")
 //    public Note getNote(){
