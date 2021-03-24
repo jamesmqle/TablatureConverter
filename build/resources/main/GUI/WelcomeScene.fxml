@@ -29,43 +29,49 @@
             <Image url="@img_2.png" />
          </image>
       </ImageView>
-      <Label fx:id="title" layoutX="331.0" layoutY="69.0" prefHeight="32.0" prefWidth="273.0" text="Tablature Converter">
+      <Label layoutX="331.0" layoutY="69.0" prefHeight="32.0" prefWidth="273.0" text="Tablature Converter">
          <font>
             <Font name="Century Gothic" size="28.0" />
          </font>
       </Label>
-      <TextArea fx:id="textview" layoutX="298.0" layoutY="325.0" prefHeight="272.0" prefWidth="684.0" promptText="Paste Tablature Here ...">
+      <TextArea fx:id="textview" layoutX="299.0" layoutY="376.0" prefHeight="272.0" prefWidth="684.0" promptText="paste tablature here ...">
          <font>
             <Font name="Courier New" size="12.0" />
          </font></TextArea>
-      <Button fx:id="ConvertButton" layoutX="407.0" layoutY="660.0" mnemonicParsing="false" onAction="#ConvertHandler" prefHeight="40.0" prefWidth="467.0" text="Convert File 🔁" textFill="WHITE">
+      <Button fx:id="ConvertButton" layoutX="407.0" layoutY="702.0" mnemonicParsing="false" onAction="#ConvertHandler" prefHeight="40.0" prefWidth="467.0" text="Convert File 🔁" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <ListView fx:id="listview" layoutX="671.0" layoutY="220.0" prefHeight="32.0" prefWidth="215.0" />
-      <Button fx:id="UploadFileButton" layoutX="524.0" layoutY="220.0" mnemonicParsing="false" onAction="#FileChooserHandler" prefHeight="32.0" prefWidth="147.0" text="⬆ Upload File" textFill="#0044ff">
+      <ListView fx:id="listview" layoutX="638.0" layoutY="286.0" prefHeight="32.0" prefWidth="215.0" />
+      <Button fx:id="UploadFileButton" layoutX="491.0" layoutY="286.0" mnemonicParsing="false" onAction="#FileChooserHandler" prefHeight="32.0" prefWidth="147.0" text="⬆ Upload File" textFill="#0044ff">
          <font>
             <Font name="Century Gothic" size="15.0" />
          </font>
       </Button>
       <Line endX="592.9999389648438" layoutX="406.0" layoutY="115.0" startX="-125.0" />
-      <Label layoutX="329.0" layoutY="142.0" prefHeight="40.0" prefWidth="139.0" text="Title (optional):">
+      <Label layoutX="326.0" layoutY="144.0" prefHeight="40.0" prefWidth="139.0" text="Title (optional):">
          <font>
             <Font name="Calibri" size="20.0" />
          </font>
       </Label>
-      <TextArea layoutX="468.0" layoutY="145.0" prefHeight="36.0" prefWidth="448.0" promptText="title goes here..." />
-      <Label layoutX="340.0" layoutY="216.0" prefHeight="40.0" prefWidth="175.0" text="Upload Tablature:">
+      <TextArea fx:id="title" layoutX="465.0" layoutY="146.0" prefHeight="36.0" prefWidth="448.0" promptText="title goes here..." />
+      <Label layoutX="328.0" layoutY="282.0" prefHeight="40.0" prefWidth="178.0" text="Upload Tablature:">
          <font>
-            <Font name="Century Gothic" size="20.0" />
+            <Font name="Calibri" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="376.0" layoutY="272.0" text="Or">
+      <Label layoutX="384.0" layoutY="335.0" text="Or">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="346.0" layoutY="597.0" prefHeight="17.0" prefWidth="164.0" text="Accepted file types: .txt only" />
+      <Label layoutX="346.0" layoutY="648.0" prefHeight="17.0" prefWidth="164.0" text="Accepted file types: .txt only" />
+      <TextArea fx:id="timeSignature" layoutX="553.0" layoutY="216.0" prefHeight="17.0" prefWidth="358.0" promptText="modify time signature here... (ex. 2/4. 2/8, etc.)" />
+      <Label layoutX="328.0" layoutY="220.0" prefHeight="30.0" prefWidth="225.0" text="Time Signature (optional):">
+         <font>
+            <Font name="Calibri" size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

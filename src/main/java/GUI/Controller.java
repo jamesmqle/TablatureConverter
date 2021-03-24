@@ -2,27 +2,26 @@ package GUI;
 
 import XMLTags.Common.ConvertedSongTest;
 import Parser.textReader;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.awt.Label;
 import java.io.*;
+import java.net.URL;
 import java.nio.file.Files;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import static Parser.textReader.*;
@@ -33,19 +32,33 @@ import static Parser.textReader.*;
 public class Controller {
 
     File inputFile = null; // Input file Object
-    File outputFile = new File("src/main/resources/sample/ConvertedSong.xml"); // Output file Object
+    File outputFile = new File("src/main/resources/sample/convertedSong.xml"); // Output file Object
     File textFile = new File("src/main/resources/sample/textarea.txt");
 
     int error = 0; // this will handle errors
 
+//    @FXML
+//    private Label progress;
+//    public static Label label;
+//
+//    @FXML
+//    private ProgressBar progressBar;
+//    public static ProgressBar statProgressBar;
+
     @FXML
-    public Button ConvertButton;
+    public Button ConvertButton, xml;
 
     @FXML
     private ListView listview;
 
     @FXML
-    public TextArea textview;
+    public TextArea textview, title, timeSignature, XMLTextArea;
+
+//    @FXML
+//    public void intialize(URL url, ResourceBundle rb){
+//        label = progress;
+//        statProgressBar = progressBar;
+//    }
 
     /**
      * This method uploads a file
@@ -108,8 +121,7 @@ public class Controller {
 
         if (textview != null) { // makes the convert button blue when tablature is displayed in textarea
             ConvertButton.setTextFill(Paint.valueOf("blue"));
-        }
-        else{
+        } else {
             ConvertButton.setTextFill(Paint.valueOf("white"));
         }
     }
@@ -143,8 +155,8 @@ public class Controller {
     public void ConvertHandler(ActionEvent event) throws IOException {
         if (textview != null) { // gives error message if textarea is empty
             textViewToFile(textFile, textview);
-            if(ErrorHandler() == 0){
-                ConvertedSongTest.createXML(textReader.readTabFile2(textFile.toString()), outputFile.toString(), inputFile.toString()); // Passes textarea file through parser
+            if (ErrorHandler() == 0) {
+                ConvertedSongTest.createXML(textReader.readTabFile2(textFile.toString()), outputFile.toString(), textFile.toString()); // Passes textarea file through parser
                 Parent conversionCompleteParent = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/ConversionComplete.fxml"));
                 Scene ClipBoardScene = new Scene(conversionCompleteParent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -156,20 +168,20 @@ public class Controller {
 
     /**
      * This method will handle errors within the given text tablature
+     *
      * @throws FileNotFoundException
      */
     @FXML
     public int ErrorHandler() throws FileNotFoundException {
 
-        error = TabIsOK(getTab(textFile.toString()),detectInstrument(textFile.toString())); // this will assign the error
+        error = TabIsOK(getTab(textFile.toString()), detectInstrument(textFile.toString())); // this will assign the error
 
-        if(error == 1){ // error 1 if all lines are not the same length
+        if (error == 1) { // error 1 if all lines are not the same length
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Tablature Format Error.");
             errorAlert.setContentText("Please make sure all lines are the same length.");
             errorAlert.showAndWait();
-        }
-        else if(error == 2){ // error 2 if incorrect tuning letters
+        } else if (error == 2) { // error 2 if incorrect tuning letters
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Tablature Format Error.");
             errorAlert.setContentText("Please make sure all lines have the correct tuning letter");
@@ -178,6 +190,25 @@ public class Controller {
 
         System.out.println("Controller Error: " + error);
         return error;
+    }
+
+    /**
+     * This button will display the converted XML to the textarea
+     */
+    public void displayXML(ActionEvent event) throws IOException {
+        try {
+            Scanner s = new Scanner(new File(outputFile.toString())).useDelimiter("'");
+            while (s.hasNext()) {
+                if (s.hasNextByte()) { // check if next token is an int
+                    XMLTextArea.appendText(s.nextLine() + " "); // display the found integer
+                } else {
+                    XMLTextArea.appendText(s.next() + " "); // else read the next token
+                }
+                XMLTextArea.appendText("\n");
+            }
+        } catch (FileNotFoundException ex) {
+            System.err.println(ex);
+        }
     }
 
 
@@ -219,7 +250,6 @@ public class Controller {
      */
     @FXML
     public void BackToWelcome(ActionEvent event) throws IOException {
-        inputFile = null;
         Parent back = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
         Scene welcomeScene = new Scene(back);
         welcomeScene.getStylesheets().add("GUI/WelcomeStyleSheet.css");

@@ -98,8 +98,8 @@ public class ConvertedSongTest {
 		return type;
 	}
 
-	public static void createXML(List<Output> notes, String filePath, String inputFilePath) throws FileNotFoundException {
-		String xmlFile = filePath;
+	public static void createXML(List<Output> notes, String outputFilePath, String inputFilePath) throws FileNotFoundException {
+		String xmlFile = outputFilePath;
 		ConvertedSong song = new ConvertedSong();
 
 		Part lastPart;
