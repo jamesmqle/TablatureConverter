@@ -153,16 +153,28 @@ public class Controller {
      */
     @FXML
     public void ConvertHandler(ActionEvent event) throws IOException {
-        if (textview != null) { // gives error message if textarea is empty
-            textViewToFile(textFile, textview);
-            if (ErrorHandler() == 0) {
-                ConvertedSongTest.createXML(textReader.readTabFile2(textFile.toString()), outputFile.toString(), textFile.toString()); // Passes textarea file through parser
-                Parent conversionCompleteParent = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/ConversionComplete.fxml"));
-                Scene ClipBoardScene = new Scene(conversionCompleteParent);
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(ClipBoardScene);
-                window.show();
+        try {
+            if (textview.getText() != "") { // gives error message if textarea is empty
+                textViewToFile(textFile, textview);
+                if (ErrorHandler() == 0) {
+                    ConvertedSongTest.createXML(textReader.readTabFile2(textFile.toString()), outputFile.toString(), textFile.toString()); // Passes textarea file through parser
+                    Parent conversionCompleteParent = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/ConversionComplete.fxml"));
+                    Scene ClipBoardScene = new Scene(conversionCompleteParent);
+                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    window.setScene(ClipBoardScene);
+                    window.show();
+                }
             }
+            else{
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setHeaderText("No Input Found.");
+                errorAlert.setContentText("Please Input Tablature before conversion.");
+                errorAlert.showAndWait();
+                errorAlert.close();
+            }
+        }
+        catch(Exception e){
+            System.err.println();
         }
     }
 
