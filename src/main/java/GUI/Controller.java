@@ -108,7 +108,6 @@ public class Controller {
 
             textAreaCheck();
 
-
         } catch (FileNotFoundException ex) {
             System.err.println(ex);
         }
@@ -153,28 +152,23 @@ public class Controller {
      */
     @FXML
     public void ConvertHandler(ActionEvent event) throws IOException {
-        try {
-            if (textview.getText() != "") { // gives error message if textarea is empty
-                textViewToFile(textFile, textview);
-                if (ErrorHandler() == 0) {
-                    ConvertedSongTest.createXML(textReader.readTabFile2(textFile.toString()), outputFile.toString(), textFile.toString()); // Passes textarea file through parser
-                    Parent conversionCompleteParent = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/ConversionComplete.fxml"));
-                    Scene ClipBoardScene = new Scene(conversionCompleteParent);
-                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    window.setScene(ClipBoardScene);
-                    window.show();
-                }
-            }
-            else{
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setHeaderText("No Input Found.");
-                errorAlert.setContentText("Please Input Tablature before conversion.");
-                errorAlert.showAndWait();
-                errorAlert.close();
+        if (textview.getText() != "") { // gives error message if textarea is empty
+            textViewToFile(textFile, textview);
+            if (ErrorHandler() == 0) {
+                ConvertedSongTest.createXML(textReader.readTabFile2(textFile.toString()), outputFile.toString(), textFile.toString()); // Passes textarea file through parser
+                Parent conversionCompleteParent = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/ConversionComplete.fxml"));
+                Scene ClipBoardScene = new Scene(conversionCompleteParent);
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(ClipBoardScene);
+                window.show();
             }
         }
-        catch(Exception e){
-            System.err.println();
+        else{
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Conversion Failed");
+            errorAlert.setContentText("The textarea is empty. Please input tablature before converting.");
+            errorAlert.showAndWait();
+            errorAlert.close();
         }
     }
 
