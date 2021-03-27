@@ -108,7 +108,6 @@ public class Controller {
 
             textAreaCheck();
 
-
         } catch (FileNotFoundException ex) {
             System.err.println(ex);
         }
@@ -153,7 +152,7 @@ public class Controller {
      */
     @FXML
     public void ConvertHandler(ActionEvent event) throws IOException {
-        if (textview != null) { // gives error message if textarea is empty
+        if (textview.getText() != "") { // gives error message if textarea is empty
             textViewToFile(textFile, textview);
             if (ErrorHandler() == 0) {
                 ConvertedSongTest.createXML(textReader.readTabFile2(textFile.toString()), outputFile.toString(), textFile.toString()); // Passes textarea file through parser
@@ -163,6 +162,13 @@ public class Controller {
                 window.setScene(ClipBoardScene);
                 window.show();
             }
+        }
+        else{
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Conversion Failed");
+            errorAlert.setContentText("The textarea is empty. Please input tablature before converting.");
+            errorAlert.showAndWait();
+            errorAlert.close();
         }
     }
 

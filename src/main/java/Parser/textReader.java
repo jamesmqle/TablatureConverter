@@ -600,8 +600,8 @@ public class textReader extends Output {
 	public static int TabIsOK(List<String> tab, int flag) {
 
 		int error = 0;
-
 		System.out.println("Flag: " + flag);
+
 		if (flag == 1) {// Guitar
 			// check all lines have the same length
 			for (int i = 0; i < tab.size() - 1; i++) {
@@ -625,8 +625,8 @@ public class textReader extends Output {
 				}
 			}
 			// check all lines have the correct tuning letter
-			if ((getCharFromString(tab.get(1), 0) != 'D') || (getCharFromString(tab.get(2), 0) != 'A')
-					|| (getCharFromString(tab.get(3), 0) != 'D')) {
+			if ((getCharFromString(tab.get(0), 0) != 'G') || (getCharFromString(tab.get(1), 0) != 'A')
+					|| (getCharFromString(tab.get(2), 0) != 'D') || (getCharFromString(tab.get(3), 0)) != 'E') {
 				error = 2; // error 2 if incorrect tuning letter
 			}
 		} else if (flag == 3) {// Drum
