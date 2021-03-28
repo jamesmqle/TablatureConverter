@@ -35,7 +35,7 @@ public class Controller {
     File outputFile = new File("src/main/resources/sample/convertedSong.xml"); // Output file Object
     File textFile = new File("src/main/resources/sample/textarea.txt");
 
-    int error = 0; // this will handle errors
+    int warningError = 0, criticalError = 0; // this will handle errors
 
 //    @FXML
 //    private Label progress;
@@ -54,11 +54,6 @@ public class Controller {
     @FXML
     public TextArea textview, title, timeSignature, XMLTextArea;
 
-//    @FXML
-//    public void intialize(URL url, ResourceBundle rb){
-//        label = progress;
-//        statProgressBar = progressBar;
-//    }
 
     /**
      * This method uploads a file
@@ -100,8 +95,9 @@ public class Controller {
             while (s.hasNext()) {
                 if (s.hasNextInt()) { // check if next token is an int
                     textview.appendText(s.nextInt() + " "); // display the found integer
-                } else {
-                    textview.appendText(s.next() + " "); // else read the next token
+                }
+                else{
+                    textview.appendText(s.next() + " ");
                 }
                 textview.appendText("\n");
             }
@@ -116,7 +112,7 @@ public class Controller {
     /**
      * Makes the convert button blue when tablature is displayed in textarea
      */
-    private void textAreaCheck() {
+    public void textAreaCheck() {
 
         if (textview != null) { // makes the convert button blue when tablature is displayed in textarea
             ConvertButton.setTextFill(Paint.valueOf("blue"));
@@ -154,13 +150,14 @@ public class Controller {
     public void ConvertHandler(ActionEvent event) throws IOException {
         if (textview.getText() != "") { // gives error message if textarea is empty
             textViewToFile(textFile, textview);
-            if (ErrorHandler() == 0) {
+            if (CriticalErrorHandler() == 0) {
                 ConvertedSongTest.createXML(textReader.readTabFile2(textFile.toString()), outputFile.toString(), textFile.toString()); // Passes textarea file through parser
                 Parent conversionCompleteParent = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/ConversionComplete.fxml"));
                 Scene ClipBoardScene = new Scene(conversionCompleteParent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(ClipBoardScene);
                 window.show();
+                WarninglErrorHandler();
             }
         }
         else{
@@ -173,29 +170,39 @@ public class Controller {
     }
 
     /**
-     * This method will handle errors within the given text tablature
+     * This method will handle CRITICAL errors within the given text tablature
      *
      * @throws FileNotFoundException
      */
     @FXML
-    public int ErrorHandler() throws FileNotFoundException {
+    public int CriticalErrorHandler() throws FileNotFoundException {
+        return criticalError;
+    }
 
-        error = TabIsOK(getTab(textFile.toString()), detectInstrument(textFile.toString())); // this will assign the error
+    /**
+     * This method will handle CRITICAL errors within the given text tablature
+     *
+     * @throws FileNotFoundException
+     */
+    @FXML
+    public int WarninglErrorHandler() throws FileNotFoundException {
 
-        if (error == 1) { // error 1 if all lines are not the same length
+        warningError = TabIsOK(getTab(textFile.toString()), detectInstrument(textFile.toString())); // this will assign the error
+
+        if (warningError == 1) { // error 1 if all lines are not the same length
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("Tablature Format Error.");
-            errorAlert.setContentText("Please make sure all lines are the same length.");
+            errorAlert.setHeaderText("WARNING!");
+            errorAlert.setContentText("All lines were not the same length. This may have affected the output.");
             errorAlert.showAndWait();
-        } else if (error == 2) { // error 2 if incorrect tuning letters
+        } else if (warningError == 2) { // error 2 if incorrect tuning letters
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("Tablature Format Error.");
-            errorAlert.setContentText("Please make sure all lines have the correct tuning letter");
+            errorAlert.setHeaderText("WARNING!");
+            errorAlert.setContentText("Incorrect tuning letters. This may have affected the output.");
             errorAlert.showAndWait();
         }
 
-        System.out.println("Controller Error: " + error);
-        return error;
+        System.out.println("Controller Error: " + warningError);
+        return warningError;
     }
 
     /**
@@ -235,17 +242,6 @@ public class Controller {
                 // handle exception...
             }
         }
-    }
-
-    /**
-     * Opens the converted xml file
-     *
-     * @param event
-     * @throws IOException
-     */
-    @FXML
-    public void OpenXMLHandler(ActionEvent event) throws IOException {
-        Desktop.getDesktop().open(outputFile);
     }
 
     /**

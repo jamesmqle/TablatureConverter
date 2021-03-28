@@ -599,14 +599,14 @@ public class textReader extends Output {
 	 */
 	public static int TabIsOK(List<String> tab, int flag) {
 
-		int error = 0;
+		int warningError = 0;
 		System.out.println("Flag: " + flag);
 
 		if (flag == 1) {// Guitar
 			// check all lines have the same length
 			for (int i = 0; i < tab.size() - 1; i++) {
 				if (tab.get(i).length() != tab.get(i + 1).length()) {
-					error = 1; // error 1 if all lines are not the same length
+					warningError = 1; // error 1 if all lines are not the same length
 				}
 			}
 
@@ -614,32 +614,32 @@ public class textReader extends Output {
 			if ((getCharFromString(tab.get(0), 0) != 'e') || (getCharFromString(tab.get(1), 0) != 'B') || (getCharFromString(tab.get(2), 0) != 'G')
 					|| (getCharFromString(tab.get(3), 0) != 'D') || (getCharFromString(tab.get(4), 0) != 'A')
 					|| (getCharFromString(tab.get(5), 0) != 'E')) {
-				error = 2; // error 2 if incorrect tuning letter
+				warningError = 2; // error 2 if incorrect tuning letter
 			}
 
 		} else if (flag == 2) {// Bass
 			// check all lines have the same length
 			for (int i = 0; i < tab.size() - 1; i++) {
 				if (tab.get(i).length() != tab.get(i + 1).length()) {
-					error = 1; // error 1 if all ines are not the same length
+					warningError = 1; // error 1 if all ines are not the same length
 				}
 			}
 			// check all lines have the correct tuning letter
 			if ((getCharFromString(tab.get(0), 0) != 'G') || (getCharFromString(tab.get(1), 0) != 'A')
 					|| (getCharFromString(tab.get(2), 0) != 'D') || (getCharFromString(tab.get(3), 0)) != 'E') {
-				error = 2; // error 2 if incorrect tuning letter
+				warningError = 2; // error 2 if incorrect tuning letter
 			}
 		} else if (flag == 3) {// Drum
 			// check all lines have the same length
 			for (int i = 0; i < tab.size() - 1; i++) {
 				if (tab.get(i).length() != tab.get(i + 1).length()) {
-					error = 1; // error 1 if all lines are not the same length
+					warningError = 1; // error 1 if all lines are not the same length
 				}
 			}
 		}
 
-		System.out.println("Text Reader Error: " + error);
-		return error;
+		System.out.println("Text Reader Error: " + warningError);
+		return warningError;
 	}
 
 	/*
