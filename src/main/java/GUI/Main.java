@@ -1,12 +1,13 @@
-
 package GUI;
 
+import GUI.Controller.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -26,4 +27,5 @@ public class Main extends Application {
 		primaryStage.show();
 		primaryStage.setResizable(false);
 	}
+
 }
