@@ -92,7 +92,7 @@ public class ConvertedSongTest {
 		else if (quotient == 0.5) type = "half";
 		else if (quotient == 0.25) type = "quarter";
 		else if (quotient == 0.125) type = "eighth";
-		else if (quotient == 0.0625) type = "eighth";
+		else if (quotient == 0.0625) type = "16th";
 		else type = "quarter";
 
 		return type;
@@ -101,12 +101,11 @@ public class ConvertedSongTest {
 	public static void createXML(List<Output> notes, String outputFilePath, String inputFilePath) throws FileNotFoundException {
 		String xmlFile = outputFilePath;
 		ConvertedSong song = new ConvertedSong();
+		int numberOfDD = 0;
 
 		Part lastPart;
 		Attributes attribs;
 		Output prevNote = new Output();
-
-
 
 		boolean isPerfect,  lastNoteChord = false;;
 		double divisionCalc, doubleNoteDur;
