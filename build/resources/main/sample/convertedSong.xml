@@ -74,11 +74,10 @@
                     <octave>4</octave>
                 </pitch>
                 <duration>1</duration>
-                <tie type="stop"/>
+                <tie type="start"/>
                 <voice>1</voice>
                 <type>quarter</type>
                 <notations>
-                    <slur number="1" type="stop"/>
                     <technical>
                         <string>4</string>
                         <fret>1</fret>

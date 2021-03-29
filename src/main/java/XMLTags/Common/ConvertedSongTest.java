@@ -13,6 +13,7 @@ import Parser.textReader;
 import XMLTags.Guitar.Notation;
 import XMLTags.Guitar.Slur;
 import XMLTags.Guitar.Technical;
+import XMLTags.Guitar.Tied;
 //import org.junit.jupiter.api.BeforeEach;
 
 public class ConvertedSongTest {
@@ -205,9 +206,9 @@ public class ConvertedSongTest {
 				counter = 0;
 				List<Note> slurList = new ArrayList<Note>();
 				//Pitch pitch, int duration, String type, int voice, Notation notations
-				slurList.add(new Note(new Pitch(), 2, "half", 1, new Notation(new Technical("4", "1"), new Slur("1", "start")), new Tie("start")));
-				slurList.add(new Note(new Pitch(), 1, "quarter", 1, new Notation(new Technical("4", "1"))));
-				slurList.add(new Note(new Pitch(), 1, "quarter", 1, new Notation(new Technical("4", "1"), new Slur("1", "stop")), new Tie("stop")));
+				slurList.add(new Note(new Pitch(), 2, "half", 1, new Notation(new Technical("4", "1"), new Slur("1", "start"),  new Tied("start")), new Tie("start")));
+				slurList.add(new Note(new Pitch(), 1, "quarter", 1, new Notation(new Technical("4", "1"),  new Tied("start")), new Tie("start")));
+				slurList.add(new Note(new Pitch(), 1, "quarter", 1, new Notation(new Technical("4", "1"), new Slur("1", "stop"),  new Tied("stop")), new Tie("stop")));
 
 				attribs.setDivisions(Integer.toString(2));
 				song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);
