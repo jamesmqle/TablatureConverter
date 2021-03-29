@@ -14,7 +14,6 @@ import XMLTags.Guitar.Notation;
 import XMLTags.Guitar.Slur;
 import XMLTags.Guitar.Technical;
 import XMLTags.Guitar.Tied;
-//import org.junit.jupiter.api.BeforeEach;
 
 public class ConvertedSongTest {
     private JAXBContext context;
