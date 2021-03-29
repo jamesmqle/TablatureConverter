@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 
-@XmlType(propOrder = {"harmonic", "pulloff", "hammer", "string", "fret"})
+@XmlType(propOrder = {"pulloff", "hammer", "string", "fret"})
 public class Technical {
 
     String string;
@@ -51,11 +51,6 @@ public class Technical {
     }
     public ArrayList<PullOff> getPulloff() {
         return pulloff;
-    }
-
-
-    public String getHarmonic() {
-        return null;
     }
 
 }
