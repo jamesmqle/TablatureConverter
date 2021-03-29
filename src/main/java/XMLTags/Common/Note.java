@@ -14,7 +14,6 @@ import java.io.Serializable;
 public class Note implements Serializable {
     private Pitch pitch;
     private int duration;
-    //private Type type;
     private String type;
     private String chord;
     private int voice;
@@ -40,6 +39,14 @@ public class Note implements Serializable {
         this.duration = duration;
         this.type = type;
         this.voice = voice;
+    }
+
+    public Note(Pitch pitch, int duration, String type, int voice, Notation notations) {
+        this.pitch = pitch;
+        this.duration = duration;
+        this.type = type;
+        this.voice = voice;
+        this.notations = notations;
     }
 
     @XmlElement(name = "pitch")

@@ -10,26 +10,13 @@ import javax.xml.bind.Unmarshaller;
 
 import Parser.Output;
 import Parser.textReader;
+import XMLTags.Guitar.Notation;
+import XMLTags.Guitar.Slur;
+import XMLTags.Guitar.Technical;
 //import org.junit.jupiter.api.BeforeEach;
 
 public class ConvertedSongTest {
     private JAXBContext context;
-
-/*    @BeforeEach
-    public void init() throws JAXBException {
-        this.context = JAXBContext.newInstance(ConvertedSong.class);
-    }*/
-
-/*    @Test
-    public void serialization() throws JAXBException {
-        Marshaller marshaller = this.context.createMarshaller();
-        marshaller.marshal(new ConvertedSong("Hot Cross Buns", 100 ) , new File("ConvertedSong.xml"));
-
-        Unmarshaller unmarshaller = this.context.createUnmarshaller();
-        Object unmarshalled = unmarshaller.unmarshal(new File("ConvertedSong.xml"));
-        System.out.println("unmarshalled = " + unmarshalled);
-    }
-*/
 
 	private static void serialize(ConvertedSong song, String xmlFile) {
 		try {
@@ -93,6 +80,9 @@ public class ConvertedSongTest {
 		else if (quotient == 0.25) type = "quarter";
 		else if (quotient == 0.125) type = "eighth";
 		else if (quotient == 0.0625) type = "16th";
+		else if (quotient == 0.03125) type = "32nd";
+		else if (quotient == 0.015625) type = "64th";
+		else if (quotient == 0.0078125) type = "128th";
 		else type = "quarter";
 
 		return type;
@@ -101,15 +91,14 @@ public class ConvertedSongTest {
 	public static void createXML(List<Output> notes, String outputFilePath, String inputFilePath) throws FileNotFoundException {
 		String xmlFile = outputFilePath;
 		ConvertedSong song = new ConvertedSong();
-		int numberOfDD = 0;
 
 		Part lastPart;
 		Attributes attribs;
 		Output prevNote = new Output();
 
-		boolean isPerfect,  lastNoteChord = false;;
+		boolean isPerfect,  lastNoteChord = false;
 		double divisionCalc, doubleNoteDur;
-		int instrument, realDivisionCalc, counter = 0, noteDur, noteDashes, totalSpaces = -1, elementCounter = 0;
+		int instrument, realDivisionCalc, counter = 0, noteDur, noteDashes, totalSpaces = -1, elementCounter = 0, numDD = 0;
 		Output nextNote;
 		Note lastNote;
 
@@ -119,7 +108,7 @@ public class ConvertedSongTest {
 
 		// Initalize part (and first measure)
 		song.addPart(new Part());
-//		song.getLastPart().getMeasures().get(0).getAttributes().setStaffDetails(new StaffDetails(instrument));
+		//song.getLastPart().getMeasures().get(0).getAttributes().setStaffDetails(new StaffDetails(instrument));
 
 		// declare staff details
 		song.getLastPart().getMeasures().get(0).getAttributes().setStaffDetails(new StaffDetails(instrument));
@@ -129,7 +118,13 @@ public class ConvertedSongTest {
 
 		// Instrument == 1: Parse as XMLTags.Guitar
 		if (instrument == 1) {
-			if (isPowerOfTwo(textReader.numberOfDashes(inputFilePath)) && textReader.numberOfDashes(inputFilePath) > 1) {
+			for (Output note: notes){
+				if (note.getnote1() > 9) numDD++;
+				System.out.println(note.getnote1() + " > 9: " + (note.getnote1() > 9));
+				System.out.println("numDD: " + numDD);
+			}
+
+			if (isPowerOfTwo(textReader.numberOfDashes(inputFilePath)-numDD) && textReader.numberOfDashes(inputFilePath) > 1) {
 				isPerfect = true;
 			}
 			else isPerfect = false;
@@ -140,6 +135,7 @@ public class ConvertedSongTest {
 			 * -1 -> new measure
 			 * else -> note
 			 */
+
 
 			if (isPerfect) {
 				System.out.println("perfect timing");
@@ -207,9 +203,14 @@ public class ConvertedSongTest {
 			else {
 				System.out.println("not perfect timing");
 				counter = 0;
+				List<Note> slurList = new ArrayList<Note>();
+				//Pitch pitch, int duration, String type, int voice, Notation notations
+				slurList.add(new Note(new Pitch(), 2, "half", 1, new Notation(new Technical("4", "1"), new Slur("1", "start"))));
+				slurList.add(new Note(new Pitch(), 1, "quarter", 1, new Notation(new Technical("4", "1"), new Slur("1", "stop"))));
 
 				attribs.setDivisions(Integer.toString(2));
 				song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);
+				song.getParts().get(0).getMeasures().get(0).setNotes(slurList);
 				for (Output note : notes) {
 					if ((note.getnote1() == -1) && counter != notes.size() - 1) { //TEST THIS: before, the getnote1 == -2 condition was commented
 						lastPart = song.getParts().get(song.getParts().size() - 1);

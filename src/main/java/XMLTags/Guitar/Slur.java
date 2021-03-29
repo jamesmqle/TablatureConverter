@@ -14,6 +14,13 @@ public class Slur {
     String placement;
 
     public Slur() {}
+
+    public Slur(String number, String type) {
+        this.number = number;
+        this.type = type;
+        this.placement = placement;
+    }
+
     public Slur(String number, String type, String placement) {
         this.number = number;
         this.type = type;
