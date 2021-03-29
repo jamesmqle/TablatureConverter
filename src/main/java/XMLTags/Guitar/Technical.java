@@ -3,13 +3,17 @@ package XMLTags.Guitar;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
 
 @XmlRootElement
-@XmlType(propOrder = {"string", "fret"})
+@XmlType(propOrder = {"harmonic", "pulloff", "hammer", "string", "fret"})
 public class Technical {
 
     String string;
     String fret;
+
+    ArrayList<HammerOn> hammer;
+    ArrayList<PullOff> pulloff;
 
     public Technical() {}
 
@@ -33,4 +37,25 @@ public class Technical {
     public void setFret(String fret) {
         this.fret = fret;
     }
+
+    @XmlElement(name = "hammer-on")
+    public ArrayList<HammerOn> getHammer() {
+        return hammer;
+    }
+    public void setHammer(ArrayList<HammerOn> h){
+        hammer = h;
+    }
+
+    public void setPulloff(ArrayList<PullOff> p){
+        pulloff = p;
+    }
+    public ArrayList<PullOff> getPulloff() {
+        return pulloff;
+    }
+
+
+    public String getHarmonic() {
+        return null;
+    }
+
 }

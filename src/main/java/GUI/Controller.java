@@ -75,19 +75,11 @@ public class Controller {
     private void displayTablature() throws IOException {
         try {
             textview.clear();
-            Scanner s = new Scanner(new File(inputFile.toString())).useDelimiter("\\s+");
-            while (s.hasNext()) {
-                if (s.hasNextInt()) { // check if next token is an int
-                    textview.appendText(s.nextInt() + " "); // display the found integer
-                }
-                else{
-                    textview.appendText(s.next() + " ");
-                }
-                textview.appendText("\n");
+            Scanner sc = new Scanner(inputFile);
+            while (sc.hasNextLine()) {
+                textview.appendText(sc.nextLine() + "\n"); // else read the next token
             }
-
             textAreaCheck();
-
         } catch (FileNotFoundException ex) {
             System.err.println(ex);
         }
@@ -191,12 +183,7 @@ public class Controller {
         try {
             Scanner s = new Scanner(new File(outputFile.toString())).useDelimiter("'");
             while (s.hasNext()) {
-                if (s.hasNextByte()) { // check if next token is an int
-                    XMLTextArea.appendText(s.nextLine() + " "); // display the found integer
-                } else {
-                    XMLTextArea.appendText(s.next() + " "); // else read the next token
-                }
-                XMLTextArea.appendText("\n");
+                XMLTextArea.appendText(s.nextLine() + "\n");
             }
         } catch (FileNotFoundException ex) {
             System.err.println(ex);
