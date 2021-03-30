@@ -182,19 +182,24 @@ public class textReader extends Output {
      * 0 - No error
      * 1 - Uneven line length
      * 2 - Incorrect tuning
+     * 6 - Unrecognizable tablature
      */
     public static int TabIsOK(List<String> tab, int instrument) {
-        int warningError = 0;
-        System.out.println("Flag: " + instrument);
+        int error = 0;
 
         if (instrument == 1) {// Guitar
+
+            // checks if it has simple tablature notations
+            for(int i = 0; i < tab.size() - 1; i++){
+                if(!tab.get(i).contains("|") && !tab.get(i).contains("-")){
+                    return 5;
+                }
+            }
+
             // check all lines have the same length
-            System.out.println("tab size: " + tab.size());
             for (int i = 0; i < tab.size() - 1; i++) {
                 if (tab.get(i).length() != tab.get(i + 1).length()) {
-                    System.out.println("tab 1: " + tab.get(i).length());
-                    System.out.println("tab 2: " + tab.get(i).length());
-                    warningError = 1; // error 1 if all lines are not the same length
+                    return 1; // error 1 if all lines are not the same length
                 }
             }
 
@@ -202,33 +207,35 @@ public class textReader extends Output {
             if ((getCharFromString(tab.get(0), 0) != 'e') || (getCharFromString(tab.get(1), 0) != 'B') || (getCharFromString(tab.get(2), 0) != 'G')
                     || (getCharFromString(tab.get(3), 0) != 'D') || (getCharFromString(tab.get(4), 0) != 'A')
                     || (getCharFromString(tab.get(5), 0) != 'E')) {
-                warningError = 2; // error 2 if incorrect tuning letter
+                return 2; // error 2 if incorrect tuning letter
             }
 
         } else if (instrument == 2) {// Bass
             // check all lines have the same length
             for (int i = 0; i < tab.size() - 1; i++) {
                 if (tab.get(i).length() != tab.get(i + 1).length()) {
-                    warningError = 1; // error 1 if all ines are not the same length
+                    error = 1; // error 1 if all ines are not the same length
                 }
             }
             // check all lines have the correct tuning letter
             if ((getCharFromString(tab.get(0), 0) != 'G') || (getCharFromString(tab.get(1), 0) != 'A')
                     || (getCharFromString(tab.get(2), 0) != 'D') || (getCharFromString(tab.get(3), 0)) != 'E') {
-                warningError = 2; // error 2 if incorrect tuning letter
+                error = 2; // error 2 if incorrect tuning letter
             }
         } else if (instrument == 3) {// Drum
             // check all lines have the same length
             for (int i = 0; i < tab.size() - 1; i++) {
                 if (tab.get(i).length() != tab.get(i + 1).length()) {
-                    warningError = 1; // error 1 if all lines are not the same length
+                    error = 1; // error 1 if all lines are not the same length
                 }
             }
         }
 
-        System.out.println("Text Reader Error: " + warningError);
-        return warningError;
+        System.out.println("Text Reader Error: " + error);
+        return error;
     }
+
+
 
     /**
      * "isInteger" Takes the string and return the boolean true if the string is an

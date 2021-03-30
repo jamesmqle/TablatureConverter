@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.util.Scanner;
@@ -24,7 +25,7 @@ public class Controller {
     File outputFile = new File("src/main/resources/sample/convertedSong.xml"); // Output file Object
     File textFile = new File("src/main/resources/sample/textarea.txt");
 
-    int warningError = 0, criticalError = 0; // this will handle errors
+    int error = 0, criticalError = 0; // this will handle errors
 
     @FXML
     public Tab inputTab, outputTab;
@@ -124,14 +125,17 @@ public class Controller {
     public void ConvertHandler(ActionEvent event) throws IOException {
         if (textview.getText() != "") { // gives error message if textarea is empty
             textViewToFile(textFile, textview);
-            if (CriticalErrorHandler() == 0) {
+            error = TabIsOK(getTab(textFile.toString()), detectInstrument(textFile.toString())); // this will assign the error
+            System.out.println("Error: " + error);
+            if (error == 5) { // handle critical errors (will not convert)
+                CriticalErrorHandler();
+            } else {
                 ConvertedSongTest.createXML(textReader.readTabFile(textFile.toString()), outputFile.toString(), textFile.toString()); // Passes textarea file through parser
                 tabPane.getSelectionModel().select(outputTab); // automatically goes to output tab
                 displayXML();
                 WarninglErrorHandler();
             }
-        }
-        else{
+        } else {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Conversion Failed");
             errorAlert.setContentText("The textarea is empty. Please input tablature before converting.");
@@ -146,8 +150,13 @@ public class Controller {
      * @throws FileNotFoundException
      */
     @FXML
-    public int CriticalErrorHandler() throws FileNotFoundException {
-        return criticalError;
+    public void CriticalErrorHandler() throws FileNotFoundException {
+        if (error == 5) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("ERROR!");
+            errorAlert.setContentText("Please Insert Correct Tablature Format.");
+            errorAlert.showAndWait();
+        }
     }
 
     /**
@@ -156,24 +165,20 @@ public class Controller {
      * @throws FileNotFoundException
      */
     @FXML
-    public int WarninglErrorHandler() throws FileNotFoundException {
+    public void WarninglErrorHandler() throws FileNotFoundException {
 
-        warningError = TabIsOK(getTab(textFile.toString()), detectInstrument(textFile.toString())); // this will assign the error
-
-        if (warningError == 1) { // error 1 if all lines are not the same length
+        if (error == 1) { // error 1 if all lines are not the same length
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("WARNING!");
             errorAlert.setContentText("All lines were not the same length. This may have affected the output.");
             errorAlert.showAndWait();
-        } else if (warningError == 2) { // error 2 if incorrect tuning letters
+        } else if (error == 2) { // error 2 if incorrect tuning letters
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("WARNING!");
             errorAlert.setContentText("Incorrect tuning letters. This may have affected the output.");
             errorAlert.showAndWait();
         }
 
-        System.out.println("Controller Error: " + warningError);
-        return warningError;
     }
 
     /**

@@ -40,7 +40,7 @@ public class ConvertedSong implements Serializable {
     public void addPart(Part part){
         this.parts.add(part);
         this.partList.getScorePart().setId("G" + this.parts.size());
-        this.partList.getScorePart().setPartName("XMLTags/Guitar " + this.parts.size());
+        this.partList.getScorePart().setPartName("Guitar " + this.parts.size());
     }
 
     @XmlElement(name = "part-list")
