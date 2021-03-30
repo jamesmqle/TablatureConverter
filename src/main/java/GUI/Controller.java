@@ -125,7 +125,7 @@ public class Controller {
         if (textview.getText() != "") { // gives error message if textarea is empty
             textViewToFile(textFile, textview);
             if (CriticalErrorHandler() == 0) {
-                ConvertedSongTest.createXML(textReader.readTabFile2(textFile.toString()), outputFile.toString(), textFile.toString()); // Passes textarea file through parser
+                ConvertedSongTest.createXML(textReader.readTabFile(textFile.toString()), outputFile.toString(), textFile.toString()); // Passes textarea file through parser
                 tabPane.getSelectionModel().select(outputTab); // automatically goes to output tab
                 displayXML();
                 WarninglErrorHandler();
