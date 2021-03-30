@@ -12,6 +12,16 @@ public class Output {
 		this.index=i;
 	}
 
+	public Output(String string, int n1, int n2, String tech, int i, boolean isChord) {
+		// TODO Auto-generated constructor stub
+		this.letter = string;
+		this.note1 = n1;
+		this.note2 = n2;
+		this.technique = tech;
+		this.index = i;
+		this.isChord = isChord;
+	}
+
 	public Output(){}
 
 	/*
@@ -45,4 +55,5 @@ public class Output {
 	int note2;
 	String technique;
 	int index;
+	boolean isChord;
 }

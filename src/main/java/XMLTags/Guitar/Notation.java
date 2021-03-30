@@ -1,6 +1,7 @@
 package XMLTags.Guitar;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 public class Notation {
     Technical technical;
@@ -8,9 +9,13 @@ public class Notation {
 
     public Notation(){}
 
-    public Notation(Technical technical){ this.technical = technical; }
+    public Notation(Technical technical){
+        this.technical = technical;
+    }
 
-    public Notation(Technical technical, Slur slur){ this.technical = technical; this.slur = slur; }
+    public Notation(Technical technical, Slur slur){
+        this.technical = technical; this.slur = slur;
+    }
 
     @XmlElement(name = "technical")
     public Technical getTechnical(){
