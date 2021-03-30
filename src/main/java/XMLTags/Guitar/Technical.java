@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 
 @XmlRootElement
-@XmlType(propOrder = {"harmonic", "pulloff", "hammer", "string", "fret"})
+@XmlType(propOrder = {"pulloff", "hammer", "string", "fret"})
 public class Technical {
 
     String string;
@@ -46,6 +46,7 @@ public class Technical {
         hammer = h;
     }
 
+    @XmlElement(name = "pulloff")
     public void setPulloff(ArrayList<PullOff> p){
         pulloff = p;
     }
