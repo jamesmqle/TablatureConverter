@@ -69,7 +69,7 @@ public class textReader extends Output {
                 }
             }
 
-            if (!(data.isEmpty()) || (data.charAt(0) == ' ')) {
+            if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
                 //tab.add(data);
                 if(k==6||k==7){
                     //it is guitar
@@ -88,17 +88,37 @@ public class textReader extends Output {
         return 4;
     }
 
-    /**
-     * "readTabFile" Takes the path of the file and reads it to recognize the
-     * instrument and call the proper instrument parser function. returns the list
-     * of output which is the result
-     */
+    public static int detectNumberStrings(String path) throws FileNotFoundException {
+        int k=0;
+        Scanner myReader = new Scanner(new FileReader(path));
+        String data;
+
+        while (myReader.hasNextLine()) {
+            data = myReader.nextLine().trim();
+
+            if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
+                return k;
+            }
+            else {
+                k++;
+            }
+
+        }
+        return k;
+    }
+
+        /**
+         * "readTabFile" Takes the path of the file and reads it to recognize the
+         * instrument and call the proper instrument parser function. returns the list
+         * of output which is the result
+         */
     public static List<Output> readTabFile(String path) throws FileNotFoundException {
         // define the result list
         // and list of string which is a single tab
         List<Output> list = new ArrayList<>();
         List<String> tab = new ArrayList<>();
-        int instrument = 0, k = 0;
+        int instrument = 0, k = -1;
+        int numStrings = 0;
 
         // scan the txt file
         Scanner myReader = new Scanner(new FileReader(path));
@@ -108,6 +128,7 @@ public class textReader extends Output {
         // anymore
 
         instrument = detectInstrument(path);
+        numStrings = detectNumberStrings(path);
 
         while (myReader.hasNextLine()) {
 
@@ -123,10 +144,10 @@ public class textReader extends Output {
                     k++;
                 }
 
-                if (k == 6) {
+                if (k == numStrings) {
                     try {
                         TabIsOK(tab, instrument);
-                        list = ParseGuitar(tab, list);
+                        list = ParseGuitar(tab, list,numStrings);
                         k = 0;
                         tab.clear();
                     } catch (StringIndexOutOfBoundsException e) {
@@ -146,10 +167,10 @@ public class textReader extends Output {
                     k++;
                 }
 
-                if (k == 4) {
+                if (k == numStrings) {
                     try {
                         TabIsOK(tab, instrument);
-                        list = ParseBass(tab, list);
+                        list = ParseBass(tab, list,numStrings);
                         k = 0;
                         tab.clear();
                     } catch (StringIndexOutOfBoundsException e) {
@@ -166,12 +187,12 @@ public class textReader extends Output {
                     k++;
                 }
 
-                if (data.charAt(0) == 'B') {
+                if (k == numStrings) {
                     // first handle exceptions and check if it is correct tab, then call the
                     // parsDrum function
                     try {
                         TabIsOK(tab, instrument);
-                        list = ParseDrum(tab, list, k);
+                        list = ParseDrum(tab, list, numStrings);
                         k = 0;
                         tab.clear();
 

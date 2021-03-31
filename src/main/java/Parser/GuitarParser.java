@@ -13,14 +13,14 @@ public class GuitarParser {
      * makes changes and adds new elements to the list. returns the result list of
      * Output.
      */
-    public static List<Output> ParseGuitar(List<String> tab, List<Output> list) {
+    public static List<Output> ParseGuitar(List<String> tab, List<Output> list, int m) {
         // Check if the list is empty to add new tab element to the list
         if (!list.isEmpty()) {
             list.add(new Output("# NEW TAB #", -2, -2, "-", -2));
         }
         int length = tab.get(0).length();
         for (int i = 2; i < length; i++) {
-            for (int j = 0; j < 6; j++) {
+            for (int j = 0; j < m; j++) {
                 if ((getCharFromString(tab.get(j), i) != '-') && (getCharFromString(tab.get(j), i) != '|')) {
                     // 1 digit
                     // Check if the note is proper 1 digit to add new tab element to the list
