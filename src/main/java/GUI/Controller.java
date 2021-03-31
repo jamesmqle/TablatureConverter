@@ -170,6 +170,11 @@ public class Controller {
             errorAlert.setHeaderText("WARNING!");
             errorAlert.setContentText("Incorrect tuning letters. This may have affected the output.");
             errorAlert.showAndWait();
+        } else if (warningError == 3) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("WARNING!");
+            errorAlert.setContentText("Input is totally invalid. This may have affected the output.");
+            errorAlert.showAndWait();
         }
 
         System.out.println("Controller Error: " + warningError);

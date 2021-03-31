@@ -130,6 +130,7 @@ public class textReader extends Output {
         instrument = detectInstrument(path);
         numStrings = detectNumberStrings(path);
 
+
         while (myReader.hasNextLine()) {
 
             data = myReader.nextLine().trim();
@@ -203,6 +204,8 @@ public class textReader extends Output {
                     }
                 }
 
+            } else {
+                TabIsOK(tab,instrument);
             }
         }
 
@@ -262,6 +265,8 @@ public class textReader extends Output {
                     warningError = 1; // error 1 if all lines are not the same length
                 }
             }
+        } else if(instrument == 4) {
+            warningError=3;
         }
 
         System.out.println("Text Reader Error: " + warningError);
