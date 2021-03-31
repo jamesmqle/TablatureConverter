@@ -54,6 +54,7 @@ public class textReader extends Output {
     public static int detectInstrument(String path) throws FileNotFoundException {
 
         int instrument = 0;
+        int k=0;
 
         Scanner myReader = new Scanner(new FileReader(path));
         String data;
@@ -61,17 +62,30 @@ public class textReader extends Output {
         while (myReader.hasNextLine()) {
             data = myReader.nextLine().trim();
 
-            if ((data.charAt(0) == 'e') || (data.charAt(0) == 'E')) {
-                instrument = 1;
-            } else if (data.charAt(0) == 'G') { // bass
-                instrument = 2;
-            } else if (data.charAt(2) == '|') { // drum
-                instrument = 3;
-            } else {
-                //error invalid tab
+            for(int i=0;i<data.length();i++){
+                if((data.charAt(i) == 'x')||(data.charAt(i) == 'X')){
+                    // it is drum
+                    return 3;
+                }
             }
+
+            if (!(data.isEmpty()) || (data.charAt(0) == ' ')) {
+                //tab.add(data);
+                if(k==6||k==7){
+                    //it is guitar
+                    return 1;
+                } else if(k==4||k==5){
+                    //it is bass
+                    return 2;
+                }
+            }
+            else {
+                k++;
+            }
+
         }
-        return instrument;
+
+        return 4;
     }
 
     /**
