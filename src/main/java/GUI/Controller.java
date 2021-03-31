@@ -2,6 +2,8 @@ package GUI;
 
 import XMLTags.Common.ConvertedSongTest;
 import Parser.textReader;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,7 +13,9 @@ import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.file.Files;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import static Parser.textReader.*;
@@ -38,8 +42,21 @@ public class Controller {
     private ListView listview;
 
     @FXML
-    public TextArea textview, title, timeSignature, XMLTextArea;
+    public TextArea textview, title, XMLTextArea;
 
+    @FXML
+    public ComboBox<String> timeSignature;
+
+    @Override
+    public void intialize(URL url, ResourceBundle rb){
+        ObservableList<String> list = FXCollections.observableArrayList("4/4", "2/4");
+        timeSignature.setItems(list);
+    }
+
+    @FXML
+    void timeSignatureHandler(ActionEvent event){
+        String s = timeSignature.getSelectionModel().getSelectedItem().toString();
+    }
 
     /**
      * This method uploads a file
@@ -168,12 +185,13 @@ public class Controller {
     public void WarninglErrorHandler() throws FileNotFoundException {
 
         if (error == 1) { // error 1 if all lines are not the same length
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            Alert errorAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            errorAlert.setTitle("Confirmation Dialog");
             errorAlert.setHeaderText("WARNING!");
             errorAlert.setContentText("All lines were not the same length. This may have affected the output.");
             errorAlert.showAndWait();
         } else if (error == 2) { // error 2 if incorrect tuning letters
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            Alert errorAlert = new Alert(Alert.AlertType.CONFIRMATION);
             errorAlert.setHeaderText("WARNING!");
             errorAlert.setContentText("Incorrect tuning letters. This may have affected the output.");
             errorAlert.showAndWait();
