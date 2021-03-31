@@ -117,7 +117,7 @@ public class textReader extends Output {
         // and list of string which is a single tab
         List<Output> list = new ArrayList<>();
         List<String> tab = new ArrayList<>();
-        int instrument = 0, k = -1;
+        int instrument = 0, k = 0;
         int numStrings = 0;
 
         // scan the txt file
