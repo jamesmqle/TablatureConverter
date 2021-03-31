@@ -174,7 +174,7 @@ public class Controller {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("WARNING!");
             errorAlert.setContentText("Input is totally invalid. This may have affected the output.");
-            errorAlert.showAndWait();
+            errorAlert.showAndWait();//
         }
 
         System.out.println("Controller Error: " + warningError);
