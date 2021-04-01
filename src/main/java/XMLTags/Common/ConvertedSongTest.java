@@ -262,6 +262,11 @@ public class ConvertedSongTest {
 			}
 		}
 
+		else if (instrument == 3){
+			System.out.println("*********************************drum tablature detected");
+			song.
+		}
+
 		serialize(song, xmlFile);
 		deSerialize(xmlFile);
 	}
