@@ -54,6 +54,8 @@ public class textReader extends Output {
     public static int detectInstrument(String path) throws FileNotFoundException {
 
         int instrument = 0;
+        int k=0;
+        int flag1 = 0, flag2 = 0;
 
         Scanner myReader = new Scanner(new FileReader(path));
         String data;
@@ -61,30 +63,79 @@ public class textReader extends Output {
         while (myReader.hasNextLine()) {
             data = myReader.nextLine().trim();
 
-            if ((data.charAt(0) == 'e') || (data.charAt(0) == 'E')) {
-                instrument = 1;
-            } else if (data.charAt(0) == 'G') { // bass
-                instrument = 2;
-            } else if (data.charAt(2) == '|') { // drum
-                instrument = 3;
-            } else {
-                //error invalid tab
+            for(int i=0;i<data.length();i++) {
+                if ((data.charAt(i) == 'x' || data.charAt(i) == 'X' || data.charAt(i) == 'o' || data.charAt(i) == 'O')) {
+                    flag1 = 1;
+                }
+                if (data.charAt(i) == '|' || data.charAt(i) == '-') {
+                    flag2 = 1;
+                }
+                if (flag1 * flag2 == 1) {
+                    // it is drum
+                    return 3;
+                }
+
             }
+
+            if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
+                //tab.add(data);
+                if(k==6||k==7){
+                    //it is guitar
+                    return 1;
+                } else if(k==4||k==5){
+                    //it is bass
+                    return 2;
+                }
+            }
+            else {
+                k++;
+            }
+
         }
-        return instrument;
+
+        if(k==6||k==7){
+            //it is guitar
+            return 1;
+        } else if(k==4||k==5){
+            //it is bass
+            return 2;
+
+        }
+        // no instrument detected
+        return 0;
     }
 
-    /**
-     * "readTabFile" Takes the path of the file and reads it to recognize the
-     * instrument and call the proper instrument parser function. returns the list
-     * of output which is the result
-     */
+    public static int detectNumberStrings(String path) throws FileNotFoundException {
+        int k=0;
+        Scanner myReader = new Scanner(new FileReader(path));
+        String data;
+
+        while (myReader.hasNextLine()) {
+            data = myReader.nextLine().trim();
+
+            if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
+                return k;
+            }
+            else {
+                k++;
+            }
+
+        }
+        return k;
+    }
+
+        /**
+         * "readTabFile" Takes the path of the file and reads it to recognize the
+         * instrument and call the proper instrument parser function. returns the list
+         * of output which is the result
+         */
     public static List<Output> readTabFile(String path) throws FileNotFoundException {
         // define the result list
         // and list of string which is a single tab
         List<Output> list = new ArrayList<>();
         List<String> tab = new ArrayList<>();
         int instrument = 0, k = 0;
+        int numStrings = 0;
 
         // scan the txt file
         Scanner myReader = new Scanner(new FileReader(path));
@@ -94,6 +145,7 @@ public class textReader extends Output {
         // anymore
 
         instrument = detectInstrument(path);
+        numStrings = detectNumberStrings(path);
 
         while (myReader.hasNextLine()) {
 
@@ -109,10 +161,10 @@ public class textReader extends Output {
                     k++;
                 }
 
-                if (k == 6) {
+                if (k == numStrings) {
                     try {
                         TabIsOK(tab, instrument);
-                        list = ParseGuitar(tab, list);
+                        list = ParseGuitar(tab, list,numStrings);
                         k = 0;
                         tab.clear();
                     } catch (StringIndexOutOfBoundsException e) {
@@ -132,10 +184,10 @@ public class textReader extends Output {
                     k++;
                 }
 
-                if (k == 4) {
+                if (k == numStrings) {
                     try {
                         TabIsOK(tab, instrument);
-                        list = ParseBass(tab, list);
+                        list = ParseBass(tab, list,numStrings);
                         k = 0;
                         tab.clear();
                     } catch (StringIndexOutOfBoundsException e) {
@@ -152,12 +204,12 @@ public class textReader extends Output {
                     k++;
                 }
 
-                if (data.charAt(0) == 'B') {
+                if (k == numStrings) {
                     // first handle exceptions and check if it is correct tab, then call the
                     // parsDrum function
                     try {
                         TabIsOK(tab, instrument);
-                        list = ParseDrum(tab, list, k);
+                        list = ParseDrum(tab, list, numStrings);
                         k = 0;
                         tab.clear();
 
@@ -182,10 +234,11 @@ public class textReader extends Output {
      * 0 - No error
      * 1 - Uneven line length
      * 2 - Incorrect tuning
+     * 10 - No instrument detected
      */
     public static int TabIsOK(List<String> tab, int instrument) {
         int warningError = 0;
-        System.out.println("Flag: " + instrument);
+        System.out.println("Instrument: " + instrument);
 
         if (instrument == 1) {// Guitar
             // check all lines have the same length
@@ -194,40 +247,121 @@ public class textReader extends Output {
                 if (tab.get(i).length() != tab.get(i + 1).length()) {
                     System.out.println("tab 1: " + tab.get(i).length());
                     System.out.println("tab 2: " + tab.get(i).length());
-                    warningError = 1; // error 1 if all lines are not the same length
+                    return  1; // error 1 if all lines are not the same length
                 }
             }
 
-            // check all lines have the correct tuning letter
-            if ((getCharFromString(tab.get(0), 0) != 'e') || (getCharFromString(tab.get(1), 0) != 'B') || (getCharFromString(tab.get(2), 0) != 'G')
-                    || (getCharFromString(tab.get(3), 0) != 'D') || (getCharFromString(tab.get(4), 0) != 'A')
-                    || (getCharFromString(tab.get(5), 0) != 'E')) {
-                warningError = 2; // error 2 if incorrect tuning letter
+            for(int j=0;j<tab.size();j++) {
+                // check all lines have the correct tuning letter
+                if (!((getCharFromString(tab.get(j), 0) >= 65 && getCharFromString(tab.get(0), 0) <= 71) || (getCharFromString(tab.get(j), 0) >= 97 && getCharFromString(tab.get(j), 0) <= 103))) {
+                    return 2; // error 2 if incorrect tuning letter
+                }
             }
 
         } else if (instrument == 2) {// Bass
             // check all lines have the same length
             for (int i = 0; i < tab.size() - 1; i++) {
                 if (tab.get(i).length() != tab.get(i + 1).length()) {
-                    warningError = 1; // error 1 if all ines are not the same length
+                    return 1; // error 1 if all ines are not the same length
+                }
+
+                for(int j=0;j<tab.size();j++) {
+                    // check all lines have the correct tuning letter
+                    if (!((getCharFromString(tab.get(j), 0) >= 65 && getCharFromString(tab.get(0), 0) <= 71) || (getCharFromString(tab.get(j), 0) >= 97 && getCharFromString(tab.get(j), 0) <= 103))) {
+                        System.out.println(getCharFromString(tab.get(j),0));
+                        return 2; // error 2 if incorrect tuning letter
+                    }
                 }
             }
-            // check all lines have the correct tuning letter
-            if ((getCharFromString(tab.get(0), 0) != 'G') || (getCharFromString(tab.get(1), 0) != 'A')
-                    || (getCharFromString(tab.get(2), 0) != 'D') || (getCharFromString(tab.get(3), 0)) != 'E') {
-                warningError = 2; // error 2 if incorrect tuning letter
-            }
+
         } else if (instrument == 3) {// Drum
             // check all lines have the same length
             for (int i = 0; i < tab.size() - 1; i++) {
                 if (tab.get(i).length() != tab.get(i + 1).length()) {
-                    warningError = 1; // error 1 if all lines are not the same length
+                    return 1; // error 1 if all lines are not the same length
                 }
             }
+        } else if(instrument == 4) { // no instrument detected
+            return 10; // critical error
         }
 
         System.out.println("Text Reader Error: " + warningError);
         return warningError;
+    }
+
+    /**
+     * element 0 - is the error
+     * element 1 - is the index
+     * element 2 - is the line
+     * @param tab
+     * @param instrument
+     * @return
+     */
+    public static int[] TabIsOKTracker(List<String> tab, int instrument) {
+        int warningError = 0;
+        int[] arr = new int[3];
+        System.out.println("Instrument: " + instrument);
+
+        if (instrument == 1) {// Guitar
+
+            // check all lines have the same length
+            for (int i = 0; i < tab.size() - 1; i++) {
+                if (tab.get(i).length() != tab.get(i + 1).length()) {
+                    System.out.println("tab 1: " + tab.get(i).length());
+                    System.out.println("tab 2: " + tab.get(i).length());
+                    arr[0] = 1;
+                    arr[1] = -1;
+                    arr[2] = i;
+                    //return  1; // error 1 if all lines are not the same length
+                }
+            }
+
+            // check all lines have the correct tuning letter
+            for(int j=0;j<tab.size();j++) {
+                if (!((getCharFromString(tab.get(j), 0) >= 65 && getCharFromString(tab.get(j), 0) <= 71) || (getCharFromString(tab.get(j), 0) >= 97 && getCharFromString(tab.get(j), 0) <= 103))) {
+                    arr[0] = 2;
+                    arr[1] = 0;
+                    arr[2] = j;
+                }
+            }
+
+        } else if (instrument == 2) {// Bass
+            // check all lines have the same length
+            for (int i = 0; i < tab.size() - 1; i++) {
+                if (tab.get(i).length() != tab.get(i + 1).length()) {
+                    arr[0] = 1;
+                    arr[1] = -1;
+                    arr[2] = i;
+                }
+
+                for(int j=0;j<tab.size();j++) {
+                    // check all lines have the correct tuning letter
+                    if (!((getCharFromString(tab.get(j), 0) >= 65 && getCharFromString(tab.get(0), 0) <= 71) || (getCharFromString(tab.get(j), 0) >= 97 && getCharFromString(tab.get(j), 0) <= 103))) {
+                        System.out.println(getCharFromString(tab.get(j),0));
+                        arr[0] = 2;
+                        arr[1] = 0;
+                        arr[3] = j;
+                    }
+                }
+            }
+
+        } else if (instrument == 3) {// Drum
+            // check all lines have the same length
+            for (int i = 0; i < tab.size() - 1; i++) {
+                if (tab.get(i).length() != tab.get(i + 1).length()) {
+                    arr[0] = 1;
+                    arr[1] = -1;
+                    arr[2] = i;
+                }
+            }
+        } else { // no instrument detected
+            arr[0] = 10;
+            arr[1] = -1;
+            arr[2] = -1;
+        }
+
+        System.out.println("ERROR ARRAY: " + arr[0] + arr[1] + arr[2]);
+        return arr;
     }
 
     /**
