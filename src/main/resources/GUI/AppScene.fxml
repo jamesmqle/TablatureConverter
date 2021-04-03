@@ -81,7 +81,7 @@
                                  <Font name="Calibri" size="20.0" />
                              </font>
                          </Label>
-                        <ComboBox fx:id="timeSignature" layoutX="478.0" layoutY="222.0" onAction="#timeSignatureHandler" prefWidth="150.0" />
+                        <ComboBox fx:id="timeSignatureList" layoutX="478.0" layoutY="222.0" onAction="#timeSignatureHandler" prefWidth="150.0" />
                      </children></AnchorPane>
             </content>
           </Tab>
