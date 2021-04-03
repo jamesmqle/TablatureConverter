@@ -55,6 +55,7 @@ public class textReader extends Output {
 
         int instrument = 0;
         int k=0;
+        int flag1 = 0, flag2 = 0;
 
         Scanner myReader = new Scanner(new FileReader(path));
         String data;
@@ -73,6 +74,7 @@ public class textReader extends Output {
                     // it is drum
                     return 3;
                 }
+
             }
 
             if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
