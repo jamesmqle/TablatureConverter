@@ -2,15 +2,22 @@ package GUI;
 
 import XMLTags.Common.ConvertedSongTest;
 import Parser.textReader;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
+
 import java.io.*;
+import java.net.URL;
 import java.nio.file.Files;
+import java.util.Optional;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import static Parser.textReader.*;
@@ -18,13 +25,13 @@ import static Parser.textReader.*;
 /**
  * Controller class controls the functionality of the User Interface
  */
-public class Controller {
+public class Controller implements Initializable {
 
     File inputFile; // Input file Object
     File outputFile = new File("src/main/resources/sample/convertedSong.xml"); // Output file Object
     File textFile = new File("src/main/resources/sample/textarea.txt");
 
-    int warningError = 0, criticalError = 0; // this will handle errors
+    int[] error; // this will handle errors
 
     @FXML
     public Tab inputTab, outputTab;
@@ -37,8 +44,31 @@ public class Controller {
     private ListView listview;
 
     @FXML
-    public TextArea textview, title, timeSignature, XMLTextArea;
+    public TextArea textview, title, XMLTextArea;
 
+    @FXML
+    public ComboBox<String> timeSignatureList;
+
+    public String timeSignature = "4/4";
+
+    /**
+     * This method initializes is for pre-processing information in the scene
+     *
+     * @param location
+     * @param resources
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        ObservableList<String> list = FXCollections.observableArrayList("4/4", "2/4"); // list of time signatures
+        timeSignatureList.setItems(list); // display list of time signatures in combo box
+        timeSignatureList.getSelectionModel().selectFirst(); // select the first index of list to be default value
+    }
+
+
+    @FXML
+    void timeSignatureHandler(ActionEvent event) {
+        timeSignature = timeSignatureList.getSelectionModel().getSelectedItem();
+    }
 
     /**
      * This method uploads a file
@@ -90,7 +120,7 @@ public class Controller {
      */
     public void textAreaCheck() {
 
-        if (textview != null) { // makes the convert button blue when tablature is displayed in textarea
+        if (textview.getText() != "") { // makes the convert button blue when tablature is displayed in textarea
             ConvertButton.setTextFill(Paint.valueOf("blue"));
         } else {
             ConvertButton.setTextFill(Paint.valueOf("white"));
@@ -124,14 +154,17 @@ public class Controller {
     public void ConvertHandler(ActionEvent event) throws IOException {
         if (textview.getText() != "") { // gives error message if textarea is empty
             textViewToFile(textFile, textview);
-            if (CriticalErrorHandler() == 0) {
+            error = TabIsOKTracker(getTab(textFile.toString()), detectInstrument(textFile.toString())); // this will assign the error
+            System.out.println("Error: " + error);
+            if (error[0] >= 10) { // handle critical errors (will not convert)
+                CriticalErrorHandler(error);
+            }
+            else if (WarningErrorHandler(error) == true) {
                 ConvertedSongTest.createXML(textReader.readTabFile(textFile.toString()), outputFile.toString(), textFile.toString()); // Passes textarea file through parser
                 tabPane.getSelectionModel().select(outputTab); // automatically goes to output tab
                 displayXML();
-                WarninglErrorHandler();
             }
-        }
-        else{
+        } else { //  error message if textarea is empty
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Conversion Failed");
             errorAlert.setContentText("The textarea is empty. Please input tablature before converting.");
@@ -142,39 +175,57 @@ public class Controller {
 
     /**
      * This method will handle CRITICAL errors within the given text tablature
+     * 10 - No instrument detected
      *
      * @throws FileNotFoundException
+     * @param error
      */
     @FXML
-    public int CriticalErrorHandler() throws FileNotFoundException {
-        return criticalError;
+    public void CriticalErrorHandler(int[] error) throws FileNotFoundException {
+        if (error[0] == 10) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("ERROR!");
+            errorAlert.setContentText("Please Insert Correct Tablature Format.");
+            errorAlert.showAndWait();
+        }
     }
 
     /**
      * This method will handle CRITICAL errors within the given text tablature
      *
      * @throws FileNotFoundException
+     * @param error
      */
     @FXML
-    public int WarninglErrorHandler() throws FileNotFoundException {
+    public boolean WarningErrorHandler(int[] error) throws FileNotFoundException {
 
-        warningError = TabIsOK(getTab(textFile.toString()), detectInstrument(textFile.toString())); // this will assign the error
-
-        if (warningError == 1) { // error 1 if all lines are not the same length
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("WARNING!");
-            errorAlert.setContentText("All lines were not the same length. This may have affected the output.");
-            errorAlert.showAndWait();
-        } else if (warningError == 2) { // error 2 if incorrect tuning letters
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("WARNING!");
-            errorAlert.setContentText("Incorrect tuning letters. This may have affected the output.");
-            errorAlert.showAndWait();
+        if (error[0] == 1) { // error 1 if all lines are not the same length
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("WARNING!");
+            alert.setContentText("All lines were not the same length. This may have affected the output.");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.APPLY) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (error[0] == 2) { // error 2 if incorrect tuning letters
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("WARNING!");
+            alert.setContentText("Incorrect Tuning Letters.");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.APPLY) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
-        System.out.println("Controller Error: " + warningError);
-        return warningError;
+        return true;
     }
+
 
     /**
      * This button will display the converted XML to the textarea
