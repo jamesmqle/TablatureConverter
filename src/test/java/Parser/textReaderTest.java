@@ -3,6 +3,8 @@ package Parser;
 import Parser.Output;
 import Parser.textReader;
 import org.junit.jupiter.api.Test;
+import static Parser.textReader.TabIsOKTracker;
+import static Parser.textReader.isInteger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,19 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class textReaderTest {
 
-    @Test
-    public void testParsGuitar() {
-        List<Output> listt = new ArrayList<>();
-        List<String> tab = new ArrayList<>();
-        tab.add("E|--0-----------------------|-------------------------|");
-        tab.add("B|------------------3-----5-|-2-----------------------|");
-        tab.add("G|------------------3-------|-2----------2p4----------|");
-        tab.add("D|-------------22-----------|-2-----------------------|");
-        tab.add("A|--------------------------|-0-----------------------|");
-        tab.add("D|--------------------------|-------------------------|");
-        listt = textReader.ParseGuitar(tab, listt);
-        assertTrue(listt.get(0).getnote1()==0);
-    }
+
 
     @Test
     public void testTabIsOK_guitar_1() {
@@ -56,17 +46,7 @@ class textReaderTest {
 //    }
 
 
-    @Test
-    public void testParsBass() {
-        List<Output> listt = new ArrayList<>();
-        List<String> tab = new ArrayList<>();
-        tab.add("G|---------------------|---------------------|");
-        tab.add("D|---------------------|-----------(0)-------|");
-        tab.add("A|-5-55-5-5--44-4-4h0--|-22-2-2-0-----------2|");
-        tab.add("E|---------------------|-----------3-33-3-5--|");
-        listt = textReader.ParseBass(tab, listt);
-        assertTrue(listt.get(1).getnote1()==55);
-    }
+
 
     @Test
     public void testTabIsOK_bass_1() {
@@ -93,21 +73,6 @@ class textReaderTest {
 //        });
 //    }
 
-
-    @Test
-    public void testParsDrum() {
-        List<Output> listt = new ArrayList<>();
-        List<String> tab = new ArrayList<>();
-        tab.add("CC|x---------------|--------x-------|");
-        tab.add("HH|--x-x-x-x-x-x-x-|----------------|");
-        tab.add("SD|----o-------o---|oooo------------|");
-        tab.add("HT|----------------|----oo----------|");
-        tab.add("MT|----------------|------oo--------|");
-        tab.add("BD|o-------o-------|o-------o-------|");
-        listt = textReader.ParseDrum(tab, listt,tab.size());
-        assertTrue(listt.get(0).gettech().charAt(0)=='x');
-        assertTrue(listt.get(1).gettech().charAt(0)=='o');
-    }
 
     @Test
     public void testTabIsOK_drum_1() {
