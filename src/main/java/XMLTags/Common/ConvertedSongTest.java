@@ -10,10 +10,7 @@ import javax.xml.bind.Unmarshaller;
 
 import Parser.Output;
 import Parser.textReader;
-import XMLTags.Guitar.Notation;
-import XMLTags.Guitar.Slur;
-import XMLTags.Guitar.Technical;
-import XMLTags.Guitar.Tied;
+import XMLTags.Guitar.*;
 
 public class ConvertedSongTest {
     private JAXBContext context;
@@ -48,20 +45,6 @@ public class ConvertedSongTest {
 		return song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().get(song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().size() - 1);
 	}
 
-    public static void main(String[] args) {
-/*		String xmlFile = "src/main/resources/sample";
-		ConvertedSong song = new ConvertedSong();
-
-		// make song.parts not empty
-		song.addPart(new Part());
-
-		// add a note to a given measure
-		song.getParts().get(0).getMeasures().get(0).addNote(new Note());
-
-		serialize(song, xmlFile);
-		deSerialize(xmlFile);*/
-	}
-
 	public static boolean isPowerOfTwo(int num){
 		return (int)(Math.ceil((Math.log(num) / Math.log(2))))
 				== (int)(Math.floor(((Math.log(num) / Math.log(2)))));
@@ -93,6 +76,7 @@ public class ConvertedSongTest {
 	}
 
 	public static void createXML(List<Output> notes, String outputFilePath, String inputFilePath) throws FileNotFoundException {
+
 		String xmlFile = outputFilePath;
 		ConvertedSong song = new ConvertedSong();
 		Part lastPart;
@@ -225,7 +209,7 @@ public class ConvertedSongTest {
 				for (Output note : notes) {
 					// New measure: note1 is -1
 					// New tab line: note 1 is -2
-					if ((note.getnote1() == -1) && counter != notes.size() - 1) { //TEST THIS: before, the getnote1 == -2 condition was commented
+					if ((note.getnote1() == -1) && counter != notes.size() - 1) {
 						// Get Part - Guitar 1
 						lastPart = song.getParts().get(song.getParts().size() - 1);
 						// Add measure to the part
@@ -248,9 +232,33 @@ public class ConvertedSongTest {
 							// Change the note duration to a half note
 							getLastNote(song).setType("half");
 						}
+
+						if(note.gettech().equals("H")|| note.gettech().equals("h")){
+
+							// note 1
+							ArrayList<HammerOn> hammerOns = new ArrayList<HammerOn>();
+							hammerOns.add(new HammerOn(1,"start","H"));
+							getLastNote(song).getNotations().getTechnical().setHammer(hammerOns);
+							getLastNote(song).getNotations().getTechnical().getHammer().get(0).setNumber(1);
+							getLastNote(song).getNotations().getTechnical().getHammer().get(0).setType("start");
+							getLastNote(song).getNotations().getTechnical().getHammer().get(0).setSymbol("H");
+							getLastNote(song).getNotations().setSlur(new Slur("1","start"));
+
+							// note 2
+							ArrayList<HammerOn> hammerOns2 = new ArrayList<HammerOn>();
+							hammerOns2.add(new HammerOn());
+							song.addNoteToMeasure(note.getletter(),note.getnote2());
+							getLastNote(song).setType("half");
+							getLastNote(song).getNotations().getTechnical().setHammer(hammerOns2);
+							getLastNote(song).getNotations().getTechnical().getHammer().get(0).setNumber(1);
+							getLastNote(song).getNotations().getTechnical().getHammer().get(0).setType("stop");
+							getLastNote(song).getNotations().setSlur(new Slur("1","stop"));
+
+						}
 						if (prevNote.getindex() == note.getindex())
 							// if the last note is on the same index as the current note, mark it as part of a chord
 							getLastNote(song).chordOn();
+
 					}
 					prevNote = note;
 					counter++;
