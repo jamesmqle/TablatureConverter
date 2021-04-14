@@ -46,6 +46,9 @@ public class Controller implements Initializable {
     private ListView listview;
 
     @FXML
+    public TextField measure;
+
+    @FXML
     public TextArea textview, title, XMLTextArea;
 
     @FXML
@@ -69,7 +72,7 @@ public class Controller implements Initializable {
         timeSignatureList.getSelectionModel().selectFirst(); // select the first index of list to be default value
 
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
-        new ErrorHighLighting(codeArea).enableHighlighting();
+//        new ErrorHighLighting(codeArea).enableHighlighting(); // error highlighting
     }
 
 
@@ -126,6 +129,7 @@ public class Controller implements Initializable {
     /**
      * Makes the convert button blue when tablature is displayed in textarea
      */
+    @FXML
     public void textAreaCheck() {
 
         if (codeArea.getText() != "") { // makes the convert button blue when tablature is displayed in textarea
@@ -251,6 +255,20 @@ public class Controller implements Initializable {
             }
         } catch (FileNotFoundException ex) {
             System.err.println(ex);
+        }
+    }
+
+    /**
+     * This method will allow the user to navigate to a specific measure
+     * @param event
+     */
+    @FXML
+    public void MeasureHandler(ActionEvent event){
+        if(measure.getText() != ""){
+            codeArea.moveTo(20);
+            codeArea.requestFollowCaret();
+            codeArea.requestFocus();
+
         }
     }
 
