@@ -7,12 +7,14 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.CubicCurve?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
+<?import org.fxmisc.richtext.CodeArea?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
    <children>
@@ -27,61 +29,57 @@
                                  <Image url="@circleshape.png" />
                              </image>
                          </ImageView>
-                         <ImageView fitHeight="199.0" fitWidth="200.0" layoutX="886.0" layoutY="21.0">
+                         <ImageView fitHeight="199.0" fitWidth="200.0" layoutX="913.0" layoutY="16.0">
                              <image>
                                  <Image url="@gridshape.png" />
                              </image>
                          </ImageView>
                          <CubicCurve controlX1="-374.1308288574219" controlX2="-83.51937866210938" controlY1="-280.152099609375" controlY2="-250.16754150390625" endX="1054.0" endY="193.0" fill="#0044ff" layoutX="146.0" layoutY="607.0" startX="-146.0" startY="193.0" stroke="BLACK" />
-                         <ImageView fitHeight="740.0" fitWidth="718.0" layoutX="281.0" layoutY="46.0">
+                         <ImageView fitHeight="740.0" fitWidth="908.0" layoutX="146.0" layoutY="33.0">
                              <image>
                                  <Image url="@img_2.png" />
                              </image>
                          </ImageView>
-                         <Label layoutX="331.0" layoutY="69.0" prefHeight="32.0" prefWidth="273.0" text="Tablature Converter">
+                         <Label layoutX="464.0" layoutY="59.0" prefHeight="32.0" prefWidth="273.0" text="Tablature Converter">
                              <font>
                                  <Font name="Century Gothic" size="28.0" />
                              </font>
                          </Label>
-                         <TextArea fx:id="textview" layoutX="299.0" layoutY="376.0" prefHeight="272.0" prefWidth="684.0" promptText="paste tablature here ...">
-                             <font>
-                                 <Font name="Courier New" size="12.0" />
-                             </font></TextArea>
-                         <Button fx:id="ConvertButton" layoutX="407.0" layoutY="702.0" mnemonicParsing="false" onAction="#ConvertHandler" prefHeight="40.0" prefWidth="467.0" text="Convert File 🔁" textFill="WHITE">
+                         <Button fx:id="ConvertButton" layoutX="458.0" layoutY="701.0" mnemonicParsing="false" onAction="#ConvertHandler" prefHeight="40.0" prefWidth="286.0" text="Convert File 🔁" textFill="WHITE">
                              <font>
                                  <Font size="15.0" />
                              </font>
                          </Button>
-                         <ListView fx:id="listview" layoutX="638.0" layoutY="286.0" prefHeight="32.0" prefWidth="215.0" />
-                         <Button fx:id="UploadFileButton" layoutX="491.0" layoutY="286.0" mnemonicParsing="false" onAction="#FileChooserHandler" prefHeight="32.0" prefWidth="147.0" text="⬆ Upload File" textFill="#0044ff">
+                         <ListView fx:id="listview" layoutX="472.0" layoutY="210.0" prefHeight="32.0" prefWidth="215.0" />
+                         <Button fx:id="UploadFileButton" layoutX="343.0" layoutY="211.0" mnemonicParsing="false" onAction="#FileChooserHandler" prefHeight="21.0" prefWidth="121.0" text="⬆ Upload File" textFill="#0044ff">
                              <font>
                                  <Font name="Century Gothic" size="15.0" />
                              </font>
                          </Button>
-                         <Line endX="592.9999389648438" layoutX="406.0" layoutY="115.0" startX="-125.0" />
-                         <Label layoutX="326.0" layoutY="144.0" prefHeight="40.0" prefWidth="139.0" text="Title (optional):">
+                         <Line endX="648.0" layoutX="406.0" layoutY="115.0" startX="-260.0" />
+                         <Label layoutX="229.0" layoutY="148.0" prefHeight="28.0" prefWidth="106.0" text="Title (optional):">
                              <font>
-                                 <Font name="Calibri" size="20.0" />
+                                 <Font name="Calibri" size="16.0" />
                              </font>
                          </Label>
-                         <TextArea fx:id="title" layoutX="465.0" layoutY="146.0" prefHeight="36.0" prefWidth="448.0" promptText="title goes here..." />
-                         <Label layoutX="328.0" layoutY="282.0" prefHeight="40.0" prefWidth="178.0" text="Upload Tablature:">
+                         <TextArea fx:id="title" layoutX="343.0" layoutY="148.0" prefHeight="0.0" prefWidth="344.0" promptText="title goes here..." />
+                         <Label layoutX="221.0" layoutY="213.0" prefHeight="25.0" prefWidth="122.0" text="Upload Tablature:">
                              <font>
-                                 <Font name="Calibri" size="20.0" />
+                                 <Font name="Calibri" size="16.0" />
                              </font>
                          </Label>
-                         <Label layoutX="384.0" layoutY="335.0" text="Or">
+                         <Label layoutX="698.0" layoutY="217.0" prefHeight="17.0" prefWidth="147.0" text="OR Paste Tablature" />
+                         <Label layoutX="814.0" layoutY="653.0" prefHeight="17.0" prefWidth="164.0" text="Accepted file types: .txt only" />
+                         <Label layoutX="698.0" layoutY="147.0" prefHeight="30.0" prefWidth="106.0" text="Time Signature:">
                              <font>
-                                 <Font size="20.0" />
+                                 <Font name="Calibri" size="16.0" />
                              </font>
                          </Label>
-                         <Label layoutX="346.0" layoutY="648.0" prefHeight="17.0" prefWidth="164.0" text="Accepted file types: .txt only" />
-                         <Label layoutX="328.0" layoutY="220.0" prefHeight="30.0" prefWidth="225.0" text="Time Signature:">
-                             <font>
-                                 <Font name="Calibri" size="20.0" />
-                             </font>
-                         </Label>
-                        <ComboBox fx:id="timeSignatureList" layoutX="478.0" layoutY="222.0" onAction="#timeSignatureHandler" prefWidth="150.0" />
+                        <ComboBox fx:id="timeSignatureList" layoutX="814.0" layoutY="150.0" onAction="#timeSignatureHandler" prefHeight="25.0" prefWidth="62.0" />
+                        <CodeArea fx:id="codeArea" layoutX="229.0" layoutY="258.0" onKeyTyped="#textAreaCheck" prefHeight="394.0" prefWidth="743.0" stylesheets="@AppScene.css" />
+                        <Label layoutX="211.0" layoutY="661.0" prefHeight="17.0" prefWidth="94.0" text="Go-To-Measure" />
+                        <Button layoutX="360.0" layoutY="656.0" mnemonicParsing="false" onAction="#MeasureHandler" prefHeight="27.0" prefWidth="34.0" text="Go" />
+                        <TextField fx:id="measure" layoutX="299.0" layoutY="657.0" prefHeight="25.0" prefWidth="52.0" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -111,7 +109,7 @@
                           </font>
                       </Label>
                       <Line endX="592.9999389648438" layoutX="406.0" layoutY="115.0" startX="-125.0" />
-                      <Button layoutX="876.0" layoutY="722.0" mnemonicParsing="false" onAction="#SaveXMLFileHandler" prefHeight="25.0" prefWidth="89.0" text="Save">
+                      <Button fx:id="Sa" layoutX="876.0" layoutY="722.0" mnemonicParsing="false" onAction="#SaveXMLFileHandler" prefHeight="25.0" prefWidth="89.0" text="Save">
                           <font>
                               <Font name="Calibri" size="15.0" />
                           </font>

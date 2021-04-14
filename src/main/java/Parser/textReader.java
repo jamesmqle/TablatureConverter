@@ -298,8 +298,8 @@ public class textReader extends Output {
      * @return
      */
     public static int[] TabIsOKTracker(List<String> tab, int instrument) {
-        int warningError = 0;
         int[] arr = new int[3];
+
         System.out.println("Instrument: " + instrument);
 
         if (instrument == 1) {// Guitar
@@ -307,12 +307,9 @@ public class textReader extends Output {
             // check all lines have the same length
             for (int i = 0; i < tab.size() - 1; i++) {
                 if (tab.get(i).length() != tab.get(i + 1).length()) {
-                    System.out.println("tab 1: " + tab.get(i).length());
-                    System.out.println("tab 2: " + tab.get(i).length());
                     arr[0] = 1;
                     arr[1] = -1;
                     arr[2] = i;
-                    //return  1; // error 1 if all lines are not the same length
                 }
             }
 
@@ -340,7 +337,7 @@ public class textReader extends Output {
                         System.out.println(getCharFromString(tab.get(j),0));
                         arr[0] = 2;
                         arr[1] = 0;
-                        arr[3] = j;
+                        arr[2] = j;
                     }
                 }
             }
@@ -360,7 +357,6 @@ public class textReader extends Output {
             arr[2] = -1;
         }
 
-        System.out.println("ERROR ARRAY: " + arr[0] + arr[1] + arr[2]);
         return arr;
     }
 

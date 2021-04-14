@@ -21,6 +21,9 @@ dependencies {
     implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.0'
     implementation 'javax.activation:activation:1.1.1'
     implementation 'junit:junit:4.12'
+    implementation 'org.jetbrains:annotations:20.1.0'
+    compile group: 'org.fxmisc.richtext', name: 'richtextfx', version: '0.10.6'
+
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
