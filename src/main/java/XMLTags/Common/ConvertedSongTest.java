@@ -14,7 +14,6 @@ import XMLTags.Guitar.Notation;
 import XMLTags.Guitar.Slur;
 import XMLTags.Guitar.Technical;
 import XMLTags.Guitar.Tied;
-//import org.junit.jupiter.api.BeforeEach;
 
 public class ConvertedSongTest {
     private JAXBContext context;
@@ -261,6 +260,14 @@ public class ConvertedSongTest {
 				prevNote = note;
 				counter++;
 			}
+		}
+
+		else if (instrument == 3){
+			System.out.println("*********************************drum tablature detected");
+			attribs.setDivisions(Integer.toString(1));
+			song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);
+			counter = 0;
+			song.
 		}
 
 		serialize(song, xmlFile);
