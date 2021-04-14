@@ -11,15 +11,15 @@ import java.util.ArrayList;
 @XmlType(propOrder = {"staffLines", "staffTuning"})
 public class StaffDetails implements Serializable {
     //I think we need to implement the ScorePart below as a list
-    private int staffLines;
+    private String staffLines;
     private List<StaffTuning> staffTuning;
 
     @XmlElement(name = "staff-lines")
-    public int getStaffLines() {
+    public String getStaffLines() {
         return this.staffLines;
     }
 
-    public void setScorePart(int staffLines) {
+    public void setScorePart(String staffLines) {
         this.staffLines = staffLines;
     }
 
@@ -42,7 +42,7 @@ public class StaffDetails implements Serializable {
     public StaffDetails(int instrument){
         // XMLTags.Guitar
         if (instrument == 1) {
-            this.staffLines = 6;
+            this.staffLines = "6";
             this.staffTuning = new ArrayList<StaffTuning>();
             this.staffTuning.add(new StaffTuning("1", "E", 2));
             this.staffTuning.add(new StaffTuning("2", "A", 2));
@@ -52,9 +52,9 @@ public class StaffDetails implements Serializable {
             this.staffTuning.add(new StaffTuning("6", "E", 4));
         }
         // Bass
-        else
+        else if (instrument == 2)
         {
-            this.staffLines = 4;
+            this.staffLines = "4";
             this.staffTuning = new ArrayList<StaffTuning>();
             this.staffTuning.add(new StaffTuning("1", "E", 1));
             this.staffTuning.add(new StaffTuning("2", "A", 1));
@@ -64,7 +64,7 @@ public class StaffDetails implements Serializable {
     }
 
     public StaffDetails(List<StaffTuning> staffTuning){
-        staffLines = staffTuning.size();
+        staffLines = Integer.toString(staffTuning.size());
         this.staffTuning = staffTuning;
     }
 }

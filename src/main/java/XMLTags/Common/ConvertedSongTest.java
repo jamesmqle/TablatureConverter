@@ -44,8 +44,12 @@ public class ConvertedSongTest {
 		}
 	}
 
+	private static Note getLastNote(ConvertedSong song) {
+		return song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().get(song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().size() - 1);
+	}
+
     public static void main(String[] args) {
-		String xmlFile = "src/main/resources/sample";
+/*		String xmlFile = "src/main/resources/sample";
 		ConvertedSong song = new ConvertedSong();
 
 		// make song.parts not empty
@@ -55,7 +59,7 @@ public class ConvertedSongTest {
 		song.getParts().get(0).getMeasures().get(0).addNote(new Note());
 
 		serialize(song, xmlFile);
-		deSerialize(xmlFile);
+		deSerialize(xmlFile);*/
 	}
 
 	public static boolean isPowerOfTwo(int num){
@@ -91,11 +95,9 @@ public class ConvertedSongTest {
 	public static void createXML(List<Output> notes, String outputFilePath, String inputFilePath) throws FileNotFoundException {
 		String xmlFile = outputFilePath;
 		ConvertedSong song = new ConvertedSong();
-
 		Part lastPart;
 		Attributes attribs;
 		Output prevNote = new Output();
-
 		boolean isPerfect,  lastNoteChord = false;
 		double divisionCalc, doubleNoteDur;
 		int instrument, realDivisionCalc, counter = 0, noteDur, noteDashes, totalSpaces = -1, elementCounter = 0, numDD = 0;
@@ -114,19 +116,21 @@ public class ConvertedSongTest {
 		song.getLastPart().getMeasures().get(0).getAttributes().setStaffDetails(new StaffDetails(instrument));
 
 		// Get attributes from the first measure (for subsequent measures)
+		// doesnt do anything?
 		attribs = song.getParts().get(0).getMeasures().get(0).getAttributes();
 
 		// Instrument == 1: Parse as XMLTags.Guitar
 		if (instrument == 1) {
-			for (Output note: notes){
+			/*for (Output note: notes){
 				if (note.getnote1() > 9) numDD++;
 				System.out.println(note.getnote1() + " > 9: " + (note.getnote1() > 9));
 				System.out.println("numDD: " + numDD);
-			}
+			}*/
 
 			if (isPowerOfTwo(textReader.numberOfDashes(inputFilePath)-numDD) && textReader.numberOfDashes(inputFilePath) > 1) {
 				isPerfect = true;
 			}
+
 			else isPerfect = false;
 
 			/**
@@ -139,7 +143,8 @@ public class ConvertedSongTest {
 
 			if (isPerfect) {
 				System.out.println("perfect timing");
-				divisionCalc = (1.0 / ((double) textReader.shortestNoteDuration(inputFilePath) / (double) textReader.numberOfDashes(inputFilePath))) / 4.0;
+				divisionCalc = (1.0 / ((double) textReader.shortestNoteDuration(inputFilePath) /
+						(double) textReader.numberOfDashes(inputFilePath))) / 4.0;
 				realDivisionCalc = (int) divisionCalc;
 				attribs.setDivisions(Integer.toString(realDivisionCalc));
 				song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);
@@ -153,7 +158,8 @@ public class ConvertedSongTest {
 					if ((note.getnote1() == -1) && counter != notes.size()) {
 						lastPart = song.getParts().get(song.getParts().size() - 1);
 						if (counter != notes.size() - 1)
-							lastPart.addMeasure(new Measure(new Attributes(), new ArrayList<Note>(), Integer.toString(lastPart.getMeasures().size() + 1)));
+							lastPart.addMeasure(new Measure(new Attributes(), new ArrayList<Note>(),
+									Integer.toString(lastPart.getMeasures().size() + 1)));
 						counter++;
 					} else {
 						if (counter < notes.size()) {
@@ -170,7 +176,7 @@ public class ConvertedSongTest {
 								elementCounter = 0;
 								for (Output chordNote : chordNotes) {
 									song.addNoteToMeasure(chordNote.getletter(), chordNote.getnote1());
-									lastNote = song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().get(song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().size() - 1);
+									lastNote = getLastNote(song);
 									lastNote.setDuration(noteDur);
 									lastNote.setType(noteType(noteDur, totalSpaces));
 									if (elementCounter == 0) {
@@ -184,7 +190,7 @@ public class ConvertedSongTest {
 								if (note.getnote1() == -2) ;
 								else {
 									song.addNoteToMeasure(note.getletter(), note.getnote1());
-									lastNote = song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().get(song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().size() - 1);
+									lastNote = getLastNote(song);
 									lastNote.setDuration(noteDur);
 									lastNote.setType(noteType(noteDur, totalSpaces));
 								}
@@ -205,30 +211,46 @@ public class ConvertedSongTest {
 				counter = 0;
 				List<Note> slurList = new ArrayList<Note>();
 				//Pitch pitch, int duration, String type, int voice, Notation notations
+/*
 				slurList.add(new Note(new Pitch(), 2, "half", 1, new Notation(new Technical("4", "1"), new Slur("1", "start"),  new Tied("start")), new Tie("start")));
 				slurList.add(new Note(new Pitch(), 1, "quarter", 1, new Notation(new Technical("4", "1"),  new Tied("start")), new Tie("start")));
 				slurList.add(new Note(new Pitch(), 1, "quarter", 1, new Notation(new Technical("4", "1"), new Slur("1", "stop"),  new Tied("stop")), new Tie("stop")));
+*/
 
 				attribs.setDivisions(Integer.toString(2));
-				song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);
-				song.getParts().get(0).getMeasures().get(0).setNotes(slurList);
+				song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);/*
+				song.getParts().get(0).getMeasures().get(0).setNotes(slurList);*/
+				song.getPartList().getScorePart().setPartName("Guitar 1");
+
 				for (Output note : notes) {
+					// New measure: note1 is -1
+					// New tab line: note 1 is -2
 					if ((note.getnote1() == -1) && counter != notes.size() - 1) { //TEST THIS: before, the getnote1 == -2 condition was commented
+						// Get Part - Guitar 1
 						lastPart = song.getParts().get(song.getParts().size() - 1);
+						// Add measure to the part
 						lastPart.addMeasure(new Measure(new Attributes(), new ArrayList<Note>(), Integer.toString(lastPart.getMeasures().size() + 1)));
+						// Set division (measure resolution)
 						lastPart.getMeasures().get(lastPart.getMeasures().size() - 1).getAttributes().setDivisions("2");
 						prevNote = new Output();
 					}
 					else if (note.getnote1() == -1 && counter == notes.size() - 1){
+						// Add a barline
 						song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).setBarline(new Barline("right", "light-heavy"));
 					}
 					else {
+
+						// If the note is a normal note, add the note to the song
 						if (counter != notes.size() - 1 && (note.getnote1() != -1 && note.getnote1() != -2)) {
+							// Add a note
 							song.addNoteToMeasure(note.getletter(), note.getnote1());
-							song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().get(song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().size() - 1).setType("half");
+
+							// Change the note duration to a half note
+							getLastNote(song).setType("half");
 						}
 						if (prevNote.getindex() == note.getindex())
-							song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().get(song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().size() - 1).chordOn();
+							// if the last note is on the same index as the current note, mark it as part of a chord
+							getLastNote(song).chordOn();
 					}
 					prevNote = note;
 					counter++;
@@ -251,11 +273,11 @@ public class ConvertedSongTest {
 				} else {
 					if (counter != notes.size() - 1 && (note.getnote1() != -1 && note.getnote1() != -2)) {
 						song.addNoteToMeasure(note.getletter(), note.getnote1());
-						song.getLastPart().getLastMeasure().getLastNote().getPitch().setOctave(song.getLastPart().getLastMeasure().getLastNote().getPitch().getOctave()-1);
-						song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().get(song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().size() - 1).setType("half");
+						getLastNote(song).getPitch().setOctave(song.getLastPart().getLastMeasure().getLastNote().getPitch().getOctave()-1);
+						getLastNote(song).setType("half");
 					}
 					if (prevNote.getindex() == note.getindex())
-						song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().get(song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().size() - 1).chordOn();
+						getLastNote(song).chordOn();
 				}
 				prevNote = note;
 				counter++;
@@ -267,7 +289,23 @@ public class ConvertedSongTest {
 			attribs.setDivisions(Integer.toString(1));
 			song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);
 			counter = 0;
-			song.
+		}
+
+		else if (instrument == 3){
+			attribs.setDivisions(Integer.toString(1));
+			song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);
+			counter = 0;
+		}
+
+		else if (instrument == 3){
+			attribs.setDivisions(Integer.toString(1));
+			song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);
+			counter = 0;
+			song.getPartList().getScorePart().setPartName("Drum 1");
+
+			for (Output note: notes){
+				System.out.println(note.getletter() + " "  + note.gettech());
+			}
 		}
 
 		serialize(song, xmlFile);
