@@ -233,6 +233,7 @@ public class ConvertedSongTest {
 							getLastNote(song).setType("half");
 						}
 
+						// This condition will recognize hammer-ons
 						if(note.gettech().equals("H")|| note.gettech().equals("h")){
 
 							// note 1
@@ -255,6 +256,52 @@ public class ConvertedSongTest {
 							getLastNote(song).getNotations().setSlur(new Slur("1","stop"));
 
 						}
+
+						// This condition will recognize pull-offs
+						if(note.gettech().equals("P") || note.gettech().equals("p")){
+
+							// first note of technique
+							ArrayList<PullOff> pullOffs = new ArrayList<>();
+							pullOffs.add(new PullOff(1,"start","P"));
+							getLastNote(song).getNotations().getTechnical().setPulloff(pullOffs);
+							getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setNumber(1);
+							getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setType("start");
+							getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setSymbol("P");
+							getLastNote(song).getNotations().setSlur(new Slur("1","start"));
+
+							// second note of technique
+							ArrayList<PullOff> pullOffs2 = new ArrayList<PullOff>();
+							pullOffs2.add(new PullOff());
+							song.addNoteToMeasure(note.getletter(),note.getnote2());
+							getLastNote(song).setType("half");
+							getLastNote(song).getNotations().getTechnical().setPulloff(pullOffs2);
+							getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setNumber(1);
+							getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setType("stop");
+							getLastNote(song).getNotations().setSlur(new Slur("1","stop"));
+						}
+
+						// This condition will recognize slides
+						if(note.gettech().equals("S") || note.gettech().equals("s")){
+
+							// first note of technique
+							ArrayList<Slide> slide = new ArrayList<>();
+							slide.add(new Slide(1,"start"));
+							getLastNote(song).getNotations().setSlide(slide);
+							getLastNote(song).getNotations().getSlide().get(0).setNumber(1);
+							getLastNote(song).getNotations().getSlide().get(0).setType("start");
+
+							// second note of technique
+							ArrayList<Slide> slide2 = new ArrayList<>();
+							slide2.add(new Slide());
+							song.addNoteToMeasure(note.getletter(),note.getnote2());
+							getLastNote(song).setType("half");
+							getLastNote(song).getNotations().setSlide(slide2);
+							getLastNote(song).getNotations().getSlide().get(0).setNumber(1);
+							getLastNote(song).getNotations().getSlide().get(0).setType("stop");
+						}
+
+
+
 						if (prevNote.getindex() == note.getindex())
 							// if the last note is on the same index as the current note, mark it as part of a chord
 							getLastNote(song).chordOn();
