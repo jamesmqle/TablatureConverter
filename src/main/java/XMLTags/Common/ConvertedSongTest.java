@@ -233,8 +233,8 @@ public class ConvertedSongTest {
 							getLastNote(song).setType("half");
 						}
 
-						// This condition will recognize hammer-ons
-						if(note.gettech().equals("H")|| note.gettech().equals("h")){
+						// HAMMER-ONS
+						if(note.getTech().equals("H")|| note.getTech().equals("h")){
 
 							// note 1
 							ArrayList<HammerOn> hammerOns = new ArrayList<HammerOn>();
@@ -257,8 +257,8 @@ public class ConvertedSongTest {
 
 						}
 
-						// This condition will recognize pull-offs
-						if(note.gettech().equals("P") || note.gettech().equals("p")){
+						// PULL-OFFS
+						if(note.getTech().equals("P") || note.getTech().equals("p")){
 
 							// first note of technique
 							ArrayList<PullOff> pullOffs = new ArrayList<>();
@@ -280,8 +280,8 @@ public class ConvertedSongTest {
 							getLastNote(song).getNotations().setSlur(new Slur("1","stop"));
 						}
 
-						// This condition will recognize slides
-						if(note.gettech().equals("S") || note.gettech().equals("s")){
+						// SLIDES
+						if(note.getTech().equals("S") || note.getTech().equals("s")){
 
 							// first note of technique
 							ArrayList<Slide> slide = new ArrayList<>();
@@ -300,13 +300,24 @@ public class ConvertedSongTest {
 							getLastNote(song).getNotations().getSlide().get(0).setType("stop");
 						}
 
+						// GRACE NOTES NOT DONE
+//						if(note.gettech().equals("G") || note.gettech().equals("g")){
+//							Grace grace = new Grace();
+//							grace.setSlash("yes");
+//							getLastNote(song).setGrace(grace);
+//						}
 
+						// HARMONICS NOTE DONE
+//						if(note.gettech().equals("]")){
+//							System.out.println("HARMONIC RECOGNIZED");
+//							getLastNote(song).getNotations().getTechnical().setHarmonic(new Harmonic());
+//						}
 
 						if (prevNote.getindex() == note.getindex())
 							// if the last note is on the same index as the current note, mark it as part of a chord
 							getLastNote(song).chordOn();
-
 					}
+
 					prevNote = note;
 					counter++;
 				}
@@ -359,11 +370,21 @@ public class ConvertedSongTest {
 			song.getPartList().getScorePart().setPartName("Drum 1");
 
 			for (Output note: notes){
-				System.out.println(note.getletter() + " "  + note.gettech());
+				System.out.println(note.getletter() + " "  + note.getTech());
 			}
 		}
 
 		serialize(song, xmlFile);
 		deSerialize(xmlFile);
 	}
+
+//	public static void addTech(ConvertedSong song, Output note, ){
+//		if(note.getTech().equals("H") || note.getTech().equals("h")){
+//
+//		}
+//
+//		if(note.getTech().equals("P") || note.getTech().equals("p")){
+//
+//		}
+//	}
 }

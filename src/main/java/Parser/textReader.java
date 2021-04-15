@@ -385,7 +385,7 @@ public class textReader extends Output {
     // Print data of the output list that we return
     public static void printData(List<Output> list) {
         list.forEach(obj -> System.out.println("Tunning :" + obj.getletter() + "\t" + "note 1 :" + obj.getnote1() + "\t"
-                + "note 2 :" + obj.getnote2() + "\t" + "Technique :" + obj.gettech() + "\t" + "i :" + obj.getindex()));
+                + "note 2 :" + obj.getnote2() + "\t" + "Technique :" + obj.getTech() + "\t" + "i :" + obj.getindex()));
     }
 
     /**

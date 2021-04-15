@@ -8,7 +8,7 @@ public class Output {
 		this.letter = string;
 		this.note1 = n1;
 		this.note2 = n2;
-		this.technique = tech;
+		this.tech = tech;
 		this.index = i;
 	}
 
@@ -17,7 +17,7 @@ public class Output {
 		this.letter = string;
 		this.note1 = n1;
 		this.note2 = n2;
-		this.technique = tech;
+		this.tech = tech;
 		this.index = i;
 		this.isChord = isChord;
 	}
@@ -46,14 +46,18 @@ public class Output {
 		// TODO Auto-generated method stub
 		return this.letter;
 	}
-	public String gettech() {
+	public String getTech() {
 		// TODO Auto-generated method stub
-		return this.technique;
+		return this.tech;
+	}
+	public String getTech2(){
+		return this.tech2;
 	}
 	String letter;
 	int note1;
 	int note2;
-	String technique;
+	String tech;
+	String tech2;
 	int index;
 	boolean isChord;
 }

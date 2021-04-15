@@ -1,5 +1,6 @@
 package XMLTags.Common;
 
+import XMLTags.Guitar.Grace;
 import XMLTags.Guitar.Notation;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -10,8 +11,9 @@ import java.io.Serializable;
 // Feb 17 change - Changed type from Type to String
 
 @XmlRootElement(name = "note")
-@XmlType(propOrder = {"chord", "pitch", "duration", "tie", "voice", "type", "notations"})
+@XmlType(propOrder = {"grace","chord", "pitch", "duration", "tie", "voice", "type", "notations"})
 public class Note implements Serializable {
+    private Grace grace;
     private Pitch pitch;
     private int duration;
     private String type;
@@ -57,6 +59,14 @@ public class Note implements Serializable {
         this.voice = voice;
         this.notations = notations;
         this.tie = tie;
+    }
+
+    @XmlElement(name = "grace")
+    public Grace getGrace() {
+        return grace;
+    }
+    public void setGrace(Grace grace) {
+        this.grace = grace;
     }
 
     @XmlElement(name = "pitch")

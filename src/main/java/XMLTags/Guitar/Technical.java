@@ -1,20 +1,23 @@
 package XMLTags.Guitar;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement
-@XmlType(propOrder = {"pulloff", "hammer", "string", "fret"})
-public class Technical {
+@XmlType(propOrder = {"harmonic","pulloff", "hammer", "string", "fret"})
+public class Technical implements Serializable {
 
     String string;
     String fret;
 
     ArrayList<HammerOn> hammer;
     ArrayList<PullOff> pulloff;
+
+    Harmonic harmonic;
 
     public Technical() {}
 
@@ -54,10 +57,16 @@ public class Technical {
     public ArrayList<PullOff> getPulloff() {
         return pulloff;
     }
+    public void setPulloff(ArrayList<PullOff> p){
+        pulloff = p;
+    }
 
-
-    public String getHarmonic() {
-        return null;
+    @XmlElement
+    public Harmonic getHarmonic() {
+        return this.harmonic;
+    }
+    public void setHarmonic(Harmonic harmonic) {
+        this.harmonic = harmonic;
     }
 
 }

@@ -54,7 +54,10 @@ public class GuitarParser {
                             && ((getCharFromString(tab.get(j), i + 1) == '/')
                             || (getCharFromString(tab.get(j), i + 1) == 's')
                             || (getCharFromString(tab.get(j), i + 1) == 'p')
-                            || (getCharFromString(tab.get(j), i + 1) == 'h'))
+                            || (getCharFromString(tab.get(j), i + 1) == 'h')
+                            || (getCharFromString(tab.get(j), i - 1) == 'g')  // ADDED FOR GRACE NOTES
+                            || (( getCharFromString(tab.get(j), i - 1) == '[' // ADDED THIS FOR HARMONICS
+                            && getCharFromString(tab.get(j), i + 1) == ']'))) // ADDED THIS FOR HARMONICS
                             && ((getCharFromString(tab.get(j), i + 2) != '-')
                             || (getCharFromString(tab.get(j), i + 2) != '|'))
                             && ((getCharFromString(tab.get(j), i + 3) == '-')
