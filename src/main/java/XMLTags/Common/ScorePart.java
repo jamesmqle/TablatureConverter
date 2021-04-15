@@ -17,6 +17,7 @@ public class ScorePart implements Serializable {
     public ScorePart() {
         id = "";
         partName = "";
+        scoreInstruments = new ArrayList<ScoreInstrument>();
     }
 
     public ScorePart(String partName, String id) {

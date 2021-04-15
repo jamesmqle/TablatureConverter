@@ -24,7 +24,7 @@ public class DrumParser {
                     list.add(new Output(
                             Character.toString(getCharFromString(tab.get(j), 0))
                                     + Character.toString(getCharFromString(tab.get(j), 1)),
-                            -1, -1, Character.toString(getCharFromString(tab.get(j), i)), i));
+                            -3, -3, Character.toString(getCharFromString(tab.get(j), i)), i));
 
                 }
                 // Check if the element is "|" to add new tab element to the list

@@ -19,6 +19,7 @@ public class Note implements Serializable {
     private int voice;
     Notation notations;
     Tie tie;
+    Unpitched unpitched;
 
     public Note() {
         this.pitch = new Pitch();

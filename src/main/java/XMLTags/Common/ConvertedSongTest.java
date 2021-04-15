@@ -10,6 +10,7 @@ import javax.xml.bind.Unmarshaller;
 
 import Parser.Output;
 import Parser.textReader;
+import XMLTags.Drums.ScoreInstrument;
 import XMLTags.Guitar.Notation;
 import XMLTags.Guitar.Slur;
 import XMLTags.Guitar.Technical;
@@ -73,11 +74,11 @@ public class ConvertedSongTest {
 	 * @param totalDashes
 	 * @return
 	 */
-	public static String noteType(int noteDashes, int totalDashes){
+	public static String noteType(int noteDashes, int totalDashes) {
 		String type;
 		double quotient;
 
-		quotient = ((double)noteDashes/(double)totalDashes);
+		quotient = ((double) noteDashes / (double) totalDashes);
 
 		if (quotient == 1) type = "whole";
 		else if (quotient == 0.5) type = "half";
@@ -90,6 +91,33 @@ public class ConvertedSongTest {
 		else type = "quarter";
 
 		return type;
+	}
+
+	public static void initializeDrumScoreInstruments(ConvertedSong song){
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I36", "Bass Drum 1"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I37", "Bass Drum 2"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I38", "Slide Stick"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I39", "Snare"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I42", "Low Floor Tom"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I43", "Closed Hi-Hat"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I44", "High Floor Tom"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I45", "Pedal Hi-Hat"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I46", "Low Tom"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I47", "Open Hi-hat"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I48", "Low-Mid Tom"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I49", "Hi-Mid Tom"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I50", "Crash Cymbal 1"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I51", "High Tom"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I52", "Ride Cymbal 1"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I53", "Chinese Cymbal"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I54", "Ride Bell"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I55", "Tambourine"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I56", "Splash Cymbal"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I57", "Cowbell"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I58", "Crash Cymbal 2"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I60", "Ride Cymbal 2"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I64", "Open Hi Conga"));
+		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I65", "Low Conga"));
 	}
 
 	public static void createXML(List<Output> notes, String outputFilePath, String inputFilePath) throws FileNotFoundException {
@@ -285,26 +313,45 @@ public class ConvertedSongTest {
 		}
 
 		else if (instrument == 3){
-			System.out.println("*********************************drum tablature detected");
-			attribs.setDivisions(Integer.toString(1));
-			song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);
-			counter = 0;
-		}
-
-		else if (instrument == 3){
-			attribs.setDivisions(Integer.toString(1));
-			song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);
-			counter = 0;
-		}
-
-		else if (instrument == 3){
+			initializeDrumScoreInstruments(song);
 			attribs.setDivisions(Integer.toString(1));
 			song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);
 			counter = 0;
 			song.getPartList().getScorePart().setPartName("Drum 1");
 
 			for (Output note: notes){
-				System.out.println(note.getletter() + " "  + note.gettech());
+				System.out.println("Marking: " + note.gettech() + "   Note 1: " + note.getnote1() + "   Letter: " + note.getletter());
+			}
+
+			for (Output note: notes){
+				if ((note.getnote1() == -1) && counter != notes.size() - 1) { //TEST THIS: before, the getnote1 == -2 condition was commented
+					// Get Part - Guitar 1
+					lastPart = song.getParts().get(song.getParts().size() - 1);
+					// Add measure to the part
+					lastPart.addMeasure(new Measure(new Attributes(), new ArrayList<Note>(), Integer.toString(lastPart.getMeasures().size() + 1)));
+					// Set division (measure resolution)
+					lastPart.getMeasures().get(lastPart.getMeasures().size() - 1).getAttributes().setDivisions("2");
+					prevNote = new Output();
+				}
+
+				else if (note.getnote1() == -1 && counter == notes.size() - 1){
+					// Add a barline
+					song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).setBarline(new Barline("right", "light-heavy"));
+				}
+
+				else {
+					// If the note is a normal note, add the note to the song
+					if (counter != notes.size() - 1 && (note.getnote1() != -1 && note.getnote1() != -2)) {
+						// Add a note
+						song.addNoteToMeasure(note.getletter(), note.getnote1());
+
+						// Change the note duration to a half note
+						getLastNote(song).setType("half");
+					}
+					if (prevNote.getindex() == note.getindex())
+						// if the last note is on the same index as the current note, mark it as part of a chord
+						getLastNote(song).chordOn();
+				}
 			}
 		}
 
