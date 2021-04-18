@@ -120,6 +120,7 @@ public class ConvertedSongTest {
 		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I65", "Low Conga"));
 	}
 
+
 	public static void createXML(List<Output> notes, String outputFilePath, String inputFilePath) throws FileNotFoundException {
 		String xmlFile = outputFilePath;
 		ConvertedSong song = new ConvertedSong();

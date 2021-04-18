@@ -1,5 +1,6 @@
 package XMLTags.Common;
 
+import XMLTags.Drums.Instrument;
 import XMLTags.Guitar.Notation;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -10,7 +11,7 @@ import java.io.Serializable;
 // Feb 17 change - Changed type from Type to String
 
 @XmlRootElement(name = "note")
-@XmlType(propOrder = {"chord", "pitch", "duration", "tie", "voice", "type", "notations"})
+@XmlType(propOrder = {"unpitched", "chord", "pitch", "duration", "instrument", "tie", "voice", "type", "notations"})
 public class Note implements Serializable {
     private Pitch pitch;
     private int duration;
@@ -20,6 +21,7 @@ public class Note implements Serializable {
     Notation notations;
     Tie tie;
     Unpitched unpitched;
+    Instrument instrument;
 
     public Note() {
         this.pitch = new Pitch();
@@ -58,6 +60,16 @@ public class Note implements Serializable {
         this.voice = voice;
         this.notations = notations;
         this.tie = tie;
+    }
+
+    public Note(Pitch pitch, int duration, String type, int voice, Notation notations, Tie tie, Instrument instrument) {
+        this.pitch = pitch;
+        this.duration = duration;
+        this.type = type;
+        this.voice = voice;
+        this.notations = notations;
+        this.tie = tie;
+        this.instrument = instrument;
     }
 
     @XmlElement(name = "pitch")
@@ -125,5 +137,22 @@ public class Note implements Serializable {
 
     public void setTie(Tie tie) {
         this.tie = tie;
+    }
+
+    @XmlElement(name = "unpitched")
+    public Unpitched getUnpitched() {
+        return this.unpitched;
+    }
+
+    public void setUnpitched(Unpitched unpitched) {
+        this.unpitched = unpitched;
+    }
+
+    @XmlElement(name = "instrument")
+    public Instrument getInstrument(){
+        return this.instrument;
+    }
+    public void setInstrument(Instrument instrument){
+        this.instrument = instrument;
     }
 }
