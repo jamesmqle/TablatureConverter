@@ -16,15 +16,23 @@ public class BassParser {
 
     public static List<Output> ParseBass(LinkedHashMap<Integer, String> tab, List<Output> list, int m) {
         // Check if the list is empty to add new tab element to the list
-        if (!list.isEmpty()) {
-            list.add(new Output("# NEW TAB #", -2, -2, "-", -2));
-        }
         Object[] keyList = tab.keySet().toArray();
+        if (!list.isEmpty()) {
+            int line = (int)keyList[0];
+            String tabLine = tab.get(line);
+            int offset = tabLine.length()-tabLine.stripLeading().length();
+            Output note = new Output("# NEW TAB #", -2, -2, "-", -2);
+            note.setLine(line);
+            note.setLineCol(offset);
+            list.add(note);
+        }
         int length = tab.get(keyList[0]).length();
         for (int i = 2; i < length; i++) {
             for (int j = 0; j < m; j++) {
                 int line = (int)keyList[j];
                 String tabLine = tab.get(line);
+                int offset = tabLine.length()-tabLine.stripLeading().length();
+                tabLine = tabLine.strip();
                 if ((getCharFromString(tabLine, i) != '-') && (getCharFromString(tabLine, i) != '|')) {
                     // 1 digit
                     // Check if the note is proper 1 digit to add new tab element to the list
@@ -57,19 +65,30 @@ public class BassParser {
                                 -1, "-", i);
 
                     }
-                    // 3 digits number in parentheses like (0)
+
+                    // 3 digits number harmonic like (2)
                     // Check if the note is proper 3 digit to add new tab element to the list
-                    else if ((getCharFromString(tabLine, i - 1) == '-')
-                            && (getCharFromString(tabLine, i + 1) != '-')
+                    else if ((getCharFromString(tabLine, i - 1) == '-' || getCharFromString(tabLine, i - 1) == '|')
+                            && (getCharFromString(tabLine, i) == '(')
                             && (getCharFromString(tabLine, i + 1) != '/')
                             && (getCharFromString(tabLine, i + 1) != 's')
-                            && (getCharFromString(tabLine, i + 2) != '-')
-                            && (getCharFromString(tabLine, i + 3) == '-')) {
-                        note = new Output(Character.toString(getCharFromString(tabLine, 0)),
-                                Integer.parseInt(Character.toString(getCharFromString(tabLine, i))
-                                        + Character.toString(getCharFromString(tabLine, i + 1))
-                                        + Character.toString(getCharFromString(tabLine, i + 2))),
-                                -1, "-", i);
+                            && (getCharFromString(tabLine, i + 2) == ')')
+                            && (getCharFromString(tabLine, i + 3) == '-' || getCharFromString(tabLine, i + 3) == '|')) {
+                        list.add(new Output(Character.toString(getCharFromString(tabLine, 0)),
+                                Integer.parseInt(Character.toString(getCharFromString(tabLine, i + 1))),
+                                -1, "()", i));
+                    }
+                    // 3 digits number harmonic like [2]
+                    // Check if the note is proper 3 digit to add new tab element to the list
+                    else if ((getCharFromString(tabLine, i - 1) == '-' || getCharFromString(tabLine, i - 1) == '|')
+                            && (getCharFromString(tabLine, i) == '[')
+                            && (getCharFromString(tabLine, i + 1) != '/')
+                            && (getCharFromString(tabLine, i + 1) != 's')
+                            && (getCharFromString(tabLine, i + 2) == ']')
+                            && (getCharFromString(tabLine, i + 3) == '-' || getCharFromString(tabLine, i + 3) == '|')) {
+                        list.add(new Output(Character.toString(getCharFromString(tabLine, 0)),
+                                Integer.parseInt(Character.toString(getCharFromString(tabLine, i + 1))),
+                                -1, "[]", i));
                     }
 
                     // 3 digit with technique
@@ -91,12 +110,15 @@ public class BassParser {
                     if (note!=null) {
                         list.add(note);
                         note.setLine(line);
-                        note.setLineCol(i);
+                        note.setLineCol(i+offset);
                     }
                 }
                 // Check if the element is "|" to add new tab element to the list
                 if (getCharFromString(tabLine, i) == '|') {
-                    list.add(new Output("*New Measure*", -1, -1, "-", i));
+                    Output note = new Output("*New Measure*", -1, -1, "-", i);
+                    note.setLine(line);
+                    note.setLineCol(i+offset);
+                    list.add(note);
                     if (i != length - 1) {
                         i++;
                     } else {

@@ -148,7 +148,7 @@ public class textReader extends Output {
         int line = 0;
         while (myReader.hasNextLine()) {
             line++;
-            data = myReader.nextLine().trim();
+            data = myReader.nextLine();
 
             /*
              * If instrument is guitar it adds lines of tab to the tab list until if ends

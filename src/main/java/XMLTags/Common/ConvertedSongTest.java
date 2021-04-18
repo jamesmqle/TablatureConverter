@@ -222,6 +222,9 @@ public class ConvertedSongTest {
 				song.getPartList().getScorePart().setPartName("Guitar 1");
 
 				for (Output note : notes) {
+					System.out.println("Note 1: " + note.getnote1());
+					System.out.println("Note Size: " + notes.size());
+					System.out.println("Counter: " + counter);
 					// New measure: note1 is -1
 					// New tab line: note 1 is -2
 					if ((note.getnote1() == -1) && counter != notes.size() - 1) {
@@ -240,6 +243,8 @@ public class ConvertedSongTest {
 						song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).setBarline(new Barline("right", "light-heavy"));
 					}
 					else {
+
+						System.out.println(note.getTech());
 
 						// If the note is a normal note, add the note to the song
 						if (counter != notes.size() - 1 && (note.getnote1() != -1 && note.getnote1() != -2)) {
@@ -325,10 +330,10 @@ public class ConvertedSongTest {
 //						}
 
 						// HARMONICS NOTE DONE
-//						if(note.gettech().equals("]")){
-//							System.out.println("HARMONIC RECOGNIZED");
-//							getLastNote(song).getNotations().getTechnical().setHarmonic(new Harmonic());
-//						}
+						if(note.getTech().equals("[")){
+							System.out.println("HARMONIC RECOGNIZED");
+							getLastNote(song).getNotations().getTechnical().setHarmonic(new Harmonic());
+						}
 
 						if (prevNote.getindex() == note.getindex())
 							// if the last note is on the same index as the current note, mark it as part of a chord
