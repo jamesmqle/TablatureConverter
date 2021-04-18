@@ -10,6 +10,7 @@ public class Output {
 		this.note2=n2;
 		this.technique=tech;
 		this.index=i;
+		//this.isChord=false;
 	}
 
 	public Output(String string, int n1, int n2, String tech, int i, boolean isChord) {
@@ -20,6 +21,27 @@ public class Output {
 		this.technique = tech;
 		this.index = i;
 		this.isChord = isChord;
+	}
+
+	public Output(String string, int n1, int n2, String tech, int i, String gracee) {
+		// TODO Auto-generated constructor stub
+		this.letter = string;
+		this.note1 = n1;
+		this.note2 = n2;
+		this.technique = tech;
+		this.index = i;
+		this.grace = gracee;
+	}
+
+	public Output(String string, int n1, int n2, String tech, int i, String tech2, int n3) {
+		// TODO Auto-generated constructor stub
+		this.letter = string;
+		this.note1 = n1;
+		this.note2 = n2;
+		this.note3 = n3;
+		this.technique = tech;
+		this.technique2 = tech2;
+		this.index = i;
 	}
 
 	public Output(){}
@@ -53,7 +75,10 @@ public class Output {
 	String letter;
 	int note1;
 	int note2;
+	int note3;
 	String technique;
+	String technique2;
+	String grace;
 	int index;
 	boolean isChord;
 }

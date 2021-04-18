@@ -226,6 +226,7 @@ public class textReader extends Output {
         // close the file and return the result
         myReader.close();
         //ConvertedSongTest.createXML(list);
+        printData(list);
         return list;
     }
 

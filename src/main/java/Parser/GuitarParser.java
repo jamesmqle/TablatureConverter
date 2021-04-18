@@ -76,6 +76,25 @@ public class GuitarParser {
                                 Integer.parseInt(Character.toString(getCharFromString(tab.get(j), i + 1))),
                                 -1, "[]", i));
                     }
+                    // 4 digits grace like g0h1
+                    // Check if the note is proper 3 digit to add new tab element to the list
+                    else if (((getCharFromString(tab.get(j), i - 1) == '-')
+                            || (getCharFromString(tab.get(j), i - 1) == '|'))
+                            && (getCharFromString(tab.get(j), i) != '-')
+                            && (getCharFromString(tab.get(j), i) != '|')
+                            && ((getCharFromString(tab.get(j), i + 1) != '-')
+                            && (getCharFromString(tab.get(j), i + 1) != '|')
+                            && (getCharFromString(tab.get(j), i + 2) != '-')
+                            && (getCharFromString(tab.get(j), i + 2) != '|'))
+                            && (getCharFromString(tab.get(j), i + 3) != '-')
+                            && (getCharFromString(tab.get(j), i + 3) != '|')
+                            && ((getCharFromString(tab.get(j), i + 4) == '-')
+                            || (getCharFromString(tab.get(j), i + 4) == '|'))) {
+                        list.add(new Output(Character.toString(getCharFromString(tab.get(j), 0)),
+                                Integer.parseInt(Character.toString(getCharFromString(tab.get(j), i + 1))),
+                                Integer.parseInt(Character.toString(getCharFromString(tab.get(j), i + 3))),
+                                Character.toString(getCharFromString(tab.get(j), i + 2)), i,Character.toString(getCharFromString(tab.get(j), i))));
+                    }
                 }
                 // Check if the element is "|" to add new tab element to the list
                 if (getCharFromString(tab.get(j), i) == '|') {
