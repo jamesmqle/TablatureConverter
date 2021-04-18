@@ -50,6 +50,7 @@ public class Output {
 		// TODO Auto-generated method stub
 		return this.tech;
 	}
+
 	public String getTech2(){
 		return this.tech2;
 	}
@@ -60,4 +61,19 @@ public class Output {
 	String tech2;
 	int index;
 	boolean isChord;
+	int line;
+	int lineCol;
+
+	public int getLine() {
+		return this.line;
+	}
+	public int getLineCol() {
+		return this.lineCol;
+	}
+	public void setLine(int line) {
+		this.line = line;
+	}
+	public void setLineCol(int lineCol) {
+		this.lineCol = lineCol;
+	}
 }

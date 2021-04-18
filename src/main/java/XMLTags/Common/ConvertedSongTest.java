@@ -3,6 +3,7 @@ package XMLTags.Common;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -13,7 +14,8 @@ import Parser.textReader;
 import XMLTags.Guitar.*;
 
 public class ConvertedSongTest {
-    private JAXBContext context;
+	private JAXBContext context;
+	public static HashMap<Integer, Integer[]> MEASURE_POSITION_MAP = new HashMap<>();
 
 	private static void serialize(ConvertedSong song, String xmlFile) {
 		try {
@@ -88,6 +90,8 @@ public class ConvertedSongTest {
 		Output nextNote;
 		Note lastNote;
 
+		MEASURE_POSITION_MAP.clear();
+
 		List<Output> chordNotes = new ArrayList<Output>(); // create list for all notes on same line (chord)
 
 		instrument = textReader.detectInstrument(inputFilePath);
@@ -102,7 +106,6 @@ public class ConvertedSongTest {
 		// Get attributes from the first measure (for subsequent measures)
 		// doesnt do anything?
 		attribs = song.getParts().get(0).getMeasures().get(0).getAttributes();
-
 		// Instrument == 1: Parse as XMLTags.Guitar
 		if (instrument == 1) {
 			/*for (Output note: notes){
@@ -141,9 +144,11 @@ public class ConvertedSongTest {
 					System.out.println("Notes Size: " + notes.size());
 					if ((note.getnote1() == -1) && counter != notes.size()) {
 						lastPart = song.getParts().get(song.getParts().size() - 1);
-						if (counter != notes.size() - 1)
-							lastPart.addMeasure(new Measure(new Attributes(), new ArrayList<Note>(),
-									Integer.toString(lastPart.getMeasures().size() + 1)));
+						if (counter != notes.size() - 1) {
+							int measureNum = lastPart.getMeasures().size() + 1;
+							lastPart.addMeasure(new Measure(new Attributes(), new ArrayList<Note>(), measureNum));
+							MEASURE_POSITION_MAP.put(measureNum, new Integer[]{note.getLine(), note.getLineCol()});
+						}
 						counter++;
 					} else {
 						if (counter < notes.size()) {
@@ -159,6 +164,11 @@ public class ConvertedSongTest {
 								lastNoteChord = false;
 								elementCounter = 0;
 								for (Output chordNote : chordNotes) {
+									lastPart = song.getParts().get(song.getParts().size() - 1);
+									int measureCount = lastPart.getMeasures().size();
+									if (measureCount==1 && !MEASURE_POSITION_MAP.containsKey(1)) {
+										MEASURE_POSITION_MAP.put(1, new Integer[]{chordNote.getLine(), chordNote.getLineCol()});
+									}
 									song.addNoteToMeasure(chordNote.getletter(), chordNote.getnote1());
 									lastNote = getLastNote(song);
 									lastNote.setDuration(noteDur);
@@ -173,6 +183,11 @@ public class ConvertedSongTest {
 							} else {
 								if (note.getnote1() == -2) ;
 								else {
+									lastPart = song.getParts().get(song.getParts().size() - 1);
+									int measureCount = lastPart.getMeasures().size();
+									if (measureCount==1 && !MEASURE_POSITION_MAP.containsKey(1)) {
+										MEASURE_POSITION_MAP.put(1, new Integer[]{note.getLine(), note.getLineCol()});
+									}
 									song.addNoteToMeasure(note.getletter(), note.getnote1());
 									lastNote = getLastNote(song);
 									lastNote.setDuration(noteDur);
@@ -213,7 +228,9 @@ public class ConvertedSongTest {
 						// Get Part - Guitar 1
 						lastPart = song.getParts().get(song.getParts().size() - 1);
 						// Add measure to the part
-						lastPart.addMeasure(new Measure(new Attributes(), new ArrayList<Note>(), Integer.toString(lastPart.getMeasures().size() + 1)));
+						int measureNum = lastPart.getMeasures().size() + 1;
+						lastPart.addMeasure(new Measure(new Attributes(), new ArrayList<Note>(), measureNum));
+						MEASURE_POSITION_MAP.put(measureNum, new Integer[]{note.getLine(), note.getLineCol()});
 						// Set division (measure resolution)
 						lastPart.getMeasures().get(lastPart.getMeasures().size() - 1).getAttributes().setDivisions("2");
 						prevNote = new Output();
@@ -333,7 +350,11 @@ public class ConvertedSongTest {
 			for (Output note : notes) {
 				if ((/*note.getnote1() == -2 || */note.getnote1() == -1) && counter != notes.size() - 1) { //TEST THIS: before, the getnote1 == -2 condition was commented
 					lastPart = song.getParts().get(song.getParts().size() - 1);
-					lastPart.addMeasure(new Measure(new Attributes(), new ArrayList<Note>(), Integer.toString(lastPart.getMeasures().size() + 1)));/*
+
+					int measureNum = lastPart.getMeasures().size() + 1;
+					lastPart.addMeasure(new Measure(new Attributes(), new ArrayList<Note>(), measureNum));
+					MEASURE_POSITION_MAP.put(measureNum, new Integer[]{note.getLine(), note.getLineCol()});
+					/*
 					lastPart.getMeasures().get(lastPart.getMeasures().size() - 1).getAttributes().setDivisions("2");*/
 					prevNote = new Output();
 				} else {
