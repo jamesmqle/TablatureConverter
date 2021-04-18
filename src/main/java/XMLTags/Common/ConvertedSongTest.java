@@ -244,7 +244,9 @@ public class ConvertedSongTest {
 					}
 					else {
 
+						System.out.println("TECHNIQUE!");
 						System.out.println(note.getTech());
+						System.out.println();
 
 						// If the note is a normal note, add the note to the song
 						if (counter != notes.size() - 1 && (note.getnote1() != -1 && note.getnote1() != -2)) {
@@ -330,9 +332,10 @@ public class ConvertedSongTest {
 //						}
 
 						// HARMONICS NOTE DONE
-						if(note.getTech().equals("[")){
+						if(note.getTech().equals("[]")){
 							System.out.println("HARMONIC RECOGNIZED");
-							getLastNote(song).getNotations().getTechnical().setHarmonic(new Harmonic());
+							getLastNote(song).getNotations().getTechnical().setHarmonic(new Harmonic(""));
+							//getLastNote(song).getNotations().getTechnical().getHarmonic().setNatural("natural");
 						}
 
 						if (prevNote.getindex() == note.getindex())

@@ -90,14 +90,14 @@ public class GuitarParser {
 
                     // 3 digits number harmonic like [2]
                     // Check if the note is proper 3 digit to add new tab element to the list
-                    else if ((getCharFromString(tab.get(j), i - 1) == '-' || getCharFromString(tab.get(j), i - 1) == '|')
-                            && (getCharFromString(tab.get(j), i) == '[')
-                            && (getCharFromString(tab.get(j), i + 1) != '/')
-                            && (getCharFromString(tab.get(j), i + 1) != 's')
-                            && (getCharFromString(tab.get(j), i + 2) == ']')
-                            && (getCharFromString(tab.get(j), i + 3) == '-' || getCharFromString(tab.get(j), i + 3) == '|')) {
-                        list.add(new Output(Character.toString(getCharFromString(tab.get(j), 0)),
-                                Integer.parseInt(Character.toString(getCharFromString(tab.get(j), i + 1))),
+                    else if ((getCharFromString(tabLine, i - 1) == '-' || getCharFromString(tabLine, i - 1) == '|')
+                            && (getCharFromString(tabLine, i) == '[')
+                            && (getCharFromString(tabLine, i + 1) != '/')
+                            && (getCharFromString(tabLine, i + 1) != 's')
+                            && (getCharFromString(tabLine, i + 2) == ']')
+                            && (getCharFromString(tabLine, i + 3) == '-' || getCharFromString(tabLine, i + 3) == '|')) {
+                        list.add(new Output(Character.toString(getCharFromString(tabLine, 0)),
+                                Integer.parseInt(Character.toString(getCharFromString(tabLine, i + 1))),
                                 -1, "[]", i));
                     }
                 }
