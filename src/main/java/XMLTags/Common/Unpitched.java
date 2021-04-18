@@ -1,7 +1,9 @@
 package XMLTags.Common;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
+@XmlType(propOrder = {"displayStep", "displayOctave"})
 public class Unpitched {
     String displayStep;
     String displayOctave;
