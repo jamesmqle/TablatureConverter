@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,16 +45,13 @@ public class Technical implements Serializable {
 
     @XmlElement(name = "hammer-on")
     public ArrayList<HammerOn> getHammer() {
-        return hammer;
+        return this.hammer;
     }
     public void setHammer(ArrayList<HammerOn> h){
         hammer = h;
     }
 
     @XmlElement(name = "pulloff")
-    public void setPulloff(ArrayList<PullOff> p){
-        pulloff = p;
-    }
     public ArrayList<PullOff> getPulloff() {
         return pulloff;
     }

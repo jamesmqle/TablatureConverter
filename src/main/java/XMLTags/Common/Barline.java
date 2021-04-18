@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 @XmlRootElement(name = "barline")
-public class Barline {
+public class Barline implements Serializable {
 
     String location;
     String barStyle;
