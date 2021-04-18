@@ -2,13 +2,13 @@
 <score-partwise version="3.1">
     <part-list>
         <score-part id="G1">
-            <part-name>XMLTags/Guitar 1</part-name>
+            <part-name>Guitar 1</part-name>
         </score-part>
     </part-list>
     <part id="G1">
         <measure number="1">
             <attributes>
-                <divisions>1</divisions>
+                <divisions>2</divisions>
                 <key>
                     <fifths>0</fifths>
                     <mode>major</mode>
@@ -22,25 +22,104 @@
                     <line>5</line>
                 </clef>
                 <staff-details>
-                    <staff-lines>4</staff-lines>
+                    <staff-lines>6</staff-lines>
                     <staff-tuning line="1">
                         <tuning-step>E</tuning-step>
-                        <tuning-octave>1</tuning-octave>
+                        <tuning-octave>2</tuning-octave>
                     </staff-tuning>
                     <staff-tuning line="2">
                         <tuning-step>A</tuning-step>
-                        <tuning-octave>1</tuning-octave>
+                        <tuning-octave>2</tuning-octave>
                     </staff-tuning>
                     <staff-tuning line="3">
                         <tuning-step>D</tuning-step>
-                        <tuning-octave>2</tuning-octave>
+                        <tuning-octave>3</tuning-octave>
                     </staff-tuning>
                     <staff-tuning line="4">
                         <tuning-step>G</tuning-step>
-                        <tuning-octave>2</tuning-octave>
+                        <tuning-octave>3</tuning-octave>
+                    </staff-tuning>
+                    <staff-tuning line="5">
+                        <tuning-step>B</tuning-step>
+                        <tuning-octave>3</tuning-octave>
+                    </staff-tuning>
+                    <staff-tuning line="6">
+                        <tuning-step>E</tuning-step>
+                        <tuning-octave>4</tuning-octave>
                     </staff-tuning>
                 </staff-details>
             </attributes>
+            <note>
+                <pitch>
+                    <step>C</step>
+                    <alter>0</alter>
+                    <octave>4</octave>
+                </pitch>
+                <duration>2</duration>
+                <tie type="start"/>
+                <voice>1</voice>
+                <type>half</type>
+                <notations>
+                    <slur number="1" type="start"/>
+                    <technical>
+                        <string>4</string>
+                        <fret>1</fret>
+                    </technical>
+                </notations>
+            </note>
+            <note>
+                <pitch>
+                    <step>C</step>
+                    <alter>0</alter>
+                    <octave>4</octave>
+                </pitch>
+                <duration>1</duration>
+                <voice>1</voice>
+                <type>quarter</type>
+                <notations>
+                    <technical>
+                        <string>4</string>
+                        <fret>1</fret>
+                    </technical>
+                </notations>
+            </note>
+            <note>
+                <pitch>
+                    <step>C</step>
+                    <alter>0</alter>
+                    <octave>4</octave>
+                </pitch>
+                <duration>1</duration>
+                <tie type="stop"/>
+                <voice>1</voice>
+                <type>quarter</type>
+                <notations>
+                    <slur number="1" type="stop"/>
+                    <technical>
+                        <string>4</string>
+                        <fret>1</fret>
+                    </technical>
+                </notations>
+            </note>
+            <note>
+                <pitch>
+                    <step>A</step>
+                    <alter>0</alter>
+                    <octave>3</octave>
+                </pitch>
+                <duration>1</duration>
+                <voice>1</voice>
+                <type>half</type>
+                <notations>
+                    <technical>
+                        <string>3</string>
+                        <fret>2</fret>
+                    </technical>
+                </notations>
+            </note>
+            <barline location="right">
+                <bar-style>light-heavy</bar-style>
+            </barline>
         </measure>
     </part>
 </score-partwise>

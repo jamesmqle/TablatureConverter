@@ -229,6 +229,7 @@ public class textReader extends Output {
         return list;
     }
 
+
     /**
      * TabIsOk checks that the inputted tablature is a valid format for the given instrument tablature
      * 0 - No error
