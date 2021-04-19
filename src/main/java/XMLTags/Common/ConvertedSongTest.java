@@ -168,9 +168,7 @@ public class ConvertedSongTest {
 			 * else -> note
 			 */
 
-
 			if (isPerfect) {
-				System.out.println("perfect timing");
 				divisionCalc = (1.0 / ((double) textReader.shortestNoteDuration(inputFilePath) /
 						(double) textReader.numberOfDashes(inputFilePath))) / 4.0;
 				realDivisionCalc = (int) divisionCalc;
@@ -181,8 +179,6 @@ public class ConvertedSongTest {
 				totalSpaces = realDivisionCalc * 4;
 				counter = 0;
 				for (Output note : notes) {
-					System.out.println("Loop: " + counter);
-					System.out.println("Notes Size: " + notes.size());
 					if ((note.getnote1() == -1) && counter != notes.size()) {
 						lastPart = song.getParts().get(song.getParts().size() - 1);
 						if (counter != notes.size() - 1)
@@ -367,14 +363,8 @@ public class ConvertedSongTest {
 						}
 						if (numDashToNext == 0) numDashToNext = 1;
 
-						System.out.println("numDashToNext: " + numDashToNext);
-						System.out.println("numDashes: " + textReader.numberOfDashes(inputFilePath));
 						noteType = (double)textReader.numberOfDashes(inputFilePath)/(double)numDashToNext;
 						noteTypeInt = (int) noteType;
-
-						System.out.println("Note duration (double): " + noteType);
-
-						System.out.println("Note duration: " + noteTypeInt);
 
 						int pow2 = 128, numDashToNextTemp = numDashToNext;
 						boolean isFirst = true;
@@ -392,12 +382,10 @@ public class ConvertedSongTest {
 								if (pow2 <= numDashToNextTemp){
 									song.addDrumNoteToMeasure(note.getletter(), note.gettech(), pow2);
 									//set note type
-									System.out.println("note duration: " + getLastNote(song).getDuration() + " number of dashes: " + textReader.numberOfDashes(inputFilePath) );
 									getLastNote(song).setType(noteType(getLastNote(song).getDuration(), textReader.numberOfDashes(inputFilePath)));
 
 									isFirst = false;
 									numDashToNextTemp = numDashToNextTemp - pow2;
-									System.out.println(numDashToNextTemp);
 									if (numDashToNextTemp != 0){
 										//add tie to note
 										getLastNote(song).setNotations(new Notation(new Slur("1", "start"), new Tied("start")));
