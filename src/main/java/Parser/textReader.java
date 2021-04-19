@@ -300,7 +300,7 @@ public class textReader extends Output {
     public static int[] TabIsOKTracker(List<String> tab, int instrument) {
         int[] arr = new int[3];
 
-        System.out.println("Instrument: " + instrument);
+        //System.out.println("Instrument: " + instrument);
 
         if (instrument == 1) {// Guitar
 

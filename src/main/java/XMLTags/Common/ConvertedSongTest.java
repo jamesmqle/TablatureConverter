@@ -312,10 +312,15 @@ public class ConvertedSongTest {
 			}
 		}
 
+		// Drum Implementation
 		else if (instrument == 3){
-			initializeDrumScoreInstruments(song);
-			attribs.setDivisions(Integer.toString(4));
+			initializeDrumScoreInstruments(song);/*
+			attribs.setDivisions(Integer.toString(4));*/
 			attribs.setClef(new Clef("percussion", 2));
+			divisionCalc = (1.0 / ((double) textReader.shortestNoteDuration(inputFilePath) /
+					(double) textReader.numberOfDashes(inputFilePath))) / 4.0;
+			realDivisionCalc = (int) divisionCalc;
+			attribs.setDivisions(Integer.toString(realDivisionCalc));
 			song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);
 			counter = 0;
 			song.getPartList().getScorePart().setPartName("Drum 1");
@@ -344,10 +349,62 @@ public class ConvertedSongTest {
 					// If the note is a normal note, add the note to the song
 					if (counter != notes.size() - 1 && (note.getnote1() != -1 && note.getnote1() != -2)) {
 						// Add a note TODO: add appropriate duration
-						song.addDrumNoteToMeasure(note.getletter(), note.gettech(), 1);
+
+						double noteType = 0;
+						int numDashToNext = 0, noteTypeInt = 0;
+
+						for (Output drumNote : notes){
+							if (drumNote.getindex() > note.getindex()){
+								System.out.println("Note index: " + drumNote.getindex() + " Getnote1: " + drumNote.getnote1() + " Getletter: " + drumNote.getletter());
+								numDashToNext = drumNote.getindex() - note.getindex();
+								break;
+								/*if (drumNote.getletter().equals(note.getletter()) || drumNote.getnote1() == -1) {
+									numDashToNext = drumNote.getindex() - note.getindex();
+									break;
+								}*/
+							}
+						}
+						if (numDashToNext == 0) numDashToNext = 1;
+
+						System.out.println("numDashToNext: " + numDashToNext);
+						System.out.println("numDashes: " + textReader.numberOfDashes(inputFilePath));
+						noteType = (double)textReader.numberOfDashes(inputFilePath)/(double)numDashToNext;
+						noteTypeInt = (int) noteType;
+
+						System.out.println("Note duration (double): " + noteType);
+
+						System.out.println("Note duration: " + noteTypeInt);
+
+						int pow2 = 128, numDashToNextTemp = numDashToNext;
+						boolean isFirst = true;
+						Output tempNote = new Output();
+						System.out.println(counter);
+						if (isPowerOfTwo(numDashToNextTemp))song.addDrumNoteToMeasure(note.getletter(), note.gettech(), numDashToNext);
+						else{
+							while (numDashToNextTemp > 0){
+								//first check for the biggest power of two that is less than the number of dashes
+								// on the first less than number of dashes, add the note with that duration power of two
+								//System.out.println("entered loop");
+								if (pow2 <= numDashToNextTemp){
+									song.addDrumNoteToMeasure(note.getletter(), note.gettech(), pow2);
+									isFirst = false;
+									numDashToNextTemp = numDashToNextTemp - pow2;
+									System.out.println(numDashToNextTemp);
+									if (!isFirst){
+										//add tie to note
+									}
+									tempNote = note;
+									//System.out.println(numDashToNextTemp);
+								}
+								else {
+									pow2 = pow2/2;
+								}
+							}
+						}
+
 
 						// Change the note duration to a half note
-						getLastNote(song).setType("half");
+						getLastNote(song).setType(noteType(numDashToNext, textReader.numberOfDashes(inputFilePath)));
 					}
 					if (prevNote.getindex() == note.getindex())
 						// if the last note is on the same index as the current note, mark it as part of a chord
