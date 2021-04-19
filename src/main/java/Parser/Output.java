@@ -3,6 +3,20 @@ package Parser;
 import java.util.List;
 
 public class Output {
+
+	String letter;
+	int note1;
+	int note2;
+	int note3;
+	String tech;
+	String tech2;
+	String grace;
+	int index;
+	boolean isChord;
+	int line;
+	int lineCol;
+
+
 	public Output(String string, int n1, int n2, String tech, int i) {
 		// TODO Auto-generated constructor stub
 		this.letter = string;
@@ -22,9 +36,31 @@ public class Output {
 		this.isChord = isChord;
 	}
 
+	public Output(String string, int n1, int n2, String tech, int i, String grace) {
+		// TODO Auto-generated constructor stub
+		this.letter = string;
+		this.note1 = n1;
+		this.note2 = n2;
+		this.tech = tech;
+		this.index = i;
+		this.grace = grace;
+	}
+
+	public Output(String string, int n1, int n2, String tech, int i, String tech2, int n3) {
+		// TODO Auto-generated constructor stub
+		this.letter = string;
+		this.note1 = n1;
+		this.note2 = n2;
+		this.note3 = n3;
+		this.tech = tech;
+		this.tech2 = tech2;
+		this.index = i;
+	}
+
+
 	public Output(){}
 
-	/*
+    /*
 	 * public void printData(List<Output> data) { data.forEach(obj ->
 	 * System.out.println("item1" + obj.getletter() + " " + "item2" + obj.getnum() +
 	 * " " + "item2" + obj.getindex())); }
@@ -50,19 +86,13 @@ public class Output {
 		// TODO Auto-generated method stub
 		return this.tech;
 	}
+	public String getGrace(){
+		return this.grace;
+	}
 
 	public String getTech2(){
 		return this.tech2;
 	}
-	String letter;
-	int note1;
-	int note2;
-	String tech;
-	String tech2;
-	int index;
-	boolean isChord;
-	int line;
-	int lineCol;
 
 	public int getLine() {
 		return this.line;
