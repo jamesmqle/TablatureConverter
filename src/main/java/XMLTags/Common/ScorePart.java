@@ -23,6 +23,7 @@ public class ScorePart implements Serializable {
     public ScorePart(String partName, String id) {
         this.partName = partName;
         this.id = id;
+        scoreInstruments = new ArrayList<ScoreInstrument>();
     }
 
     public ScorePart(String partName, String id, ArrayList<ScoreInstrument> scoreInstruments) {

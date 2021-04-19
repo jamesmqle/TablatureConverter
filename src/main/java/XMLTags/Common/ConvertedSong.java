@@ -77,12 +77,4 @@ public class ConvertedSong implements Serializable {
         this.getParts().get(this.getParts().size()-1).getMeasures().get(this.getParts().get(this.getParts().size()-1).getMeasures().size()-1).addNote(noteToAdd);
     }
 
-    /*
-     * Attributes (attribute)
-     * Fields:
-     * - Key (key)
-     * - TimeSignature (time)
-     * - Clef (clef
-     */
-
 }

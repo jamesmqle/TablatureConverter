@@ -18,13 +18,13 @@ public class Measure implements Serializable {
 
     private Attributes attributes;
     private List<Note> notes;
-    private String number;
+    private int number;
     private Barline barline;
 
     public Measure(){
         this.attributes = new Attributes(new Clef(), new Key(0, "major"), new TimeSignature(4,4), "1", new StaffDetails());
         this.notes = new ArrayList<Note>();
-        this.number = "1";
+        this.number = 1;
     }
 
     public Measure(Attributes a, List<Note> n){
@@ -40,7 +40,7 @@ public class Measure implements Serializable {
         this.notes = new ArrayList<Note>();
     }
 
-    public Measure(Attributes a, List<Note> n, String number){
+    public Measure(Attributes a, List<Note> n, int number){
         this.attributes = a;
         this.notes = n;
         this.number = number;
@@ -85,11 +85,11 @@ public class Measure implements Serializable {
     }
 
     @XmlAttribute
-    public String getNumber() {
+    public int getNumber() {
         return this.number;
     }
 
-    public void setNumber(String number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 
