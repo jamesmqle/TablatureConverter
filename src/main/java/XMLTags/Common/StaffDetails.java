@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @XmlRootElement
 @XmlType(propOrder = {"staffLines", "staffTuning"})
 public class StaffDetails implements Serializable {
-    //I think we need to implement the ScorePart below as a list
+
     private String staffLines;
     private List<StaffTuning> staffTuning;
 
@@ -19,7 +19,7 @@ public class StaffDetails implements Serializable {
         return this.staffLines;
     }
 
-    public void setScorePart(String staffLines) {
+    public void setStaffLines(String staffLines) {
         this.staffLines = staffLines;
     }
 

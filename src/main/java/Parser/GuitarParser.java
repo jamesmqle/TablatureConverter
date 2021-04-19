@@ -64,7 +64,12 @@ public class GuitarParser {
                     // 3 digits with technique
                     // Check if the note is proper 3 digit to add new tab element to the list
                     else if (((getCharFromString(tabLine, i - 1) == '-')
-                            || (getCharFromString(tabLine, i - 1) == '|'))
+                            || (getCharFromString(tabLine, i - 1) == '|')
+                            || (getCharFromString(tabLine, i - 1) == '/')
+                            || (getCharFromString(tabLine, i - 1) == 's')
+                            || (getCharFromString(tabLine, i - 1) == 'p')
+                            || (getCharFromString(tabLine, i - 1) == 'h')
+                            || (getCharFromString(tabLine, i - 1) == 'g'))
                             && ((getCharFromString(tabLine, i + 1) == '/')
                             || (getCharFromString(tabLine, i + 1) == 's')
                             || (getCharFromString(tabLine, i + 1) == 'p')
@@ -73,7 +78,7 @@ public class GuitarParser {
                             || (( getCharFromString(tabLine, i - 1) == '[' // ADDED THIS FOR HARMONICS
                             && getCharFromString(tabLine, i + 1) == ']'))) // ADDED THIS FOR HARMONICS
                             && ((getCharFromString(tabLine, i + 2) != '-')
-                            || (getCharFromString(tabLine, i + 2) != '|'))
+                            || (getCharFromString(tabLine, i + 2) != '|')) //7h3p5
                             && ((getCharFromString(tabLine, i + 3) == '-')
                             || (getCharFromString(tabLine, i + 3) == '|'))) {
                         note = new Output(Character.toString(getCharFromString(tabLine, 0)),

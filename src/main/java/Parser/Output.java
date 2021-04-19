@@ -10,7 +10,7 @@ public class Output {
 	int note3;
 	String tech;
 	String tech2;
-	String grace;
+	String grace = "";
 	int index;
 	boolean isChord;
 	int line;
