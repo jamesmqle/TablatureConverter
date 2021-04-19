@@ -396,6 +396,33 @@ public class textReader extends Output {
         List<Output> list = new ArrayList<>();
         list = readTabFile(filepath);
         /*        printData(list);*/
+        int firstIndex = -1, measureIndex = -1, numDash = -1, oldNumDash = -1;
+        int counter = 0, isFirst = 0;
+
+        for (Output note : list){
+            if (counter == 0 && (note.getnote1() != -1 && note.getnote1() != -2) ) {
+                firstIndex = note.getindex();
+                counter++;
+            }
+            if (note.getnote1() == -1) {
+                counter = 0;
+                measureIndex = note.getindex();
+                if (isFirst == 0) {
+                    oldNumDash = measureIndex - firstIndex;
+                    isFirst++;
+                } else {
+                    numDash = measureIndex - firstIndex;
+                }
+            }
+        }
+
+        return oldNumDash;
+    }
+
+    public static int numberOfDashesDrum(String filepath) throws FileNotFoundException {
+        List<Output> list = new ArrayList<>();
+        list = readTabFile(filepath);
+        /*        printData(list);*/
         int firstIndex = -1, measureIndex = -1, numDash = -1, oldNumDash = -1, finalDash = -1;
         int counter = 0, isFirst = 0;
 
@@ -408,7 +435,6 @@ public class textReader extends Output {
             if (note.getnote1() == -1) {
                 counter = 0;
                 measureIndex = note.getindex();
-
                 // i dont know what this block is but i'm too afraid to remove it
                 if (isFirst == 0) {
                     oldNumDash = measureIndex - firstIndex;
@@ -416,7 +442,8 @@ public class textReader extends Output {
                     finalDash = oldNumDash;
                 } else {
                     numDash = measureIndex - firstIndex;
-
+                    System.out.println("oldNumDash: " + oldNumDash);
+                    System.out.println("numDash: " + numDash);
                     if (oldNumDash < numDash) finalDash = numDash;
                 }
             }

@@ -26,9 +26,7 @@ public class Note implements Serializable {
     Instrument instrument;
 
     public Note() {
-        this.pitch = new Pitch();
         this.duration = 4;
-        //this.type = new Type();
         this.type = "whole";
         this.voice = 1;
     }

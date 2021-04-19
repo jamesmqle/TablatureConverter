@@ -93,6 +93,25 @@ public class ConvertedSongTest {
         return type;
     }
 
+    public static String noteType2(int noteDashes, int totalDashes) {
+        String type;
+        double quotient;
+
+        quotient = ((double) noteDashes / (double) totalDashes);
+
+        if (quotient == 1) type = "whole";
+        else if (quotient == 0.5) type = "half";
+        else if (quotient == 0.25) type = "quarter";
+        else if (quotient == 0.125) type = "eighth";
+        else if (quotient == 0.0625) type = "16th";
+        else if (quotient == 0.03125) type = "32nd";
+        else if (quotient == 0.015625) type = "64th";
+        else if (quotient == 0.0078125) type = "128th";
+        else type = "quarter";
+
+        return type;
+    }
+
     public static void initializeDrumScoreInstruments(ConvertedSong song){
         song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I36", "Bass Drum 1"));/*
 		song.getPartList().getScorePart().scoreInstruments.add(new ScoreInstrument("P1-I37", "Bass Drum 2"));
@@ -391,8 +410,8 @@ public class ConvertedSongTest {
 			attribs.setDivisions(Integer.toString(4));*/
             attribs.setClef(new Clef("percussion", 2));
             System.out.println("shortest note: " + (double) textReader.shortestNoteDuration(inputFilePath));
-            divisionCalc = textReader.numberOfDashes(inputFilePath)/(double)attribs.getTime().getBeats();
-            System.out.println("TOTAL numdashes: " + textReader.numberOfDashes(inputFilePath));
+            divisionCalc = textReader.numberOfDashesDrum(inputFilePath)/(double)attribs.getTime().getBeats();
+            System.out.println("TOTAL numdashes: " + textReader.numberOfDashesDrum(inputFilePath));
             realDivisionCalc = (int) divisionCalc;
             attribs.setDivisions(Integer.toString(realDivisionCalc));
             song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);
@@ -440,7 +459,7 @@ public class ConvertedSongTest {
                         }
                         if (numDashToNext == 0) numDashToNext = 1;
 
-                        noteType = (double)textReader.numberOfDashes(inputFilePath)/(double)numDashToNext;
+                        noteType = (double)textReader.numberOfDashesDrum(inputFilePath)/(double)numDashToNext;
                         noteTypeInt = (int) noteType;
 
                         int pow2 = 128, numDashToNextTemp = numDashToNext;
@@ -449,7 +468,7 @@ public class ConvertedSongTest {
                         System.out.println(counter);
                         if (isPowerOfTwo(numDashToNextTemp)){
                             song.addDrumNoteToMeasure(note.getletter(), note.getTech(), numDashToNext);
-                            getLastNote(song).setType(noteType(numDashToNext, textReader.numberOfDashes(inputFilePath)));
+                            getLastNote(song).setType(noteType2(numDashToNext, textReader.numberOfDashesDrum(inputFilePath)));
                         }
                         else{
                             while (numDashToNextTemp > 0){
@@ -459,7 +478,7 @@ public class ConvertedSongTest {
                                 if (pow2 <= numDashToNextTemp){
                                     song.addDrumNoteToMeasure(note.getletter(), note.getTech(), pow2);
                                     //set note type
-                                    getLastNote(song).setType(noteType(getLastNote(song).getDuration(), textReader.numberOfDashes(inputFilePath)));
+                                    getLastNote(song).setType(noteType2(getLastNote(song).getDuration(), textReader.numberOfDashesDrum(inputFilePath)));
 
                                     isFirst = false;
                                     numDashToNextTemp = numDashToNextTemp - pow2;
@@ -480,8 +499,7 @@ public class ConvertedSongTest {
                                 }
                             }
                         }
-						/*// Change the note duration to a half note
-						getLastNote(song).setType(noteType(numDashToNext, textReader.numberOfDashes(inputFilePath)));*/
+
                     }
                     if (prevNote.getindex() == note.getindex())
                         // if the last note is on the same index as the current note, mark it as part of a chord
