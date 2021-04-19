@@ -37,7 +37,7 @@ public class DrumParser {
                     note = new Output(
                             Character.toString(getCharFromString(tabLine, 0))
                                     + Character.toString(getCharFromString(tabLine, 1)),
-                            -1, -1, Character.toString(getCharFromString(tabLine, i)), i);
+                            -3, -3, Character.toString(getCharFromString(tabLine, i)), i);
 
                 }
                 if (note!=null) {

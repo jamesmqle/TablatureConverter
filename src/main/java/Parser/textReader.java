@@ -396,10 +396,11 @@ public class textReader extends Output {
         List<Output> list = new ArrayList<>();
         list = readTabFile(filepath);
         /*        printData(list);*/
-        int firstIndex = -1, measureIndex = -1, numDash = -1, oldNumDash = -1;
+        int firstIndex = -1, measureIndex = -1, numDash = -1, oldNumDash = -1, finalDash = -1;
         int counter = 0, isFirst = 0;
 
         for (Output note : list){
+            // if not new line or new measure, it is the first note in the measure
             if (counter == 0 && (note.getnote1() != -1 && note.getnote1() != -2) ) {
                 firstIndex = note.getindex();
                 counter++;
@@ -407,16 +408,21 @@ public class textReader extends Output {
             if (note.getnote1() == -1) {
                 counter = 0;
                 measureIndex = note.getindex();
+
+                // i dont know what this block is but i'm too afraid to remove it
                 if (isFirst == 0) {
                     oldNumDash = measureIndex - firstIndex;
                     isFirst++;
+                    finalDash = oldNumDash;
                 } else {
                     numDash = measureIndex - firstIndex;
+
+                    if (oldNumDash < numDash) finalDash = numDash;
                 }
             }
         }
 
-        return oldNumDash;
+        return finalDash;
     }
 
     /**

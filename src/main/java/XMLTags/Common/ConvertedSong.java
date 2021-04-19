@@ -71,12 +71,10 @@ public class ConvertedSong implements Serializable {
         this.getParts().get(this.getParts().size()-1).getMeasures().get(this.getParts().get(this.getParts().size()-1).getMeasures().size()-1).getNotes().get(this.getParts().get(this.getParts().size()-1).getMeasures().get(this.getParts().get(this.getParts().size()-1).getMeasures().size()-1).getNotes().size()-1).setNotations(new Notation(new Technical(String.valueOf(stringNum), String.valueOf(fret))));
     }
 
-    /*
-     * Attributes (attribute)
-     * Fields:
-     * - Key (key)
-     * - TimeSignature (time)
-     * - Clef (clef
-     */
+    public void addDrumNoteToMeasure(String tuning, String openClosed, int duration){
+        Note noteToAdd = NoteConvert.convertToDrumNote(tuning, openClosed);
+        noteToAdd.setDuration(duration);
+        this.getParts().get(this.getParts().size()-1).getMeasures().get(this.getParts().get(this.getParts().size()-1).getMeasures().size()-1).addNote(noteToAdd);
+    }
 
 }

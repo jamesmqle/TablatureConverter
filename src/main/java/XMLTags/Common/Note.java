@@ -2,6 +2,7 @@ package XMLTags.Common;
 
 import XMLTags.Guitar.Grace;
 import XMLTags.Guitar.Notation;
+import XMLTags.Drums.Instrument;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -11,7 +12,7 @@ import java.io.Serializable;
 // Feb 17 change - Changed type from Type to String
 
 @XmlRootElement(name = "note")
-@XmlType(propOrder = {"grace","chord", "pitch", "duration", "tie", "voice", "type", "notations"})
+@XmlType(propOrder = {"grace","chord", "unpitched", "pitch", "duration", "tie", "instrument", "voice", "type", "notations"})
 public class Note implements Serializable {
     private Grace grace;
     private Pitch pitch;
@@ -21,6 +22,8 @@ public class Note implements Serializable {
     private int voice;
     Notation notations;
     Tie tie;
+    Unpitched unpitched;
+    Instrument instrument;
 
     public Note() {
         this.pitch = new Pitch();
@@ -59,6 +62,16 @@ public class Note implements Serializable {
         this.voice = voice;
         this.notations = notations;
         this.tie = tie;
+    }
+
+    public Note(Pitch pitch, int duration, String type, int voice, Notation notations, Tie tie, Instrument instrument) {
+        this.pitch = pitch;
+        this.duration = duration;
+        this.type = type;
+        this.voice = voice;
+        this.notations = notations;
+        this.tie = tie;
+        this.instrument = instrument;
     }
 
     @XmlElement(name = "grace")
@@ -134,5 +147,22 @@ public class Note implements Serializable {
 
     public void setTie(Tie tie) {
         this.tie = tie;
+    }
+
+    @XmlElement(name = "unpitched")
+    public Unpitched getUnpitched() {
+        return this.unpitched;
+    }
+
+    public void setUnpitched(Unpitched unpitched) {
+        this.unpitched = unpitched;
+    }
+
+    @XmlElement(name = "instrument")
+    public Instrument getInstrument(){
+        return this.instrument;
+    }
+    public void setInstrument(Instrument instrument){
+        this.instrument = instrument;
     }
 }
