@@ -57,7 +57,7 @@ public class Controller implements Initializable {
     @FXML
     public ComboBox<String> timeSignatureList;
 
-    public String timeSignature = "4/4";
+    public static String timeSignature = "4/4";
 
     /**
      * This method initializes is for pre-processing information in the scene
@@ -248,6 +248,7 @@ public class Controller implements Initializable {
      * This button will display the converted XML to the textarea
      */
     public void displayXML() throws IOException {
+        XMLTextArea.clear();
         try {
             Scanner s = new Scanner(new File(outputFile.toString())).useDelimiter("'");
             while (s.hasNext()) {
