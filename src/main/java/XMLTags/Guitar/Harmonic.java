@@ -17,11 +17,11 @@ public class Harmonic implements Serializable {
     public Harmonic() {
     }
 
-    @XmlAttribute(name = "natural")
+    @XmlElement(name = "natural")
     public String getNatural(){
         return this.natural;
     }
-    public void setNatural(){
+    public void setNatural(String natural){
         this.natural = natural;
     }
 }

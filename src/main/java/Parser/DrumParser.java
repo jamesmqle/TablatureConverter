@@ -1,5 +1,6 @@
 package Parser;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import static Parser.textReader.getCharFromString;
@@ -11,25 +12,45 @@ public class DrumParser {
      * makes changes and adds new elements to the list. returns the result list of
      * Output.
      */
-    public static List<Output> ParseDrum(List<String> tab, List<Output> list, int m) {
+    public static List<Output> ParseDrum(LinkedHashMap<Integer, String> tab, List<Output> list, int m) {
+        Object[] keyList = tab.keySet().toArray();
         if (!list.isEmpty()) {
-            list.add(new Output("# NEW TAB #", -1, -1, "-", -1));
+            int line = (int)keyList[0];
+            String tabLine = tab.get(line);
+            int offset = tabLine.length()-tabLine.stripLeading().length();
+            Output note = new Output("# NEW TAB #", -1, -1, "-", -1);
+            note.setLine(line);
+            note.setLineCol(offset);
+            list.add(note);
         }
-        int length = tab.get(0).length();
+        int length = tab.get(keyList[0]).length();
         for (int i = 3; i < length; i++) {
             for (int j = 0; j < m; j++) {
-                if ((getCharFromString(tab.get(j), i) != '-') && (getCharFromString(tab.get(j), i) != '|')) {
+                int line = (int)keyList[j];
+                String tabLine = tab.get(line);
+                int offset = tabLine.length()-tabLine.stripLeading().length();
+                tabLine = tabLine.strip();
+                Output note = null;
+                if ((getCharFromString(tabLine, i) != '-') && (getCharFromString(tabLine, i) != '|')) {
                     // 1 digit
                     // Check if the note is proper 1 digit to add new tab element to the list
-                    list.add(new Output(
-                            Character.toString(getCharFromString(tab.get(j), 0))
-                                    + Character.toString(getCharFromString(tab.get(j), 1)),
-                            -1, -1, Character.toString(getCharFromString(tab.get(j), i)), i));
+                    note = new Output(
+                            Character.toString(getCharFromString(tabLine, 0))
+                                    + Character.toString(getCharFromString(tabLine, 1)),
+                            -1, -1, Character.toString(getCharFromString(tabLine, i)), i);
 
                 }
+                if (note!=null) {
+                    list.add(note);
+                    note.setLine(line);
+                    note.setLineCol(i+offset);
+                }
                 // Check if the element is "|" to add new tab element to the list
-                if (getCharFromString(tab.get(j), i) == '|') {
-                    list.add(new Output("*New Measure*", -1, -1, "-", i));
+                if (getCharFromString(tabLine, i) == '|') {
+                    note = new Output("*New Measure*", -1, -1, "-", i);
+                    note.setLine(line);
+                    note.setLineCol(i+offset);
+                    list.add(note);
                     if (i != length - 1) {
                         i++;
                     } else {

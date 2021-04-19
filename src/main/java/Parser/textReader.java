@@ -2,9 +2,7 @@ package Parser;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner; // Import the Scanner class to read text files
+import java.util.*;
 
 import static Parser.BassParser.ParseBass;
 import static Parser.DrumParser.ParseDrum;
@@ -124,16 +122,16 @@ public class textReader extends Output {
         return k;
     }
 
-        /**
-         * "readTabFile" Takes the path of the file and reads it to recognize the
-         * instrument and call the proper instrument parser function. returns the list
-         * of output which is the result
-         */
+    /**
+     * "readTabFile" Takes the path of the file and reads it to recognize the
+     * instrument and call the proper instrument parser function. returns the list
+     * of output which is the result
+     */
     public static List<Output> readTabFile(String path) throws FileNotFoundException {
         // define the result list
         // and list of string which is a single tab
         List<Output> list = new ArrayList<>();
-        List<String> tab = new ArrayList<>();
+        LinkedHashMap<Integer, String> tab = new LinkedHashMap();
         int instrument = 0, k = 0;
         int numStrings = 0;
 
@@ -147,9 +145,10 @@ public class textReader extends Output {
         instrument = detectInstrument(path);
         numStrings = detectNumberStrings(path);
 
+        int line = 0;
         while (myReader.hasNextLine()) {
-
-            data = myReader.nextLine().trim();
+            line++;
+            data = myReader.nextLine();
 
             /*
              * If instrument is guitar it adds lines of tab to the tab list until if ends
@@ -157,13 +156,13 @@ public class textReader extends Output {
              */
             if (instrument == 1) { // XMLTags.Guitar
                 if (!(data.isEmpty()) || (data.charAt(0) == ' ')) {
-                    tab.add(data);
+                    tab.put(line, data);
                     k++;
                 }
 
                 if (k == numStrings) {
                     try {
-                        TabIsOK(tab, instrument);
+                        //TabIsOK(Arrays.asList((String[])tab.keySet().toArray()), instrument);
                         list = ParseGuitar(tab, list,numStrings);
                         k = 0;
                         tab.clear();
@@ -174,19 +173,19 @@ public class textReader extends Output {
                     }
                 }
 
-            /*
-             * If instrument is bass it adds lines of tab to the tab list until if ends
-             * which is after 4 strings or lines
-             */
+                /*
+                 * If instrument is bass it adds lines of tab to the tab list until if ends
+                 * which is after 4 strings or lines
+                 */
             } else if (instrument == 2) { // Bass
                 if (!(data.isEmpty()) || (data.charAt(0) == ' ')) {
-                    tab.add(data);
+                    tab.put(line, data);
                     k++;
                 }
 
                 if (k == numStrings) {
                     try {
-                        TabIsOK(tab, instrument);
+                        //TabIsOK(tab, instrument);
                         list = ParseBass(tab, list,numStrings);
                         k = 0;
                         tab.clear();
@@ -200,7 +199,7 @@ public class textReader extends Output {
 
             else if (instrument == 3) {// Drum
                 if (!(data.isEmpty()) || (data.charAt(0) == ' ')) {
-                    tab.add(data);
+                    tab.put(line, data);
                     k++;
                 }
 
@@ -208,7 +207,7 @@ public class textReader extends Output {
                     // first handle exceptions and check if it is correct tab, then call the
                     // parsDrum function
                     try {
-                        TabIsOK(tab, instrument);
+                        //TabIsOK(tab, instrument);
                         list = ParseDrum(tab, list, numStrings);
                         k = 0;
                         tab.clear();
@@ -365,13 +364,13 @@ public class textReader extends Output {
      * integer false if the string is not an integer
      */
     public static boolean isInteger(String s) {
-            try{
-                Integer.parseInt(s);
-                return true;
+        try{
+            Integer.parseInt(s);
+            return true;
 
-            }catch(NumberFormatException e){
-                return false;
-            }
+        }catch(NumberFormatException e){
+            return false;
+        }
     }
 
     /*

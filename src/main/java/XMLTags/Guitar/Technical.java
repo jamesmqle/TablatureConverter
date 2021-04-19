@@ -59,6 +59,7 @@ public class Technical implements Serializable {
         pulloff = p;
     }
 
+
     @XmlElement
     public Harmonic getHarmonic() {
         return this.harmonic;

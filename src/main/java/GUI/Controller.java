@@ -264,11 +264,31 @@ public class Controller implements Initializable {
      */
     @FXML
     public void MeasureHandler(ActionEvent event){
-        if(measure.getText() != ""){
-            codeArea.moveTo(20);
-            codeArea.requestFollowCaret();
-            codeArea.requestFocus();
-
+        try {
+            int measureNum = Integer.parseInt(measure.getText());
+            textViewToFile(textFile, codeArea);
+            ConvertedSongTest.createXML(textReader.readTabFile(textFile.toString()), outputFile.toString(), textFile.toString());
+            if (ConvertedSongTest.MEASURE_POSITION_MAP.containsKey(measureNum)) {
+                Integer[] position = ConvertedSongTest.MEASURE_POSITION_MAP.get(measureNum);
+                codeArea.moveTo(position[0]-1, position[1]);
+                codeArea.requestFollowCaret();
+                codeArea.requestFocus();
+                return;
+            }
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Measure Not Found");
+            errorAlert.setTitle("Error");
+            errorAlert.setContentText("Measure number "+measureNum+" could not be found.");
+            errorAlert.showAndWait();
+            errorAlert.close();
+        }catch (Exception e) {
+            e.printStackTrace();
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Measure Input Empty");
+            errorAlert.setTitle("Error");
+            errorAlert.setContentText("Please Enter a Measure Number");
+            errorAlert.showAndWait();
+            errorAlert.close();
         }
     }
 
