@@ -11,7 +11,7 @@ import java.io.Serializable;
 // Feb 17 change - Changed type from Type to String
 
 @XmlRootElement(name = "note")
-@XmlType(propOrder = {"chord", "unpitched", "pitch", "duration", "instrument", "tie", "voice", "type", "notations"})
+@XmlType(propOrder = {"chord", "unpitched", "pitch", "duration", "tie", "instrument", "voice", "type", "notations"})
 public class Note implements Serializable {
     private Pitch pitch;
     private int duration;

@@ -30,6 +30,11 @@ public class Notation {
         this.tied = tied;
     }
 
+    public Notation(Slur slur, Tied tied){
+        this.slur = slur;
+        this.tied = tied;
+    }
+
     @XmlElement(name = "technical")
     public Technical getTechnical(){
         return technical;

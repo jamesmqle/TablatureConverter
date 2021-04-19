@@ -388,19 +388,15 @@ public class textReader extends Output {
                 + "note 2 :" + obj.getnote2() + "\t" + "Technique :" + obj.gettech() + "\t" + "i :" + obj.getindex()));
     }
 
-    /**
-     *  1. Calculate how many dashes from first note to end of measure
-     *	2. Calculate the shortest note duration (but return 1 if any note duration is odd)
-     **/
-
     public static int numberOfDashes(String filepath) throws FileNotFoundException {
         List<Output> list = new ArrayList<>();
         list = readTabFile(filepath);
         /*        printData(list);*/
-        int firstIndex = -1, measureIndex = -1, numDash = -1, oldNumDash = -1;
+        int firstIndex = -1, measureIndex = -1, numDash = -1, oldNumDash = -1, finalDash = -1;
         int counter = 0, isFirst = 0;
 
         for (Output note : list){
+            // if not new line or new measure, it is the first note in the measure
             if (counter == 0 && (note.getnote1() != -1 && note.getnote1() != -2) ) {
                 firstIndex = note.getindex();
                 counter++;
@@ -408,18 +404,21 @@ public class textReader extends Output {
             if (note.getnote1() == -1) {
                 counter = 0;
                 measureIndex = note.getindex();
+                // i dont know what this block is but i'm too afraid to remove it
                 if (isFirst == 0) {
                     oldNumDash = measureIndex - firstIndex;
                     isFirst++;
+                    finalDash = oldNumDash;
                 } else {
                     numDash = measureIndex - firstIndex;
-                    if (oldNumDash == numDash);
-                    else return -1;
+                    System.out.println("oldNumDash: " + oldNumDash);
+                    System.out.println("numDash: " + numDash);
+                    if (oldNumDash < numDash) finalDash = numDash;
                 }
             }
         }
 
-        return oldNumDash;
+        return finalDash;
     }
 
     /**
