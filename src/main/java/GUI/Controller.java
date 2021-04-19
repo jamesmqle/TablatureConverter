@@ -57,7 +57,7 @@ public class Controller implements Initializable {
     @FXML
     public ComboBox<String> timeSignatureList;
 
-    public String timeSignature = "4/4";
+    public static String timeSignature = "4/4";
 
     /**
      * This method initializes is for pre-processing information in the scene
@@ -173,6 +173,7 @@ public class Controller implements Initializable {
             } else if (WarningErrorHandler(error) == true) {
                 ConvertedSongTest.createXML(textReader.readTabFile(textFile.toString()), outputFile.toString(), textFile.toString()); // Passes textarea file through parser
                 tabPane.getSelectionModel().select(outputTab); // automatically goes to output tab
+                XMLTextArea.clear();
                 displayXML();
             }
         } else { //  error message if textarea is empty
