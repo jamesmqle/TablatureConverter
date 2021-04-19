@@ -412,8 +412,6 @@ public class textReader extends Output {
                     isFirst++;
                 } else {
                     numDash = measureIndex - firstIndex;
-                    if (oldNumDash == numDash);
-                    else return -1;
                 }
             }
         }
@@ -449,10 +447,7 @@ public class textReader extends Output {
                 //System.out.println(noteDur);
             }
 
-            if(noteDur % 2 == 1 ){ // if odd then return 1
-                return 1;
-            }
-            else if(minNoteDur > noteDur && noteDur != 0){
+            if(minNoteDur > noteDur && noteDur != 0){
                 minNoteDur = noteDur;
             }
 

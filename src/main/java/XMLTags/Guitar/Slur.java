@@ -9,29 +9,29 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"number", "type", "placement"})
 public class Slur {
 
-    String number;
+    int number;
     String type;
     String placement;
 
     public Slur() {}
 
-    public Slur(String number, String type) {
+    public Slur(int number, String type) {
         this.number = number;
         this.type = type;
         this.placement = placement;
     }
 
-    public Slur(String number, String type, String placement) {
+    public Slur(int number, String type, String placement) {
         this.number = number;
         this.type = type;
         this.placement = placement;
     }
 
     @XmlAttribute
-    public String getNumber() {
+    public int getNumber() {
         return this.number;
     }
-    public void setNumber(String number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 

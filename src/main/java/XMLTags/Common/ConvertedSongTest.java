@@ -47,7 +47,18 @@ public class ConvertedSongTest {
     }
 
     private static Note getLastNote(ConvertedSong song) {
-        return song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().get(song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).getNotes().size() - 1);
+        Part lastPart = song.getParts().get(song.getParts().size() - 1);
+        Measure lastMeasure = lastPart.getMeasures().get(lastPart.getMeasures().size() - 1);
+        Note lastNote = lastMeasure.getNotes().get(lastMeasure.getNotes().size() - 1);
+        return lastNote;
+    }
+    private static Note getSecondToLastNote(ConvertedSong song) {
+        Part lastPart = song.getParts().get(song.getParts().size() - 1);
+        Measure lastMeasure = lastPart.getMeasures().get(lastPart.getMeasures().size() - 1);
+        if (lastMeasure.getNotes().size() - 2<0)
+            return null;
+        else
+            return lastMeasure.getNotes().get(lastMeasure.getNotes().size() - 2);
     }
 
     public static boolean isPowerOfTwo(int num) {
@@ -110,18 +121,9 @@ public class ConvertedSongTest {
         // Get attributes from the first measure (for subsequent measures)
         // doesnt do anything?
         attribs = song.getParts().get(0).getMeasures().get(0).getAttributes();
+
         // Instrument == 1: Parse as XMLTags.Guitar
         if (instrument == 1) {
-			/*for (Output note: notes){
-				if (note.getnote1() > 9) numDD++;
-				System.out.println(note.getnote1() + " > 9: " + (note.getnote1() > 9));
-				System.out.println("numDD: " + numDD);
-			}*/
-
-            if (isPowerOfTwo(textReader.numberOfDashes(inputFilePath) - numDD) && textReader.numberOfDashes(inputFilePath) > 1) {
-                isPerfect = true;
-            } else isPerfect = false;
-
             /**
              * note1 corresponds to:
              * -2 -> new tab line
@@ -129,103 +131,7 @@ public class ConvertedSongTest {
              * else -> note
              */
 
-//            isPerfect = true;
-//            if (isPerfect) {
-//                System.out.println("perfect timing");
-//
-//                Matcher matcher = Pattern.compile("[0-9]+").matcher(Controller.timeSignature);
-//                matcher.find();
-//                double beatCount = Integer.parseInt(matcher.group());
-//                matcher.find();
-//                double beatType = Integer.parseInt(matcher.group());
-//
-//                double totalMeasureDuration = beatCount*(1.0/beatType);
-//                double shortestDurationRatio = ((double) textReader.shortestNoteDuration(inputFilePath) /
-//                                        (double) textReader.numberOfDashes(inputFilePath));
-//
-//                divisionCalc = (1.0 / (shortestDurationRatio*totalMeasureDuration)) / 4.0;
-//
-//                realDivisionCalc = (int)Math.ceil(divisionCalc);
-//                attribs.setDivisions(Integer.toString(realDivisionCalc));
-//                song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);
-//
-//                for (Output note : notes) {
-//                    System.out.println("Loop: " + counter);
-//                    System.out.println("Notes Size: " + notes.size());
-//                    if ((note.getnote1() == -1) && counter != notes.size()) {
-//                        lastPart = song.getParts().get(song.getParts().size() - 1);
-//                        if (counter != notes.size() - 1) {
-//                            int measureNum = lastPart.getMeasures().size() + 1;
-//                            lastPart.addMeasure(new Measure(new Attributes(), new ArrayList<Note>(), measureNum));
-//                            MEASURE_POSITION_MAP.put(measureNum, new Integer[]{note.getLine(), note.getLineCol()});
-//                        }
-//                    } else {
-//                        if (counter < notes.size()) {
-//                            nextNote = notes.get(counter + 1);
-//                            noteDashes = nextNote.getindex() - note.getindex();
-//                            //div = 2
-//                            doubleNoteDur = ((realDivisionCalc * 4.0) * ((noteDashes/(double) textReader.numberOfDashes(inputFilePath))*totalMeasureDuration));
-//                            noteDur = (int) doubleNoteDur;
-//                            if (noteDur == 0) {
-//                                chordNotes.add(note);
-//                                lastNoteChord = true;
-//                            } else if (noteDur != 0 && lastNoteChord) {
-//                                chordNotes.add(note);
-//                                lastNoteChord = false;
-//                                elementCounter = 0;
-//                                for (Output chordNote : chordNotes) {
-//                                    lastPart = song.getParts().get(song.getParts().size() - 1);
-//                                    int measureCount = lastPart.getMeasures().size();
-//                                    if (measureCount == 1 && !MEASURE_POSITION_MAP.containsKey(1)) {
-//                                        MEASURE_POSITION_MAP.put(1, new Integer[]{chordNote.getLine(), chordNote.getLineCol()});
-//                                    }
-//                                    song.addNoteToMeasure(chordNote.getletter(), chordNote.getnote1());
-//                                    lastNote = getLastNote(song);
-//                                    lastNote.setDuration(noteDur);
-//                                    lastNote.setType(noteType(noteDur, realDivisionCalc));
-//                                    if (elementCounter == 0) {
-//                                        elementCounter++;
-//                                    } else {
-//                                        lastNote.chordOn();
-//                                    }
-//                                }
-//                                chordNotes = new ArrayList<Output>();
-//                            } else {
-//                                if (note.getnote1() == -2) ;
-//                                else {
-//                                    lastPart = song.getParts().get(song.getParts().size() - 1);
-//                                    int measureCount = lastPart.getMeasures().size();
-//                                    if (measureCount == 1 && !MEASURE_POSITION_MAP.containsKey(1)) {
-//                                        MEASURE_POSITION_MAP.put(1, new Integer[]{note.getLine(), note.getLineCol()});
-//                                    }
-//                                    song.addNoteToMeasure(note.getletter(), note.getnote1());
-//                                    lastNote = getLastNote(song);
-//                                    lastNote.setDuration(noteDur);
-//                                    lastNote.setType(noteType(noteDur, totalSpaces));
-//                                }
-//
-//                            }
-//                        } else {
-//                            noteDur = realDivisionCalc * 4;
-//                        }
-//                    }
-//                    counter++;
-//                }
-//            }
-
-            //Test multiline imperfect input
-            //imperfect input
-            //else {
-            System.out.println("not perfect timing");
             counter = 0;
-            List<Note> slurList = new ArrayList<Note>();
-            //Pitch pitch, int duration, String type, int voice, Notation notations
-/*
-				slurList.add(new Note(new Pitch(), 2, "half", 1, new Notation(new Technical("4", "1"), new Slur("1", "start"),  new Tied("start")), new Tie("start")));
-				slurList.add(new Note(new Pitch(), 1, "quarter", 1, new Notation(new Technical("4", "1"),  new Tied("start")), new Tie("start")));
-				slurList.add(new Note(new Pitch(), 1, "quarter", 1, new Notation(new Technical("4", "1"), new Slur("1", "stop"),  new Tied("stop")), new Tie("stop")));
-*/
-
 
             Matcher matcher = Pattern.compile("[0-9]+").matcher(Controller.timeSignature);
             matcher.find();
@@ -242,8 +148,7 @@ public class ConvertedSongTest {
             realDivisionCalc = (int)Math.ceil(divisionCalc);
 
             attribs.setDivisions(Integer.toString(realDivisionCalc));
-            song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);/*
-				song.getParts().get(0).getMeasures().get(0).setNotes(slurList);*/
+            song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);
             song.getPartList().getScorePart().setPartName("Guitar 1");
 
             for (Output note : notes) {
@@ -268,58 +173,51 @@ public class ConvertedSongTest {
                     song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).setBarline(new Barline("right", "light-heavy"));
                 } else if (note.getnote1()!=-1 && note.getnote1()!=-2) {
 
-                    System.out.println("TECHNIQUE!");
-                    System.out.println(note.getTech());
-                    System.out.println();
-                    System.out.println("GRACE!");
-                    System.out.println(note.getGrace());
-
                     // If the note is a normal note, add the note to the song
-                    if (counter != notes.size() - 1) {
-                        nextNote = notes.get(counter + 1);
-                        noteDashes = nextNote.getindex() - note.getindex();
-                        //div = 2
-                        doubleNoteDur = ((realDivisionCalc * 4.0) * ((noteDashes/(double) textReader.numberOfDashes(inputFilePath))*totalMeasureDuration));
-                        noteDur = (int) doubleNoteDur;
-                        if (noteDur == 0) {
-                            chordNotes.add(note);
-                            lastNoteChord = true;
-                        } else if (noteDur != 0 && lastNoteChord) {
-                            chordNotes.add(note);
-                            lastNoteChord = false;
-                            elementCounter = 0;
-                            for (Output chordNote : chordNotes) {
-                                lastPart = song.getParts().get(song.getParts().size() - 1);
-                                int measureCount = lastPart.getMeasures().size();
-                                if (measureCount == 1 && !MEASURE_POSITION_MAP.containsKey(1)) {
-                                    MEASURE_POSITION_MAP.put(1, new Integer[]{chordNote.getLine(), chordNote.getLineCol()});
-                                }
-                                song.addNoteToMeasure(chordNote.getletter(), chordNote.getnote1());
-                                lastNote = getLastNote(song);
-                                lastNote.setDuration(noteDur);
-                                lastNote.setType(noteType(noteDur, realDivisionCalc));
-                                if (elementCounter == 0) {
-                                    elementCounter++;
-                                } else {
-                                    lastNote.chordOn();
-                                }
+                    //if (counter != notes.size() - 1) {
+                    nextNote = notes.get(counter + 1);
+                    noteDashes = nextNote.getindex() - note.getindex();
+                    //div = 2
+                    doubleNoteDur = ((realDivisionCalc * 4.0) * ((noteDashes/(double) textReader.numberOfDashes(inputFilePath))*totalMeasureDuration));
+                    noteDur = (int) doubleNoteDur;
+                    if (noteDur == 0) {
+                        chordNotes.add(note);
+                        lastNoteChord = true;
+                    } else if (noteDur != 0 && lastNoteChord) {
+                        chordNotes.add(note);
+                        lastNoteChord = false;
+                        elementCounter = 0;
+                        for (Output chordNote : chordNotes) {
+                            lastPart = song.getParts().get(song.getParts().size() - 1);
+                            int measureCount = lastPart.getMeasures().size();
+                            if (measureCount == 1 && !MEASURE_POSITION_MAP.containsKey(1)) {
+                                MEASURE_POSITION_MAP.put(1, new Integer[]{chordNote.getLine(), chordNote.getLineCol()});
                             }
-                            chordNotes = new ArrayList<Output>();
-                        } else {
-                            if (note.getnote1() == -2) ;
-                            else {
-                                lastPart = song.getParts().get(song.getParts().size() - 1);
-                                int measureCount = lastPart.getMeasures().size();
-                                if (measureCount == 1 && !MEASURE_POSITION_MAP.containsKey(1)) {
-                                    MEASURE_POSITION_MAP.put(1, new Integer[]{note.getLine(), note.getLineCol()});
-                                }
-                                song.addNoteToMeasure(note.getletter(), note.getnote1());
-                                lastNote = getLastNote(song);
-                                lastNote.setDuration(noteDur);
-                                lastNote.setType(noteType(noteDur, totalSpaces));
+                            song.addNoteToMeasure(chordNote.getletter(), chordNote.getnote1());
+                            lastNote = getLastNote(song);
+                            lastNote.setDuration(noteDur);
+                            lastNote.setType(noteType(noteDur, realDivisionCalc));
+                            if (elementCounter == 0) {
+                                elementCounter++;
+                            } else {
+                                lastNote.chordOn();
                             }
-
                         }
+                        chordNotes = new ArrayList<Output>();
+                    } else {
+                        if (note.getnote1() == -2);
+                        else {
+                            lastPart = song.getParts().get(song.getParts().size() - 1);
+                            int measureCount = lastPart.getMeasures().size();
+                            if (measureCount == 1 && !MEASURE_POSITION_MAP.containsKey(1)) {
+                                MEASURE_POSITION_MAP.put(1, new Integer[]{note.getLine(), note.getLineCol()});
+                            }
+                            song.addNoteToMeasure(note.getletter(), note.getnote1());
+                            lastNote = getLastNote(song);
+                            lastNote.setDuration(noteDur);
+                            lastNote.setType(noteType(noteDur, totalSpaces));
+                        }
+
                     }
 
                     // GRACE NOTES / HAMMER-ONS
@@ -333,7 +231,7 @@ public class ConvertedSongTest {
                         getLastNote(song).getNotations().getTechnical().getHammer().get(0).setNumber(1);
                         getLastNote(song).getNotations().getTechnical().getHammer().get(0).setType("start");
                         getLastNote(song).getNotations().getTechnical().getHammer().get(0).setSymbol("H");
-                        getLastNote(song).getNotations().setSlur(new Slur("1", "start"));
+                        getLastNote(song).getNotations().setSlur(new Slur(1, "start"));
                     }
 
                     // GRACE NOTES / PULL-OFFS
@@ -346,7 +244,7 @@ public class ConvertedSongTest {
                         getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setNumber(1);
                         getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setType("start");
                         getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setSymbol("P");
-                        getLastNote(song).getNotations().setSlur(new Slur("1", "start"));
+                        getLastNote(song).getNotations().setSlur(new Slur(1, "start"));
                     }
 
                     // HAMMER-ONS
@@ -359,7 +257,7 @@ public class ConvertedSongTest {
                         getLastNote(song).getNotations().getTechnical().getHammer().get(0).setNumber(1);
                         getLastNote(song).getNotations().getTechnical().getHammer().get(0).setType("start");
                         getLastNote(song).getNotations().getTechnical().getHammer().get(0).setSymbol("H");
-                        getLastNote(song).getNotations().setSlur(new Slur("1", "start"));
+                        getLastNote(song).getNotations().setSlur(new Slur(1, "start"));
 
                         // note 2
                         ArrayList<HammerOn> hammerOns2 = new ArrayList<HammerOn>();
@@ -369,7 +267,7 @@ public class ConvertedSongTest {
                         getLastNote(song).getNotations().getTechnical().setHammer(hammerOns2);
                         getLastNote(song).getNotations().getTechnical().getHammer().get(0).setNumber(1);
                         getLastNote(song).getNotations().getTechnical().getHammer().get(0).setType("stop");
-                        getLastNote(song).getNotations().setSlur(new Slur("1", "stop"));
+                        getLastNote(song).getNotations().setSlur(new Slur(1, "stop"));
 
                     }
 
@@ -383,7 +281,7 @@ public class ConvertedSongTest {
                         getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setNumber(1);
                         getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setType("start");
                         getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setSymbol("P");
-                        getLastNote(song).getNotations().setSlur(new Slur("1", "start"));
+                        getLastNote(song).getNotations().setSlur(new Slur(1, "start"));
 
                         // second note of technique
                         ArrayList<PullOff> pullOffs2 = new ArrayList<PullOff>();
@@ -393,7 +291,7 @@ public class ConvertedSongTest {
                         getLastNote(song).getNotations().getTechnical().setPulloff(pullOffs2);
                         getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setNumber(1);
                         getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setType("stop");
-                        getLastNote(song).getNotations().setSlur(new Slur("1", "stop"));
+                        getLastNote(song).getNotations().setSlur(new Slur(1, "stop"));
                     }
 
                     // SLIDES
