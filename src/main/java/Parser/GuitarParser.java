@@ -75,7 +75,7 @@ public class GuitarParser {
                             || (getCharFromString(tabLine, i + 1) == 'p')
                             || (getCharFromString(tabLine, i + 1) == 'h')
                             || (getCharFromString(tabLine, i - 1) == 'g')  // ADDED FOR GRACE NOTES
-                            || (( getCharFromString(tabLine, i - 1) == '[' // ADDED THIS FOR HARMONICS
+                            || ((getCharFromString(tabLine, i - 1) == '[' // ADDED THIS FOR HARMONICS
                             && getCharFromString(tabLine, i + 1) == ']'))) // ADDED THIS FOR HARMONICS
                             && ((getCharFromString(tabLine, i + 2) != '-')
                             || (getCharFromString(tabLine, i + 2) != '|')) //7h3p5
@@ -87,10 +87,10 @@ public class GuitarParser {
                                 Character.toString(getCharFromString(tabLine, i + 1)), i);
                     }
 
-                    if (note!=null) {
+                    if (note != null) {
                         list.add(note);
                         note.setLine(line);
-                        note.setLineCol(i+offset);
+                        note.setLineCol(i + offset);
                     }
 
                     // 3 digits number harmonic like [2]
@@ -123,30 +123,31 @@ public class GuitarParser {
                         list.add(new Output(Character.toString(getCharFromString(tabLine, 0)),
                                 Integer.parseInt(Character.toString(getCharFromString(tabLine, i + 1))),
                                 Integer.parseInt(Character.toString(getCharFromString(tabLine, i + 3))),
-                                Character.toString(getCharFromString(tabLine, i + 2)), i,Character.toString(getCharFromString(tabLine, i))));
+                                Character.toString(getCharFromString(tabLine, i + 2)), i, Character.toString(getCharFromString(tabLine, i))));
                     }
-                }
 
-                // 5 digits Triple Guitar Technique like 0h2p0
-                // Check if the note is proper 5 digit to add new tab element to the list
-                else if (((getCharFromString(tabLine, i - 1) == '-')
-                        || (getCharFromString(tabLine, i - 1) == '|'))
-                        && (getCharFromString(tabLine, i) != '-')
-                        && (getCharFromString(tabLine, i) != '|')
-                        && (getCharFromString(tabLine, i + 1) != '-')
-                        && (getCharFromString(tabLine, i + 1) != '|')
-                        && (getCharFromString(tabLine, i + 2) != '-')
-                        && (getCharFromString(tabLine, i + 2) != '|')
-                        && (getCharFromString(tabLine, i + 3) != '-')
-                        && (getCharFromString(tabLine, i + 3) != '|')
-                        && (getCharFromString(tabLine, i + 4) != '-')
-                        && (getCharFromString(tabLine, i + 4) != '|')
-                        && ((getCharFromString(tabLine, i + 4) == '-')
-                        || (getCharFromString(tabLine, i + 5) == '|'))) {
-                    list.add(new Output(Character.toString(getCharFromString(tabLine, 0)),
-                            Integer.parseInt(Character.toString(getCharFromString(tabLine, i ))),
-                            Integer.parseInt(Character.toString(getCharFromString(tabLine, i + 2))),
-                            Character.toString(getCharFromString(tabLine, i + 1)), i,Character.toString(getCharFromString(tabLine, i + 3)),Integer.parseInt(Character.toString(getCharFromString(tabLine, i + 4)))));
+
+                    // 5 digits Triple Guitar Technique like 0h2p0
+                    // Check if the note is proper 5 digit to add new tab element to the list
+                    else if (((getCharFromString(tabLine, i - 1) == '-')
+                            || (getCharFromString(tabLine, i - 1) == '|'))
+                            && (getCharFromString(tabLine, i) != '-')
+                            && (getCharFromString(tabLine, i) != '|')
+                            && (getCharFromString(tabLine, i + 1) != '-')
+                            && (getCharFromString(tabLine, i + 1) != '|')
+                            && (getCharFromString(tabLine, i + 2) != '-')
+                            && (getCharFromString(tabLine, i + 2) != '|')
+                            && (getCharFromString(tabLine, i + 3) != '-')
+                            && (getCharFromString(tabLine, i + 3) != '|')
+                            && (getCharFromString(tabLine, i + 4) != '-')
+                            && (getCharFromString(tabLine, i + 4) != '|')
+                            && ((getCharFromString(tabLine, i + 4) == '-')
+                            || (getCharFromString(tabLine, i + 5) == '|'))) {
+                        list.add(new Output(Character.toString(getCharFromString(tabLine, 0)),
+                                Integer.parseInt(Character.toString(getCharFromString(tabLine, i))),
+                                Integer.parseInt(Character.toString(getCharFromString(tabLine, i + 2))),
+                                Character.toString(getCharFromString(tabLine, i + 1)), i, Character.toString(getCharFromString(tabLine, i + 3)), Integer.parseInt(Character.toString(getCharFromString(tabLine, i + 4)))));
+                    }
                 }
 
                 // Check if the element is "|" to add new tab element to the list

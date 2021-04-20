@@ -36,6 +36,7 @@ public class Output {
 		this.isChord = isChord;
 	}
 
+	// g0h1
 	public Output(String string, int n1, int n2, String tech, int i, String grace) {
 		// TODO Auto-generated constructor stub
 		this.letter = string;
@@ -57,14 +58,17 @@ public class Output {
 		this.index = i;
 	}
 
+	// 2h4p2
+	public Output(String string, int n1, int n2, String tech, String tech2, int n3){
+		this.letter = string;
+		this.note1 = n1;
+		this.note2 = n2;
+		this.tech = tech;
+		this.tech2 = tech2;
+		this.note3 = n3;
+	}
 
 	public Output(){}
-
-    /*
-	 * public void printData(List<Output> data) { data.forEach(obj ->
-	 * System.out.println("item1" + obj.getletter() + " " + "item2" + obj.getnum() +
-	 * " " + "item2" + obj.getindex())); }
-	 */
 
 	public int getindex() {
 		// TODO Auto-generated method stub

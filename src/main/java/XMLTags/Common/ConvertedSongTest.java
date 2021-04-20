@@ -171,8 +171,8 @@ public class ConvertedSongTest {
         System.out.println("Controller songtitle:" + Controller.songTitle);
         song.setWork(new Work(Controller.songTitle));
 
-        // Instrument == 1: Parse as XMLTags.Guitar
-        if (instrument == 1) {
+        // Instrument == 1: Parse as XMLTags.Guitar OR Instrument == 2: Parse as XML.Bass
+        if (instrument == 1 || instrument == 2) {
             /**
              * note1 corresponds to:
              * -2 -> new tab line
@@ -206,10 +206,11 @@ public class ConvertedSongTest {
                 System.out.println("Counter: " + counter);
                 // New measure: note1 is -1
                 // New tab line: note 1 is -2
+
+                // Add measure
                 if ((note.getnote1() == -1) && counter != notes.size() - 1) {
                     // Get Part - Guitar 1
                     lastPart = song.getParts().get(song.getParts().size() - 1);
-                    // Add measure to the part
                     //TODO Note: we left out the if statement here that was in the original thing
                     int measureNum = lastPart.getMeasures().size() + 1;
                     lastPart.addMeasure(new Measure(new Attributes(), new ArrayList<Note>(), measureNum));
@@ -217,22 +218,28 @@ public class ConvertedSongTest {
                     // Set division (measure resolution)
                     lastPart.getMeasures().get(lastPart.getMeasures().size() - 1).getAttributes().setDivisions("2");
                     prevNote = new Output();
-                } else if (note.getnote1() == -1 && counter == notes.size() - 1) {
-                    // Add a barline
-                    song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).setBarline(new Barline("right", "light-heavy"));
-                } else if (note.getnote1()!=-1 && note.getnote1()!=-2) {
+                }
 
-                    // If the note is a normal note, add the note to the song
-                    //if (counter != notes.size() - 1) {
+                // Add a barline
+                else if (note.getnote1() == -1 && counter == notes.size() - 1) {
+                    song.getParts().get(song.getParts().size() - 1).getMeasures().get(song.getParts().get(song.getParts().size() - 1).getMeasures().size() - 1).setBarline(new Barline("right", "light-heavy"));
+                }
+
+                // Normal Note
+                else if (note.getnote1()!=-1 && note.getnote1()!=-2) {
+
                     nextNote = notes.get(counter + 1);
                     noteDashes = nextNote.getindex() - note.getindex();
-                    //div = 2
                     doubleNoteDur = ((realDivisionCalc * 4.0) * ((noteDashes/(double) textReader.numberOfDashes(inputFilePath))*totalMeasureDuration));
                     noteDur = (int) doubleNoteDur;
+
+                    // Add note to chord
                     if (noteDur == 0) {
                         chordNotes.add(note);
                         lastNoteChord = true;
-                    } else if (noteDur != 0 && lastNoteChord) {
+                    }
+
+                    else if (noteDur != 0 && lastNoteChord) {
                         chordNotes.add(note);
                         lastNoteChord = false;
                         elementCounter = 0;
@@ -253,8 +260,12 @@ public class ConvertedSongTest {
                             }
                         }
                         chordNotes = new ArrayList<Output>();
-                    } else {
+                    }
+
+                    else {
+
                         if (note.getnote1() == -2);
+
                         else {
                             lastPart = song.getParts().get(song.getParts().size() - 1);
                             int measureCount = lastPart.getMeasures().size();
@@ -268,6 +279,7 @@ public class ConvertedSongTest {
                         }
 
                     }
+
 
                     // GRACE NOTES / HAMMER-ONS
                     if ((note.getGrace().equals("g") || note.getGrace().equals("G")) && (note.getTech().equals("H") || note.getTech().equals("h"))) {
@@ -283,21 +295,8 @@ public class ConvertedSongTest {
                         getLastNote(song).getNotations().setSlur(new Slur(1, "start"));
                     }
 
-                    // GRACE NOTES / PULL-OFFS
-                    if ((note.getGrace().equals("g") || note.getGrace().equals("G")) && (note.getTech().equals("P") || note.getTech().equals("p"))) {
-                        getLastNote(song).setGrace(new Grace());
-                        getLastNote(song).getGrace().setSlash("yes");
-                        ArrayList<PullOff> pullOffs = new ArrayList<>();
-                        pullOffs.add(new PullOff(1, "start", "P"));
-                        getLastNote(song).getNotations().getTechnical().setPulloff(pullOffs);
-                        getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setNumber(1);
-                        getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setType("start");
-                        getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setSymbol("P");
-                        getLastNote(song).getNotations().setSlur(new Slur(1, "start"));
-                    }
-
                     // HAMMER-ONS
-                    if (note.getTech().equals("H") || note.getTech().equals("h")) {
+                    else if (note.getTech().equals("H") || note.getTech().equals("h")) {
 
                         // note 1
                         ArrayList<HammerOn> hammerOns = new ArrayList<HammerOn>();
@@ -317,11 +316,23 @@ public class ConvertedSongTest {
                         getLastNote(song).getNotations().getTechnical().getHammer().get(0).setNumber(1);
                         getLastNote(song).getNotations().getTechnical().getHammer().get(0).setType("stop");
                         getLastNote(song).getNotations().setSlur(new Slur(1, "stop"));
+                    }
 
+                    // GRACE NOTES / PULL-OFFS
+                    if ((note.getGrace().equals("g") || note.getGrace().equals("G")) && (note.getTech().equals("P") || note.getTech().equals("p"))) {
+                        getLastNote(song).setGrace(new Grace());
+                        getLastNote(song).getGrace().setSlash("yes");
+                        ArrayList<PullOff> pullOffs = new ArrayList<>();
+                        pullOffs.add(new PullOff(1, "start", "P"));
+                        getLastNote(song).getNotations().getTechnical().setPulloff(pullOffs);
+                        getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setNumber(1);
+                        getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setType("start");
+                        getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setSymbol("P");
+                        getLastNote(song).getNotations().setSlur(new Slur(1, "start"));
                     }
 
                     // PULL-OFFS
-                    if (note.getTech().equals("P") || note.getTech().equals("p")) {
+                    else if (note.getTech().equals("P") || note.getTech().equals("p")) {
 
                         // first note of technique
                         ArrayList<PullOff> pullOffs = new ArrayList<>();
@@ -370,37 +381,6 @@ public class ConvertedSongTest {
 
                 }
 
-                prevNote = note;
-                counter++;
-            }
-        }
-        //}
-
-        // Instrument == 2: Parse as Bass XMLTags.Guitar
-        else if (instrument == 2) {
-            System.out.println("bass guitar");
-            attribs.setDivisions(Integer.toString(1));
-            song.getParts().get(0).getMeasures().get(0).setAttributes(attribs);
-            counter = 0;
-            for (Output note : notes) {
-                if ((/*note.getnote1() == -2 || */note.getnote1() == -1) && counter != notes.size() - 1) { //TEST THIS: before, the getnote1 == -2 condition was commented
-                    lastPart = song.getParts().get(song.getParts().size() - 1);
-
-                    int measureNum = lastPart.getMeasures().size() + 1;
-                    lastPart.addMeasure(new Measure(new Attributes(), new ArrayList<Note>(), measureNum));
-                    MEASURE_POSITION_MAP.put(measureNum, new Integer[]{note.getLine(), note.getLineCol()});
-					/*
-					lastPart.getMeasures().get(lastPart.getMeasures().size() - 1).getAttributes().setDivisions("2");*/
-                    prevNote = new Output();
-                } else {
-                    if (counter != notes.size() - 1 && (note.getnote1() != -1 && note.getnote1() != -2)) {
-                        song.addNoteToMeasure(note.getletter(), note.getnote1());
-                        getLastNote(song).getPitch().setOctave(song.getLastPart().getLastMeasure().getLastNote().getPitch().getOctave() - 1);
-                        getLastNote(song).setType("half");
-                    }
-                    if (prevNote.getindex() == note.getindex())
-                        getLastNote(song).chordOn();
-                }
                 prevNote = note;
                 counter++;
             }

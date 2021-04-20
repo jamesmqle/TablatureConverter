@@ -161,16 +161,10 @@ public class textReader extends Output {
                 }
 
                 if (k == numStrings) {
-                    try {
                         //TabIsOK(Arrays.asList((String[])tab.keySet().toArray()), instrument);
                         list = ParseGuitar(tab, list,numStrings);
                         k = 0;
                         tab.clear();
-                    } catch (StringIndexOutOfBoundsException e) {
-                        // handleException();
-                        System.out.println(
-                                "Exception occurred . . . . Strings do not have the same length or do have wrong tunning!!");
-                    }
                 }
 
                 /*
@@ -184,16 +178,10 @@ public class textReader extends Output {
                 }
 
                 if (k == numStrings) {
-                    try {
                         //TabIsOK(tab, instrument);
                         list = ParseBass(tab, list,numStrings);
                         k = 0;
                         tab.clear();
-                    } catch (StringIndexOutOfBoundsException e) {
-                        // handleException();
-                        System.out.println(
-                                "Exception occurred . . . . Strings do not have the same length or they do have wrong tunning!!");
-                    }
                 }
             }
 
@@ -206,17 +194,7 @@ public class textReader extends Output {
                 if (k == numStrings) {
                     // first handle exceptions and check if it is correct tab, then call the
                     // parsDrum function
-                    try {
-                        //TabIsOK(tab, instrument);
-                        list = ParseDrum(tab, list, numStrings);
-                        k = 0;
-                        tab.clear();
 
-                    } catch (StringIndexOutOfBoundsException e) {
-                        // handleException();
-                        System.out.println(
-                                "Exception occurred . . . . Strings do not have the same length or They do have wrong tunning!!");
-                    }
                 }
 
             }
