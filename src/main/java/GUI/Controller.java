@@ -57,7 +57,7 @@ public class Controller implements Initializable {
     @FXML
     public ComboBox<String> timeSignatureList;
 
-    public static String timeSignature = "4/4";
+    public static String timeSignature = "4/4", songTitle;
 
     /**
      * This method initializes is for pre-processing information in the scene
@@ -164,6 +164,7 @@ public class Controller implements Initializable {
      */
     @FXML
     public void ConvertHandler(ActionEvent event) throws IOException {
+        songTitle = title.getText();
         if (codeArea.getText() != "") { // gives error message if textarea is empty
             textViewToFile(textFile, codeArea);
             error = TabIsOKTracker(getTab(textFile.toString()), detectInstrument(textFile.toString())); // this will assign the error

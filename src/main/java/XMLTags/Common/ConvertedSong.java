@@ -18,8 +18,10 @@ import XMLTags.Guitar.Technical;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "score-partwise")
+@XmlType(propOrder = {"work", "partList", "parts"})
 public class ConvertedSong implements Serializable {
     @XmlAttribute
     private static final String VERSION = "3.1";
@@ -27,6 +29,7 @@ public class ConvertedSong implements Serializable {
     //private Attributes attributes;
     private PartList partList;
     private List<Part> parts;
+    private Work work;
    // private List<Measure> measures;
    // private List<Note> notes;
 
@@ -59,6 +62,15 @@ public class ConvertedSong implements Serializable {
 
     public void setParts(List<Part> parts) {
         this.parts = parts;
+    }
+
+    @XmlElement(name = "work")
+    public Work getWork(){
+        return this.work;
+    }
+
+    public void setWork(Work work){
+        this.work = work;
     }
 
     public Part getLastPart() {
