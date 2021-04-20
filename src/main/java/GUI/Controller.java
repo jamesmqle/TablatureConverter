@@ -49,10 +49,10 @@ public class Controller implements Initializable {
     public TextField measure;
 
     @FXML
-    public TextArea textview, title, XMLTextArea;
+    public TextArea title, XMLTextArea;
 
     @FXML
-    private CodeArea codeArea = new CodeArea();
+    public CodeArea codeArea = new CodeArea();
 
     @FXML
     public ComboBox<String> timeSignatureList;
