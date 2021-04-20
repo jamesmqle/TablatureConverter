@@ -12,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
+import org.fxmisc.richtext.CodeArea;
+import org.fxmisc.richtext.LineNumberFactory;
 
 import java.io.*;
 import java.net.URL;
@@ -31,7 +33,7 @@ public class Controller implements Initializable {
     File outputFile = new File("src/main/resources/sample/convertedSong.xml"); // Output file Object
     File textFile = new File("src/main/resources/sample/textarea.txt");
 
-    int[] error; // this will handle errors
+    int[] error = new int[3]; // this will handle errors
 
     @FXML
     public Tab inputTab, outputTab;
@@ -44,12 +46,18 @@ public class Controller implements Initializable {
     private ListView listview;
 
     @FXML
+    public TextField measure;
+
+    @FXML
     public TextArea textview, title, XMLTextArea;
+
+    @FXML
+    private CodeArea codeArea = new CodeArea();
 
     @FXML
     public ComboBox<String> timeSignatureList;
 
-    public String timeSignature = "4/4";
+    public static String timeSignature = "4/4";
 
     /**
      * This method initializes is for pre-processing information in the scene
@@ -62,6 +70,9 @@ public class Controller implements Initializable {
         ObservableList<String> list = FXCollections.observableArrayList("4/4", "2/4"); // list of time signatures
         timeSignatureList.setItems(list); // display list of time signatures in combo box
         timeSignatureList.getSelectionModel().selectFirst(); // select the first index of list to be default value
+
+        codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
+//        new ErrorHighLighting(codeArea).enableHighlighting(); // error highlighting
     }
 
 
@@ -104,10 +115,10 @@ public class Controller implements Initializable {
      */
     private void displayTablature() throws IOException {
         try {
-            textview.clear();
+            codeArea.clear();
             Scanner sc = new Scanner(inputFile);
             while (sc.hasNextLine()) {
-                textview.appendText(sc.nextLine() + "\n"); // else read the next token
+                codeArea.appendText(sc.nextLine() + "\n"); // else read the next token
             }
             textAreaCheck();
         } catch (FileNotFoundException ex) {
@@ -118,9 +129,10 @@ public class Controller implements Initializable {
     /**
      * Makes the convert button blue when tablature is displayed in textarea
      */
+    @FXML
     public void textAreaCheck() {
 
-        if (textview.getText() != "") { // makes the convert button blue when tablature is displayed in textarea
+        if (codeArea.getText() != "") { // makes the convert button blue when tablature is displayed in textarea
             ConvertButton.setTextFill(Paint.valueOf("blue"));
         } else {
             ConvertButton.setTextFill(Paint.valueOf("white"));
@@ -131,12 +143,12 @@ public class Controller implements Initializable {
      * This method creates a file from the textarea
      *
      * @param textFile
-     * @param textview
+     * @param textArea
      */
-    public void textViewToFile(File textFile, TextArea textview) {
+    public void textViewToFile(File textFile, CodeArea textArea) {
         try {
             BufferedWriter bf = new BufferedWriter(new FileWriter(textFile));
-            bf.write(textview.getText());
+            bf.write(textArea.getText());
             bf.flush();
             bf.close();
         } catch (IOException e) {
@@ -152,16 +164,16 @@ public class Controller implements Initializable {
      */
     @FXML
     public void ConvertHandler(ActionEvent event) throws IOException {
-        if (textview.getText() != "") { // gives error message if textarea is empty
-            textViewToFile(textFile, textview);
+        if (codeArea.getText() != "") { // gives error message if textarea is empty
+            textViewToFile(textFile, codeArea);
             error = TabIsOKTracker(getTab(textFile.toString()), detectInstrument(textFile.toString())); // this will assign the error
             System.out.println("Error: " + error);
             if (error[0] >= 10) { // handle critical errors (will not convert)
                 CriticalErrorHandler(error);
-            }
-            else if (WarningErrorHandler(error) == true) {
+            } else if (WarningErrorHandler(error) == true) {
                 ConvertedSongTest.createXML(textReader.readTabFile(textFile.toString()), outputFile.toString(), textFile.toString()); // Passes textarea file through parser
                 tabPane.getSelectionModel().select(outputTab); // automatically goes to output tab
+                XMLTextArea.clear();
                 displayXML();
             }
         } else { //  error message if textarea is empty
@@ -202,10 +214,13 @@ public class Controller implements Initializable {
         if (error[0] == 1) { // error 1 if all lines are not the same length
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Dialog");
-            alert.setHeaderText("WARNING!");
-            alert.setContentText("All lines were not the same length. This may have affected the output.");
+            alert.setHeaderText(null);
+            alert.setContentText("Tablature is misaligned at line " + error[2] + ", this may have affected the output. Do you wish to ignore?");
+            ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Ignore");
+
+
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.APPLY) {
+            if (result.get() == ButtonType.OK) {
                 return true;
             } else {
                 return false;
@@ -213,10 +228,13 @@ public class Controller implements Initializable {
         } else if (error[0] == 2) { // error 2 if incorrect tuning letters
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Dialog");
-            alert.setHeaderText("WARNING!");
-            alert.setContentText("Incorrect Tuning Letters.");
+            alert.setHeaderText(null);
+            alert.setContentText("Incorrect tuning letters at line " + error[2] + ", this may have affected the output. Do you wish to ignore?");
+            ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Ignore");
+
+
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.APPLY) {
+            if (result.get() == ButtonType.OK) {
                 return true;
             } else {
                 return false;
@@ -231,6 +249,7 @@ public class Controller implements Initializable {
      * This button will display the converted XML to the textarea
      */
     public void displayXML() throws IOException {
+        XMLTextArea.clear();
         try {
             Scanner s = new Scanner(new File(outputFile.toString())).useDelimiter("'");
             while (s.hasNext()) {
@@ -238,6 +257,40 @@ public class Controller implements Initializable {
             }
         } catch (FileNotFoundException ex) {
             System.err.println(ex);
+        }
+    }
+
+    /**
+     * This method will allow the user to navigate to a specific measure
+     * @param event
+     */
+    @FXML
+    public void MeasureHandler(ActionEvent event){
+        try {
+            int measureNum = Integer.parseInt(measure.getText());
+            textViewToFile(textFile, codeArea);
+            ConvertedSongTest.createXML(textReader.readTabFile(textFile.toString()), outputFile.toString(), textFile.toString());
+            if (ConvertedSongTest.MEASURE_POSITION_MAP.containsKey(measureNum)) {
+                Integer[] position = ConvertedSongTest.MEASURE_POSITION_MAP.get(measureNum);
+                codeArea.moveTo(position[0]-1, position[1]);
+                codeArea.requestFollowCaret();
+                codeArea.requestFocus();
+                return;
+            }
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Measure Not Found");
+            errorAlert.setTitle("Error");
+            errorAlert.setContentText("Measure number "+measureNum+" could not be found.");
+            errorAlert.showAndWait();
+            errorAlert.close();
+        }catch (Exception e) {
+            e.printStackTrace();
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Measure Input Empty");
+            errorAlert.setTitle("Error");
+            errorAlert.setContentText("Please Enter a Measure Number");
+            errorAlert.showAndWait();
+            errorAlert.close();
         }
     }
 

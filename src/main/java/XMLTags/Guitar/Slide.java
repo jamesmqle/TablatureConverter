@@ -2,33 +2,29 @@ package XMLTags.Guitar;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
 
 @XmlRootElement
-public class PullOff {
+public class Slide {
 
     private int number;
     private String type;
-    private String symbol;
 
-    public PullOff(){
+    public Slide(){
         this.number = 0;
         this.type = "";
-        this.symbol = "";
     }
 
-    public PullOff(int number, String type, String symbol){
+    public Slide(int number, String type){
         this.number = number;
         this.type = type;
-        this.symbol = symbol;
     }
 
     @XmlAttribute(name = "number")
+    public void setNumber(int number) {
+        this.number = number;
+    }
     public int getNumber() {
         return number;
-    }
-    public void setNumber(int n) {
-        number = n;
     }
 
     @XmlAttribute(name = "type")
@@ -39,11 +35,4 @@ public class PullOff {
         this.type = type;
     }
 
-    @XmlValue
-    public void setSymbol(String sym) {
-        symbol = sym;
-    }
-    public String getSymbol() {
-        return symbol;
-    }
 }

@@ -1,11 +1,13 @@
 package XMLTags.Guitar;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
 
 public class Notation {
     Technical technical;
     Slur slur;
+    Tied tied;
+    private ArrayList<Slide> slide;
 
     public Notation(){}
 
@@ -14,7 +16,24 @@ public class Notation {
     }
 
     public Notation(Technical technical, Slur slur){
-        this.technical = technical; this.slur = slur;
+        this.technical = technical;
+        this.slur = slur;
+    }
+
+    public Notation(Technical technical, Tied tied){
+        this.technical = technical;
+        this.tied = tied;
+    }
+
+    public Notation(Technical technical, Slur slur, Tied tied){
+        this.technical = technical;
+        this.slur = slur;
+        this.tied = tied;
+    }
+
+    public Notation(Slur slur, Tied tied){
+        this.slur = slur;
+        this.tied = tied;
     }
 
     @XmlElement(name = "technical")
@@ -32,4 +51,21 @@ public class Notation {
     public void setSlur(Slur slur){
         this.slur = slur;
     }
+
+    @XmlElement(name = "tied")
+    public Tied getTied(){
+        return tied;
+    }
+    public void setTied(Tied tied){
+        this.tied = tied;
+    }
+
+    @XmlElement(name = "slide")
+    public ArrayList<Slide> getSlide() {
+        return slide;
+    }
+    public void setSlide(ArrayList<Slide> s) {
+        this.slide = s;
+    }
+
 }
