@@ -5,11 +5,9 @@ import XMLTags.Drums.ScoreInstrument;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ScorePart implements Serializable {
-
     public static String id;
     private String partName;
     ArrayList<ScoreInstrument> scoreInstruments; // FOR  DRUMS
@@ -55,7 +53,6 @@ public class ScorePart implements Serializable {
     public String getId() {
         return this.id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -77,4 +74,5 @@ public class ScorePart implements Serializable {
     public void setScoreInstrument(ArrayList<ScoreInstrument> scoreInstruments) {
         this.scoreInstruments = scoreInstruments;
     }
+
 }

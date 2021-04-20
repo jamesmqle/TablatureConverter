@@ -11,9 +11,9 @@ public class Pitch implements Serializable {
     private int alter;
 
     public Pitch() {
-        step = "C";
+/*        step = "C";
         octave = 4;
-        alter = 0;
+        alter = 0;*/
     }
 
 /*    //redundant?

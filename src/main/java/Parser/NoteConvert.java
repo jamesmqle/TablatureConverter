@@ -110,13 +110,14 @@ public class NoteConvert {
 		
 		return finalNote;
 	}
+
 	public static Note convertToDrumNote(String tuning, String openClose){
 		Note finalNote = new Note();
 
 		// Crash Cymbal 1 P1-I50
 		if (tuning.toLowerCase().equals("cc")){
-			finalNote.setInstrument(new Instrument("P1-I50"));
-			finalNote.setUnpitched(new Unpitched("A", "5"));
+			 finalNote.setInstrument(new Instrument("P1-I50"));
+			 finalNote.setUnpitched(new Unpitched("A", "5"));
 		}
 
 		// Bass Drum P1-I36
@@ -155,7 +156,7 @@ public class NoteConvert {
 		else if (tuning.toLowerCase().equals("hh")){
 			// Closed
 			if (openClose.toLowerCase().equals("x")) finalNote.setInstrument(new Instrument("P1-I43"));
-				// Open
+			// Open
 			else if (openClose.toLowerCase().equals("o")) finalNote.setInstrument(new Instrument("P1-I47"));
 			finalNote.setUnpitched(new Unpitched("G", "5"));
 		}
