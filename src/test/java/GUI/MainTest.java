@@ -62,7 +62,6 @@ public class MainTest {
         robot.clickOn("#codeArea");
         robot.write("Tab Test");
         assertEquals("Tab Test",controller.codeArea.getText());
-
     }
 
     @Test
