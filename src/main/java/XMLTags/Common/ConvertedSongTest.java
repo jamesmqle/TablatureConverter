@@ -168,6 +168,8 @@ public class ConvertedSongTest {
         // Get attributes from the first measure (for subsequent measures)
         // doesnt do anything?
         attribs = song.getParts().get(0).getMeasures().get(0).getAttributes();
+        System.out.println("Controller songtitle:" + Controller.songTitle);
+        song.setWork(new Work(Controller.songTitle));
 
         // Instrument == 1: Parse as XMLTags.Guitar
         if (instrument == 1) {
