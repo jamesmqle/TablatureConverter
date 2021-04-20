@@ -7,6 +7,7 @@ import static Parser.textReader.TabIsOKTracker;
 import static Parser.textReader.isInteger;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import org.junit.jupiter.api.function.Executable;
 
@@ -20,6 +21,9 @@ class textReaderTest {
     public void testTabIsOK_guitar_1() {
         int[] arr = new int[3];
         List<String> guitartab = new ArrayList<>();
+        //LinkedHashMap<Integer, String> guitartab=new LinkedHashMap<>();
+
+
         guitartab.add("E|--0-----------------------|-------------------------|");
         guitartab.add("B|------------------3-----5-|-2----------------------|");
         guitartab.add("G|------------------3-------|-2-----------------------|");
@@ -142,7 +146,7 @@ class textReaderTest {
     @Test
     public void testGettech() {
         Output o = new Output("e", 2, 3, "4", 1);
-        assertEquals("4", o.gettech());
+        assertEquals("4", o.getTech());
     }
 
 
