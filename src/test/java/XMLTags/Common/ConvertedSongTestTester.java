@@ -26,15 +26,6 @@ public class ConvertedSongTestTester {
 
         testSong.getParts().add(new Part());
         testSong.getParts().get(0).getMeasures().get(0).getNotes().add(expectedNote);
-        testSong.getParts().get(0).getMeasures().get(0).getNotes().add(expectedNote);
-        testSong.getParts().get(0).getMeasures().get(0).getNotes().add(expectedNote);
-        List<Note> notes = testSong.getParts().get(0).getMeasures().get(0).getNotes();
-
-        for (Note note : notes){
-            System.out.println("parts size: " + testSong.getParts().size());
-            System.out.println("measures size: " + testSong.getParts().get(0).getMeasures().size());
-            System.out.println(note.getType());
-        }
 
         actualNote = ConvertedSongTest.getLastNote(testSong);
         assertEquals(expectedNote, actualNote);
@@ -150,7 +141,7 @@ public class ConvertedSongTestTester {
         String actualType;
         int tempInt = 1;
 
-        ConvertedSongTest.createXML(Parser.textReader.readTabFile(file1), actualOut, file1);
+        ConvertedSongTest.createXML(actualOut, file1);
 
         List<String> file1Lines = Files.readAllLines(Paths.get(actualOut));
         List<String> file2Lines = Files.readAllLines(Paths.get(expectedOut));
