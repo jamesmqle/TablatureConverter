@@ -120,20 +120,6 @@ public class ConvertedSongTestTester {
     }
 
     @Test
-    void testNoteType21(){
-        String expectedType = "quarter";
-        String actualType = ConvertedSongTest.noteType2(1,4);
-        assertEquals(expectedType, actualType);
-    }
-
-    @Test
-    void testNoteType22(){
-        String expectedType = "16th";
-        String actualType = ConvertedSongTest.noteType2(1,16);
-        assertEquals(expectedType, actualType);
-    }
-
-    @Test
     void testCreateXML1() throws IOException {
         String file1 = "src/test/java/XMLTags/Common/Test 1 (Hot Cross Buns).txt";
         String actualOut = "src/test/java/XMLTags/Common/testCreateXML1out.xml";
