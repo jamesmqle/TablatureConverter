@@ -47,7 +47,7 @@ public class ConvertedSongTest {
         }
     }
 
-    private static Note getLastNote(ConvertedSong song) {
+    public static Note getLastNote(ConvertedSong song) {
         Part lastPart = song.getParts().get(song.getParts().size() - 1);
         Measure lastMeasure = lastPart.getMeasures().get(lastPart.getMeasures().size() - 1);
         Note lastNote = lastMeasure.getNotes().get(lastMeasure.getNotes().size() - 1);

@@ -94,27 +94,6 @@ public class ConvertedSongTestTester {
     }
 
     @Test
-    void testNoteType21(){
-        String expectedType = "quarter";
-        String actualType = ConvertedSongTest.noteType2(1,4);
-        assertEquals(expectedType, actualType);
-    }
-
-    @Test
-    void testNoteType22(){
-        String expectedType = "16th";
-        String actualType = ConvertedSongTest.noteType2(1,16);
-        assertEquals(expectedType, actualType);
-    }
-
-    @Test
-    void testNoteType23(){
-        String expectedType = "32nd";
-        String actualType = ConvertedSongTest.noteType2(1,32);
-        assertEquals(expectedType, actualType);
-    }
-
-    @Test
     void testNoteType1(){
         String[] expectedType = { "whole", "half", "quarter", "eighth", "16th", "32nd", "64th", "128th"};
         String actualType;
@@ -141,6 +120,20 @@ public class ConvertedSongTestTester {
     }
 
     @Test
+    void testNoteType21(){
+        String expectedType = "quarter";
+        String actualType = ConvertedSongTest.noteType2(1,4);
+        assertEquals(expectedType, actualType);
+    }
+
+    @Test
+    void testNoteType22(){
+        String expectedType = "16th";
+        String actualType = ConvertedSongTest.noteType2(1,16);
+        assertEquals(expectedType, actualType);
+    }
+
+    @Test
     void testCreateXML1() throws IOException {
         String file1 = "src/test/java/XMLTags/Common/Test 1 (Hot Cross Buns).txt";
         String actualOut = "src/test/java/XMLTags/Common/testCreateXML1out.xml";
@@ -150,7 +143,7 @@ public class ConvertedSongTestTester {
         String actualType;
         int tempInt = 1;
 
-        ConvertedSongTest.createXML(Parser.textReader.readTabFile(file1), actualOut, file1);
+        ConvertedSongTest.createXML(actualOut, file1);
 
         List<String> file1Lines = Files.readAllLines(Paths.get(actualOut));
         List<String> file2Lines = Files.readAllLines(Paths.get(expectedOut));
