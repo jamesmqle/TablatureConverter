@@ -74,28 +74,57 @@ public class Output {
 		// TODO Auto-generated method stub
 		return this.index;
 	}
+
+	public void setIndex(int index){
+		this.index = index;
+	}
+
 	public int getnote1() {
 		// TODO Auto-generated method stub
 		return this.note1;
 	}
+
+	public void setNote1(int note1){
+		this.note1 = note1;
+	}
+
 	public int getnote2() {
 		// TODO Auto-generated method stub
 		return this.note2;
 	}
+
+	public void setNote2(int note2){
+		this.note2 = note2;
+	}
+
 	public String getletter() {
 		// TODO Auto-generated method stub
 		return this.letter;
 	}
+
+	public void setLetter(String letter){
+		this.letter = letter;
+	}
+
 	public String getTech() {
 		// TODO Auto-generated method stub
 		return this.tech;
 	}
+
+	public void setTech(String tech){
+		this.tech = tech;
+	}
+
 	public String getGrace(){
 		return this.grace;
 	}
 
 	public String getTech2(){
 		return this.tech2;
+	}
+
+	public void setTech2(String tech2){
+		this.tech2 = tech2;
 	}
 
 	public int getLine() {

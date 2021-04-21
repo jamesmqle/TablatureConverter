@@ -47,13 +47,14 @@ public class ConvertedSongTest {
         }
     }
 
-    private static Note getLastNote(ConvertedSong song) {
+    public static Note getLastNote(ConvertedSong song) {
         Part lastPart = song.getParts().get(song.getParts().size() - 1);
         Measure lastMeasure = lastPart.getMeasures().get(lastPart.getMeasures().size() - 1);
         Note lastNote = lastMeasure.getNotes().get(lastMeasure.getNotes().size() - 1);
         return lastNote;
     }
-    private static Note getSecondToLastNote(ConvertedSong song) {
+
+    public static Note getSecondToLastNote(ConvertedSong song) {
         Part lastPart = song.getParts().get(song.getParts().size() - 1);
         Measure lastMeasure = lastPart.getMeasures().get(lastPart.getMeasures().size() - 1);
         if (lastMeasure.getNotes().size() - 2<0)
@@ -99,7 +100,7 @@ public class ConvertedSongTest {
 
         quotient = ((double) noteDashes / (double) totalDashes);
 
-        if (quotient == 1) type = "whole";
+        if (quotient == 1.0) type = "whole";
         else if (quotient == 0.5) type = "half";
         else if (quotient == 0.25) type = "quarter";
         else if (quotient == 0.125) type = "eighth";
@@ -140,7 +141,6 @@ public class ConvertedSongTest {
     }
 
     public static void createXML(List<Output> notes, String outputFilePath, String inputFilePath) throws FileNotFoundException {
-
         String xmlFile = outputFilePath;
         ConvertedSong song = new ConvertedSong();
         Part lastPart;
