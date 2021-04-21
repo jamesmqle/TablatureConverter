@@ -50,12 +50,12 @@ TablatureConverter requires the the following to run:
 
 ## User Manual
 
-This [user manual](https://github.com/jamesmqle/TablatureConverter/blob/main/Updated_User%20Manual.pdf) includes installation instructions, "how to get started", and common usage scenarios.
+This [user manual](https://github.com/jamesmqle/TablatureConverter/blob/main/Updated_User%20Manual%20(1).pdf) includes installation instructions, "how to get started", and common usage scenarios.
 
 ---
 
 ## Requirements Document
-This [requirements document](https://github.com/jamesmqle/TablatureConverter/blob/main/Updated_Requirements%20Document%20(2).pdf) describes the needs of the customer. All required features are described in detail. Use cases and user stories are provided.
+This [requirements document](https://github.com/jamesmqle/TablatureConverter/blob/main/Updated_Requirements%20Document%20(2)%20(1).pdf) describes the needs of the customer. All required features are described in detail. Use cases and user stories are provided.
 
 ---
 
@@ -66,7 +66,7 @@ The [testing document](https://github.com/jamesmqle/TablatureConverter/blob/main
 ---
 
 ## Design Document
-The [design document](https://github.com/jamesmqle/TablatureConverter/blob/main/Updated_SOFTWARE%20DESIGN%20DOCUMENT.pdf) describes the high level organization of the system as well as individual components. Informative class and sequence diagrams are provided and Maintenance scenarios are discussed. 
+The [design document](https://github.com/jamesmqle/TablatureConverter/blob/main/Updated_SOFTWARE%20DESIGN%20DOCUMENT%20(1).pdf) describes the high level organization of the system as well as individual components. Informative class and sequence diagrams are provided and Maintenance scenarios are discussed. 
 
 ---
 
