@@ -70,9 +70,7 @@ public class Controller implements Initializable {
         ObservableList<String> list = FXCollections.observableArrayList("2/2", "2/4", "3/4", "4/4", "5/4", "7/4", "3/8", "5/8", "6/8", "7/8", "9/8", "12/8"); // list of time signatures
         timeSignatureList.setItems(list); // display list of time signatures in combo box
         timeSignatureList.getSelectionModel().select(3); // select 4/4 to be default value
-
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
-//        new ErrorHighLighting(codeArea).enableHighlighting(); // error highlighting
     }
 
 
@@ -165,19 +163,19 @@ public class Controller implements Initializable {
     @FXML
     public void ConvertHandler(ActionEvent event) throws IOException {
         songTitle = title.getText();
-        timeSignature = timeSignatureList.getSelectionModel().toString();
+        System.out.println("TIME SIGNATURE: " + timeSignature);
         if (codeArea.getText() != "") { // gives error message if textarea is empty
             textViewToFile(textFile, codeArea);
-            // error = TabIsOKTracker(getTab(textFile.toString()), detectInstrument(textFile.toString())); // this will assign the error
-              //System.out.println("Error: " + error);
-             // if (error[0] >= 10) { // handle critical errors (will not convert)
+             error = TabIsOKTracker(getTab(textFile.toString()), detectInstrument(textFile.toString())); // this will assign the error
+              System.out.println("Error: " + error);
+              if (error[0] >= 10) { // handle critical errors (will not convert)
             CriticalErrorHandler(error);
-           // } else if (WarningErrorHandler(error) == true) {
+            } else if (WarningErrorHandler(error) == true) {
             ConvertedSongTest.createXML(outputFile.toString(), textFile.toString()); // Passes textarea file through parser
             tabPane.getSelectionModel().select(outputTab); // automatically goes to output tab
             XMLTextArea.clear();
             displayXML();
-           //   }
+              }
         } else { //  error message if textarea is empty
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Conversion Failed");
@@ -198,7 +196,7 @@ public class Controller implements Initializable {
     public void CriticalErrorHandler(int[] error) throws FileNotFoundException {
         if (error[0] == 10) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("ERROR!");
+            errorAlert.setHeaderText("Critical Error");
             errorAlert.setContentText("Please Insert Correct Tablature Format.");
             errorAlert.showAndWait();
         }
@@ -217,7 +215,7 @@ public class Controller implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Dialog");
             alert.setHeaderText(null);
-            alert.setContentText("Tablature is misaligned at line " + error[2] + ", this may have affected the output. Do you wish to ignore?");
+            alert.setContentText("Tablature is misaligned at line " + (error[2]+1)  + ", this may have affected the output. Do you wish to ignore?");
             ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Ignore");
 
 
@@ -231,7 +229,7 @@ public class Controller implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Dialog");
             alert.setHeaderText(null);
-            alert.setContentText("Incorrect tuning letters at line " + error[2] + ", this may have affected the output. Do you wish to ignore?");
+            alert.setContentText("Incorrect tuning letters at line " + (error[2]+1) + ", this may have affected the output. Do you wish to ignore?");
             ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Ignore");
 
 

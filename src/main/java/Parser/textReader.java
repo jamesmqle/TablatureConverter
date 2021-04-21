@@ -281,13 +281,12 @@ public class textReader extends Output {
     public static int[] TabIsOKTracker(List<String> tab, int instrument) {
         int[] arr = new int[3];
 
-        System.out.println("Instrument: " + instrument);
-
         if (instrument == 1) {// Guitar
 
             // check all lines have the same length
             for (int i = 0; i < tab.size() - 1; i++) {
-                if (tab.get(i).length() != tab.get(i + 1).length()) {
+
+                if (!tab.get(i).isBlank() && !tab.get(i+1).isBlank() && tab.get(i).strip().length() != tab.get(i + 1).strip().length()) {
                     arr[0] = 1;
                     arr[1] = -1;
                     arr[2] = i;
@@ -295,8 +294,8 @@ public class textReader extends Output {
             }
 
             // check all lines have the correct tuning letter
-            for(int j=0;j<tab.size();j++) {
-                if (!((getCharFromString(tab.get(j), 0) >= 65 && getCharFromString(tab.get(j), 0) <= 71) || (getCharFromString(tab.get(j), 0) >= 97 && getCharFromString(tab.get(j), 0) <= 103))) {
+            for(int j=0;j<tab.size() - 1;j++) {
+                if ((!tab.get(j).isBlank() && !tab.get(j+1).isBlank()) && !((getCharFromString(tab.get(j).strip(), 0) >= 65 && getCharFromString(tab.get(j).strip(), 0) <= 71) || (getCharFromString(tab.get(j).strip(), 0) >= 97 && getCharFromString(tab.get(j).strip(), 0) <= 103))) {
                     arr[0] = 2;
                     arr[1] = 0;
                     arr[2] = j;
@@ -306,16 +305,15 @@ public class textReader extends Output {
         } else if (instrument == 2) {// Bass
             // check all lines have the same length
             for (int i = 0; i < tab.size() - 1; i++) {
-                if (tab.get(i).length() != tab.get(i + 1).length()) {
+                if (!tab.get(i).isBlank() && !tab.get(i+1).isBlank() && tab.get(i).strip().length() != tab.get(i + 1).strip().length()) {
                     arr[0] = 1;
                     arr[1] = -1;
                     arr[2] = i;
                 }
 
-                for(int j=0;j<tab.size();j++) {
+                for(int j=0;j<tab.size() - 1;j++) {
                     // check all lines have the correct tuning letter
-                    if (!((getCharFromString(tab.get(j), 0) >= 65 && getCharFromString(tab.get(0), 0) <= 71) || (getCharFromString(tab.get(j), 0) >= 97 && getCharFromString(tab.get(j), 0) <= 103))) {
-                        System.out.println(getCharFromString(tab.get(j),0));
+                    if ((!tab.get(j).isBlank() && !tab.get(j+1).isBlank()) && !((getCharFromString(tab.get(j).strip(), 0) >= 65 && getCharFromString(tab.get(j).strip(), 0) <= 71) || (getCharFromString(tab.get(j).strip(), 0) >= 97 && getCharFromString(tab.get(j).strip(), 0) <= 103))) {
                         arr[0] = 2;
                         arr[1] = 0;
                         arr[2] = j;
@@ -326,7 +324,7 @@ public class textReader extends Output {
         } else if (instrument == 3) {// Drum
             // check all lines have the same length
             for (int i = 0; i < tab.size() - 1; i++) {
-                if (tab.get(i).length() != tab.get(i + 1).length()) {
+                if (!tab.get(i).isBlank() && !tab.get(i+1).isBlank() && tab.get(i).strip().length() != tab.get(i + 1).strip().length()) {
                     arr[0] = 1;
                     arr[1] = -1;
                     arr[2] = i;
