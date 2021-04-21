@@ -143,8 +143,8 @@ public class ConvertedSongTestTester {
     @Test
     void testCreateXML1() throws IOException {
         String file1 = "src/test/java/XMLTags/Common/Test 1 (Hot Cross Buns).txt";
-        String actualOut = "src/test/java/XMLTags/Common/testCreateXML1out.txt";
-        String expectedOut = "src/test/java/XMLTags/Common/testCreateXML1Expected.txt";
+        String actualOut = "src/test/java/XMLTags/Common/testCreateXML1out.xml";
+        String expectedOut = "src/test/java/XMLTags/Common/testCreateXML1Expected.xml";
         File actualFile = new File(actualOut);
         File expectedFile = new File(expectedOut);
         String actualType;

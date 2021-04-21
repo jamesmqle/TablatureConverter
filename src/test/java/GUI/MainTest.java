@@ -1,3 +1,4 @@
+/*
 package GUI;
 
 import XMLTags.Common.ConvertedSongTest;
@@ -39,9 +40,11 @@ public class MainTest {
         primaryStage.setResizable(false);
     }
 
-    /**
+    */
+/**
      * @param robot - Will be injected by the test runner.
-     */
+     *//*
+
     @Test
     void containsUploadFileButton(FxRobot robot) {
         FxAssert.verifyThat("#UploadFileButton", LabeledMatchers.hasText("\u2B06 Upload File"));
@@ -189,4 +192,4 @@ public class MainTest {
         assertEquals("src\\main\\resources\\sample\\textarea.txt",controller.textFile.toString());
     }
 
-}
+}*/
