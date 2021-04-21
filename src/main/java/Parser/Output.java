@@ -16,6 +16,22 @@ public class Output {
 	int line;
 	int lineCol;
 
+	public boolean isHammerStart;
+	public boolean isHammerEnd;
+	public boolean isPullStart;
+	public boolean isPullEnd;
+	public boolean isSlurStart;
+	public boolean isSlurEnd;
+
+	double durationRatio = -1;
+	int lastNoteToEndDist = -1;
+
+	public double getDurationRatio() {
+		return durationRatio;
+	}
+	public boolean isChord() {
+		return this.isChord;
+	}
 
 	public Output(String string, int n1, int n2, String tech, int i) {
 		// TODO Auto-generated constructor stub
@@ -138,5 +154,11 @@ public class Output {
 	}
 	public void setLineCol(int lineCol) {
 		this.lineCol = lineCol;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		Output other = (Output) o;
+		return this.index==other.index && this.letter.equals(other.letter) &&this.note1==other.note1 && this.note2==other.note2 && this.note3==other.note3;
 	}
 }

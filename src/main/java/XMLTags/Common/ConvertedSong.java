@@ -30,14 +30,14 @@ public class ConvertedSong implements Serializable {
     private PartList partList;
     private List<Part> parts;
     private Work work;
-   // private List<Measure> measures;
-   // private List<Note> notes;
+    // private List<Measure> measures;
+    // private List<Note> notes;
 
     public ConvertedSong() {
         this.parts = new ArrayList<Part>();
         this.partList = new PartList();
-      //  this.measures = new ArrayList<Measure>();
-      //  this.notes = new ArrayList<Note>();
+        //  this.measures = new ArrayList<Measure>();
+        //  this.notes = new ArrayList<Note>();
     }
 
     public void addPart(Part part){
@@ -83,9 +83,8 @@ public class ConvertedSong implements Serializable {
         this.getParts().get(this.getParts().size()-1).getMeasures().get(this.getParts().get(this.getParts().size()-1).getMeasures().size()-1).getNotes().get(this.getParts().get(this.getParts().size()-1).getMeasures().get(this.getParts().get(this.getParts().size()-1).getMeasures().size()-1).getNotes().size()-1).setNotations(new Notation(new Technical(String.valueOf(stringNum), String.valueOf(fret))));
     }
 
-    public void addDrumNoteToMeasure(String tuning, String openClosed, int duration){
+    public void addDrumNoteToMeasure(String tuning, String openClosed){
         Note noteToAdd = NoteConvert.convertToDrumNote(tuning, openClosed);
-        noteToAdd.setDuration(duration);
         this.getParts().get(this.getParts().size()-1).getMeasures().get(this.getParts().get(this.getParts().size()-1).getMeasures().size()-1).addNote(noteToAdd);
     }
 

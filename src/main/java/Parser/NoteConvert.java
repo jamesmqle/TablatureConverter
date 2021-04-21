@@ -12,15 +12,12 @@ import XMLTags.Common.Note;
 import XMLTags.Common.Pitch;
 import XMLTags.Common.Unpitched;
 import XMLTags.Drums.Instrument;
-import XMLTags.Drums.ScoreInstrument;
-
-import java.util.Locale;
 
 public class NoteConvert {
 
-/*	 Takes a note and converts it into its equivalent number, from 0-12, starting at C.
-     Change to 0-12 starting at C
-*/
+	/*	 Takes a note and converts it into its equivalent number, from 0-12, starting at C.
+         Change to 0-12 starting at C
+    */
 	// need to also return alters
 	public static int stepToInt(String step) {
 		if (step.toLowerCase().equals("a")) return 9;
@@ -88,64 +85,65 @@ public class NoteConvert {
 	}
 
 
-/**
-      Given the information from the guitar tab, this function
-        converts the guitar tablature into a note.
-*/
+	/**
+	 Given the information from the guitar tab, this function
+	 converts the guitar tablature into a note.
+	 */
 	public static Note convertToNote(String stringTune, int tabNote) {
 		int stringTuneNote, result, addOctave;
 		Note finalNote = new Note();
 		addOctave = 0;
-		
+
 		stringTuneNote = stepToInt(stringTune);
-		
+
 		result = stringTuneNote + tabNote; // A + 2 = 11
-		
+
 		while (result > 11) {
 			addOctave++;
 			result = result - 12;
 		}
 
 		finalNote.setPitch(new Pitch(intToStep(result), addOctave, intToAlter(result)));
-		
+
 		return finalNote;
 	}
 
 	public static Note convertToDrumNote(String tuning, String openClose){
 		Note finalNote = new Note();
+		finalNote.setNotehead(openClose);
 
 		// Crash Cymbal 1 P1-I50
-		if (tuning.toLowerCase().equals("cc")){
-			 finalNote.setInstrument(new Instrument("P1-I50"));
-			 finalNote.setUnpitched(new Unpitched("A", "5"));
+		if (tuning.equalsIgnoreCase("cc")){
+			finalNote.setInstrument(new Instrument("P1-I50"));
+			finalNote.setUnpitched(new Unpitched("A", "5"));
 		}
 
 		// Bass Drum P1-I36
-		else if (tuning.toLowerCase().equals("bd") || tuning.toLowerCase().equals("kd")){
+		else if (tuning.equalsIgnoreCase("bd") || tuning.equalsIgnoreCase("kd")){
 			finalNote.setInstrument(new Instrument("P1-I36"));
 			finalNote.setUnpitched(new Unpitched("F", "4"));
 		}
 
 		// Snare Drum P1-I39
-		else if (tuning.toLowerCase().equals("sd")){
+		else if (tuning.equalsIgnoreCase("sd")){
 			finalNote.setInstrument(new Instrument("P1-I39"));
 			finalNote.setUnpitched(new Unpitched("C", "5"));
 		}
 
 		// Low Floor Tom P1-I42
-		else if (tuning.toLowerCase().equals("ft")){
+		else if (tuning.equalsIgnoreCase("ft")){
 			finalNote.setInstrument(new Instrument("P1-I42"));
 			finalNote.setUnpitched(new Unpitched("A", "4"));
 		}
 
 		// Low-Mid Tom P1-I46
-		else if (tuning.toLowerCase().equals("ht")){
+		else if (tuning.equalsIgnoreCase("ht")){
 			finalNote.setInstrument(new Instrument("P1-I46"));
 			finalNote.setUnpitched(new Unpitched("E", "5"));
 		}
 
 		// Low Tom P1-I48
-		else if (tuning.toLowerCase().equals("mt")){
+		else if (tuning.equalsIgnoreCase("mt")){
 			finalNote.setInstrument(new Instrument("P1-I48"));
 			finalNote.setUnpitched(new Unpitched("D", "5"));
 		}
@@ -153,16 +151,16 @@ public class NoteConvert {
 		// Hi-Hat
 		// Closed - x - G5 - P1-I42
 		// Open - o - G5 - P1-I47
-		else if (tuning.toLowerCase().equals("hh")){
+		else if (tuning.equalsIgnoreCase("hh")){
 			// Closed
-			if (openClose.toLowerCase().equals("x")) finalNote.setInstrument(new Instrument("P1-I43"));
-			// Open
-			else if (openClose.toLowerCase().equals("o")) finalNote.setInstrument(new Instrument("P1-I47"));
+			if (openClose.equalsIgnoreCase("x")) finalNote.setInstrument(new Instrument("P1-I43"));
+				// Open
+			else if (openClose.equalsIgnoreCase("o")) finalNote.setInstrument(new Instrument("P1-I47"));
 			finalNote.setUnpitched(new Unpitched("G", "5"));
 		}
 
 		// Ride Cymbal P1-I52
-		else if (tuning.toLowerCase().equals("rc")){
+		else if (tuning.equalsIgnoreCase("rc")){
 			finalNote.setInstrument(new Instrument("P1-I52"));
 			finalNote.setUnpitched(new Unpitched("F", "5"));
 		}
@@ -194,14 +192,14 @@ public class NoteConvert {
 		else if (stringTune.equals("B")) addOctave = 3;
 		else if (stringTune.equals("e")) addOctave = 4;
 		stringTuneNote = stepToInt(stringTune);
-		
+
 		result = stringTuneNote + tabNote;
-		
+
 		while (result > 11) {
 			addOctave++;
 			result = result - 12;
 		}
-		
+
 		return addOctave;
 	}
 
@@ -212,9 +210,9 @@ public class NoteConvert {
 	public static void noteConcat(String step, int octave) {
 		System.out.println(convertToNote(step, octave) + " " + octaveFinder(step, octave));
 	}
-	
+
 	public static void main(String[] args) {
-        System.out.println(convertToNote("E", 22));
+		System.out.println(convertToNote("E", 22));
 	}
 
 }

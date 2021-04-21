@@ -16,24 +16,20 @@ public class Part implements Serializable {
 
     public Part() {
         this.measures = new ArrayList<Measure>();
-        this.measures.add(new Measure()); //this.measure = new Measure(new Attributes(new Clef(), new Key(), new TimeSignature(), 4), new Note());
         this.id = "G1";
     }
 
     public Part(int instrument) {
         if (instrument == 1){
             this.measures = new ArrayList<Measure>();
-            this.measures.add(new Measure()); //this.measure = new Measure(new Attributes(new Clef(), new Key(), new TimeSignature(), 4), new Note());
             this.id = "G1";
         }
         else if (instrument == 2){
             this.measures = new ArrayList<Measure>();
-            this.measures.add(new Measure()); //this.measure = new Measure(new Attributes(new Clef(), new Key(), new TimeSignature(), 4), new Note());
             this.id = "B1";
         }
         else if (instrument == 3){
             this.measures = new ArrayList<Measure>();
-            this.measures.add(new Measure()); //this.measure = new Measure(new Attributes(new Clef(), new Key(), new TimeSignature(), 4), new Note());
             this.id = "D1";
         }
     }

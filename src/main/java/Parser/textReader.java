@@ -107,14 +107,16 @@ public class textReader extends Output {
         int k=0;
         Scanner myReader = new Scanner(new FileReader(path));
         String data;
-
+        boolean started = false;
         while (myReader.hasNextLine()) {
             data = myReader.nextLine().trim();
 
-            if ((data.isEmpty()) || (data.charAt(0) == ' ')) {
+            if ((data.isBlank())) {
+                if (!started) continue;
                 return k;
             }
             else {
+                started = true;
                 k++;
             }
 
@@ -131,7 +133,7 @@ public class textReader extends Output {
         // define the result list
         // and list of string which is a single tab
         List<Output> list = new ArrayList<>();
-        LinkedHashMap<Integer, String> tab = new LinkedHashMap();
+        LinkedHashMap<Integer, String> tab = new LinkedHashMap<>();
         int instrument = 0, k = 0;
         int numStrings = 0;
 
@@ -155,16 +157,16 @@ public class textReader extends Output {
              * which is after 6 strings or lines
              */
             if (instrument == 1) { // XMLTags.Guitar
-                if (!(data.isEmpty()) || (data.charAt(0) == ' ')) {
+                if (!(data.isBlank())) {
                     tab.put(line, data);
                     k++;
                 }
 
                 if (k == numStrings) {
-                        //TabIsOK(Arrays.asList((String[])tab.keySet().toArray()), instrument);
-                        list = ParseGuitar(tab, list,numStrings);
-                        k = 0;
-                        tab.clear();
+                    //TabIsOK(Arrays.asList((String[])tab.keySet().toArray()), instrument);
+                    list = ParseGuitar(tab, list,numStrings);
+                    k = 0;
+                    tab.clear();
                 }
 
                 /*
@@ -172,21 +174,21 @@ public class textReader extends Output {
                  * which is after 4 strings or lines
                  */
             } else if (instrument == 2) { // Bass
-                if (!(data.isEmpty()) || (data.charAt(0) == ' ')) {
+                if (!(data.isBlank())) {
                     tab.put(line, data);
                     k++;
                 }
 
                 if (k == numStrings) {
-                        //TabIsOK(tab, instrument);
-                        list = ParseBass(tab, list,numStrings);
-                        k = 0;
-                        tab.clear();
+                    //TabIsOK(tab, instrument);
+                    list = ParseBass(tab, list,numStrings);
+                    k = 0;
+                    tab.clear();
                 }
             }
 
             else if (instrument == 3) {// Drum
-                if (!(data.isEmpty()) || (data.charAt(0) == ' ')) {
+                if (!(data.isBlank())) {
                     tab.put(line, data);
                     k++;
                 }
@@ -194,7 +196,9 @@ public class textReader extends Output {
                 if (k == numStrings) {
                     // first handle exceptions and check if it is correct tab, then call the
                     // parsDrum function
-
+                    list = ParseDrum(tab, list,numStrings);
+                    k = 0;
+                    tab.clear();
                 }
 
             }
@@ -437,35 +441,122 @@ public class textReader extends Output {
      * @throws FileNotFoundException
      */
 
-    public static int shortestNoteDuration(String filepath) throws FileNotFoundException{
+    public static double shortestNoteDurationRatio(String filepath) throws FileNotFoundException{
         /**
          * 1. Declare first note
          * 2. Subtract note.index - prevNote.index
          * 3. Compare the difference to min note dur
          * 4. Check for odd
          */
-        List<Output> list = new ArrayList<>();
-        list = readTabFile(filepath);
-        int shortestDuration; // compare there 2 indexes to find the difference
-        int noteDur = 1002, minNoteDur = 1000; // Duration and shortest duration between notes
-        Output prevNote = new Output();
 
-        int counter = 0;
-        for(Output note : list){
-            if(counter == 0) counter++;
-            else{
-                noteDur = note.getindex() - prevNote.getindex();
-                //System.out.println(noteDur);
+        List<Output> noteList = readTabFile(filepath);
+
+        double shortestDurationRatio = -1;
+        List<List<List<Output>>> measureChordLists = getMeasureChordLists(noteList);
+        for (List<List<Output>> chordList : measureChordLists) {
+            for (List<Output> chord : chordList) {
+                for (Output note : chord) {
+                    if (shortestDurationRatio==-1)
+                        shortestDurationRatio = note.durationRatio;
+                    else
+                        shortestDurationRatio = Math.min(shortestDurationRatio, note.durationRatio);
+                }
             }
+        }
+        return shortestDurationRatio;
+    }
 
-            if(minNoteDur > noteDur && noteDur != 0){
-                minNoteDur = noteDur;
+    public static List<List<List<Output>>> getMeasureChordLists(List<Output> noteList) throws FileNotFoundException {
+        List<List<List<Output>>> measureChordLists = new ArrayList<>();
+        List<List<Output>> chordList = new ArrayList<>();
+        List<Output> chord = new ArrayList<>();
+        int measureStartIdx = 0;
+        int startNotePtr = 0;
+        int endNotePtr = 1;
+        boolean started = false;
+        while (startNotePtr<noteList.size() && endNotePtr<noteList.size()) {
+            Output startNote = noteList.get(startNotePtr);
+            if (startNote.note1==-1) {
+                measureStartIdx = startNote.getindex();
+                if (!started) {
+                    startNotePtr++;
+                    endNotePtr = startNotePtr+1;
+                    continue;
+                }
+                break;
             }
+            started = true;
+            if (startNote.note1==-2) {
+                startNotePtr++;
+                endNotePtr = startNotePtr+1;
+                continue;
+            }
+            if (chord.isEmpty())
+                chord.add(startNote);
+            Output endNote = noteList.get(endNotePtr);
+            if (endNote.note1==-1) {
+                for (Output note : chord) {
+                    note.durationRatio = endNote.getindex()-note.getindex();
+                }
+                chordList.add(chord);
+                double measureLen = endNote.getindex()-measureStartIdx;
+                for(List<Output> chordTmp : chordList) {
+                    for (Output note : chordTmp) {
+                        note.durationRatio = note.durationRatio/measureLen;
+                    }
+                }
+                measureStartIdx = endNote.getindex();
 
-            prevNote = note;
+                measureChordLists.add(chordList);
+                chordList = new ArrayList<>();
+                chord = new ArrayList<>();
+                startNotePtr = ++endNotePtr;
+                endNotePtr = startNotePtr+1;
+                continue;
+            }
+            if (endNote.note1==-2) {
+                endNotePtr++;
+                continue;
+            }
+            if (endNote.getindex()==startNote.getindex()) {
+                chord.add(endNote);
+                endNote.isChord = true;
+                startNotePtr = endNotePtr;
+            }else {
+                for (Output note : chord) {
+                    note.durationRatio = endNote.getindex()-note.getindex();
+                }
+                chordList.add(chord);
+                chord = new ArrayList<>();
+                startNotePtr = endNotePtr;
+            }
+            endNotePtr = startNotePtr+1;
+        }
+        return measureChordLists;
+    }
+
+    public static List<Output> applyDurationRatios(List<Output> noteList) throws FileNotFoundException {
+        List<List<List<Output>>> measureChordLists = getMeasureChordLists(noteList);
+        List<Output> modifiedNotes = new ArrayList<>();
+        for (List<List<Output>> chordList : measureChordLists) {
+            for (List<Output> chord : chordList) {
+                for (Output note : chord) {
+                    modifiedNotes.add(note);
+                }
+            }
         }
 
-        return minNoteDur;
+        List<Output> result = new ArrayList<>();
+
+        int modifiedNotePtr = 0;
+        for (Output note : noteList) {
+            if (modifiedNotePtr<modifiedNotes.size() && note.equals(modifiedNotes.get(modifiedNotePtr))) {
+                result.add(modifiedNotes.get(modifiedNotePtr++));
+            }else {
+                result.add(note);
+            }
+        }
+        return result;
     }
 
 }
