@@ -166,6 +166,7 @@ public class ConvertedSongTest {
         double divisionCalc, doubleNoteDur;
         int realDivisionCalc, counter = 0, noteDur, noteDashes, totalSpaces = -1, elementCounter = 0, numDD = 0;
         Output nextNote;
+        boolean lastNoteWasGrace = false;
         Note lastNote;
 
         if (notes.get(0).getnote1()!=-1) {
@@ -215,6 +216,8 @@ public class ConvertedSongTest {
             counter = 0;
             song.getPartList().getScorePart().setPartName("Guitar 1");
 
+            int prevNote1 = -1;
+            int prevNote2 = -1;
             for (Output note : notes) {
                 // Add measure
                 if ((note.getnote1() == -1) && counter != notes.size() - 1) {
@@ -254,7 +257,20 @@ public class ConvertedSongTest {
                     if (measureCount == 1 && !MEASURE_POSITION_MAP.containsKey(1)) {
                         MEASURE_POSITION_MAP.put(1, new Integer[]{note.getLine(), note.getLineCol()});
                     }
-                    song.addNoteToMeasure(note.getletter(), note.getnote1());
+                    int fret1 = note.getnote1();
+                    if (note.getGrace().equalsIgnoreCase("g")) {
+                        lastNoteWasGrace = true;
+                    }
+                    int fret2 = -1;
+                    if (!lastNoteWasGrace) {
+                        fret2 = note.getnote2() > 0 ? note.getnote2() : -1;
+                    }
+                    song.addNoteToMeasure(note.getletter(), fret1);
+                    if (fret2>0)
+                        song.addNoteToMeasure(note.getletter(), fret2);
+                    if (!note.getGrace().equalsIgnoreCase("g"))
+                        lastNoteWasGrace = false;
+
                     lastNote = getLastNote(song);
                     lastNote.setDuration(noteDur);
                     lastNote.setType(noteType(noteDur, realDivisionCalc));
@@ -271,94 +287,69 @@ public class ConvertedSongTest {
                     }
 
 
-                    // GRACE NOTES / HAMMER-ONS
-                    if (note.getGrace().equalsIgnoreCase("g") && nextNoteTech!=null && (nextNoteTech.getTech().equalsIgnoreCase("h")||nextNoteTech.getTech().equalsIgnoreCase("p"))) {
-                        getLastNote(song).setGrace(new Grace());
-                        getLastNote(song).getGrace().setSlash("yes");
-                        ArrayList<HammerOn> hammerOns = new ArrayList<HammerOn>();
-                        hammerOns.add(new HammerOn(1, "start", "H"));
-                        getLastNote(song).getNotations().getTechnical().setHammer(hammerOns);
-                        getLastNote(song).getNotations().getTechnical().getHammer().get(0).setNumber(1);
-                        getLastNote(song).getNotations().getTechnical().getHammer().get(0).setType("start");
-                        getLastNote(song).getNotations().getTechnical().getHammer().get(0).setSymbol("H");
-                        getLastNote(song).getNotations().setSlur(new Slur(1, "start"));
+                    if (nextNoteTech!=null) {
+                        // GRACE NOTES / HAMMER-ONS
+                        if (note.getGrace().equalsIgnoreCase("g") && (note.getTech().equalsIgnoreCase("h") || note.getTech().equalsIgnoreCase("p"))) {
+                            getLastNote(song).setGrace(new Grace());
+                            getLastNote(song).getGrace().setSlash("yes");
+                            int slurNum = note.slurEnd > 0 ? note.slurEnd + 1 : 1;
+                            getLastNote(song).getNotations().setSlur(new Slur(slurNum, "start"));
+                            nextNoteTech.slurEnd = slurNum;
+                        }
+
+                        boolean isFirstTechNote = false;
+                        if (note.getnote1() >= 0 && note.getnote2() >= 0) {
+                            if (nextNoteTech.getnote1() == note.getnote1() && nextNoteTech.getnote2() == note.getnote2())
+                                isFirstTechNote = true;
+                        }
+                        if (isFirstTechNote && note.getTech().equalsIgnoreCase("h")) {
+                            Technical technical = getLastNote(song).getNotations().getTechnical();
+                            int hammerNum = note.hammerEnd > 0 ? note.hammerEnd + 1 : 1;
+                            if (technical.getHammer() == null)
+                                technical.setHammer(new ArrayList<>());
+                            technical.getHammer().add(new HammerOn(hammerNum, "start", "H"));
+                            nextNoteTech.hammerEnd = hammerNum;
+                        }
+                        if (isFirstTechNote && note.getTech().equalsIgnoreCase("p")) {
+                            Technical technical = getLastNote(song).getNotations().getTechnical();
+                            int pullNum = note.pullEnd > 0 ? note.pullEnd + 1 : 1;
+                            if (technical.getPulloff() == null)
+                                technical.setPulloff(new ArrayList<>());
+                            technical.getPulloff().add(new PullOff(pullNum, "start", "P"));
+                            nextNoteTech.pullEnd = pullNum;
+                        }
+                        if (isFirstTechNote && (note.getTech().equalsIgnoreCase("/") || note.getTech().equalsIgnoreCase("\\") || note.getTech().equalsIgnoreCase("s"))) {
+                            Notation notations = getLastNote(song).getNotations();
+                            int slideNum = note.slideEnd > 0 ? note.slideEnd + 1 : 1;
+                            if (notations.getSlide() == null)
+                                notations.setSlide(new ArrayList<>());
+                            notations.getSlide().add(new Slide(slideNum, "start"));
+                            nextNoteTech.slideEnd = slideNum;
+                        }
+                        if (note.slurEnd > 0) {
+                            Notation notations = getLastNote(song).getNotations();
+                            notations.setSlur(new Slur(note.slurEnd, "stop"));
+                        }
+                        if (note.hammerEnd > 0) {
+                            Technical technical = getLastNote(song).getNotations().getTechnical();
+                            if (technical.getHammer() == null)
+                                technical.setHammer(new ArrayList<>());
+                            technical.getHammer().add(new HammerOn(note.hammerEnd, "stop", "H"));
+                        }
+                        if (note.pullEnd > 0) {
+                            Technical technical = getLastNote(song).getNotations().getTechnical();
+                            if (technical.getPulloff() == null)
+                                technical.setPulloff(new ArrayList<>());
+                            technical.getPulloff().add(new PullOff(note.hammerEnd, "stop", "H"));
+                        }
+                        if (note.slideEnd > 0) {
+                            Notation notations = getLastNote(song).getNotations();
+                            if (notations.getSlide() == null)
+                                notations.setSlide(new ArrayList<>());
+                            notations.getSlide().add(new Slide(note.slideEnd, "stop"));
+                        }
                     }
 
-                    // HAMMER-ONS
-                    if (note.getTech().equals("H") || note.getTech().equals("h")) {
-
-                        // note 1
-                        ArrayList<HammerOn> hammerOns = new ArrayList<HammerOn>();
-                        hammerOns.add(new HammerOn(1, "start", "H"));
-                        getLastNote(song).getNotations().getTechnical().setHammer(hammerOns);
-                        getLastNote(song).getNotations().getTechnical().getHammer().get(0).setNumber(1);
-                        getLastNote(song).getNotations().getTechnical().getHammer().get(0).setType("start");
-                        getLastNote(song).getNotations().getTechnical().getHammer().get(0).setSymbol("H");
-                        getLastNote(song).getNotations().setSlur(new Slur(1, "start"));
-
-                        // note 2
-                        ArrayList<HammerOn> hammerOns2 = new ArrayList<HammerOn>();
-                        hammerOns2.add(new HammerOn());
-                        song.addNoteToMeasure(note.getletter(), note.getnote2());
-                        getLastNote(song).getNotations().getTechnical().setHammer(hammerOns2);
-                        getLastNote(song).getNotations().getTechnical().getHammer().get(0).setNumber(1);
-                        getLastNote(song).getNotations().getTechnical().getHammer().get(0).setType("stop");
-                        getLastNote(song).getNotations().setSlur(new Slur(1, "stop"));
-                    }
-
-                    // GRACE NOTES / PULL-OFFS
-                    if ((note.getGrace().equals("g") || note.getGrace().equals("G")) && (note.getTech().equals("P") || note.getTech().equals("p"))) {
-                        getLastNote(song).setGrace(new Grace());
-                        getLastNote(song).getGrace().setSlash("yes");
-                        ArrayList<PullOff> pullOffs = new ArrayList<>();
-                        pullOffs.add(new PullOff(1, "start", "P"));
-                        getLastNote(song).getNotations().getTechnical().setPulloff(pullOffs);
-                        getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setNumber(1);
-                        getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setType("start");
-                        getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setSymbol("P");
-                        getLastNote(song).getNotations().setSlur(new Slur(1, "start"));
-                    }
-
-                    // PULL-OFFS
-                    else if (note.getTech().equals("P") || note.getTech().equals("p")) {
-
-                        // first note of technique
-                        ArrayList<PullOff> pullOffs = new ArrayList<>();
-                        pullOffs.add(new PullOff(1, "start", "P"));
-                        getLastNote(song).getNotations().getTechnical().setPulloff(pullOffs);
-                        getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setNumber(1);
-                        getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setType("start");
-                        getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setSymbol("P");
-                        getLastNote(song).getNotations().setSlur(new Slur(1, "start"));
-
-                        // second note of technique
-                        ArrayList<PullOff> pullOffs2 = new ArrayList<PullOff>();
-                        pullOffs2.add(new PullOff());
-                        song.addNoteToMeasure(note.getletter(), note.getnote2());
-                        getLastNote(song).getNotations().getTechnical().setPulloff(pullOffs2);
-                        getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setNumber(1);
-                        getLastNote(song).getNotations().getTechnical().getPulloff().get(0).setType("stop");
-                        getLastNote(song).getNotations().setSlur(new Slur(1, "stop"));
-                    }
-
-                    // SLIDES
-                    if (note.getTech().equals("S") || note.getTech().equals("s")) {
-
-                        // first note of technique
-                        ArrayList<Slide> slide = new ArrayList<>();
-                        slide.add(new Slide(1, "start"));
-                        getLastNote(song).getNotations().setSlide(slide);
-                        getLastNote(song).getNotations().getSlide().get(0).setNumber(1);
-                        getLastNote(song).getNotations().getSlide().get(0).setType("start");
-
-                        // second note of technique
-                        ArrayList<Slide> slide2 = new ArrayList<>();
-                        slide2.add(new Slide());
-                        song.addNoteToMeasure(note.getletter(), note.getnote2());
-                        getLastNote(song).getNotations().setSlide(slide2);
-                        getLastNote(song).getNotations().getSlide().get(0).setNumber(1);
-                        getLastNote(song).getNotations().getSlide().get(0).setType("stop");
-                    }
 
                     // HARMONICS NOTE DONE
                     if (note.getTech().equals("[]")) {

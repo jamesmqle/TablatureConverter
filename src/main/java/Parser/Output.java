@@ -16,12 +16,10 @@ public class Output {
 	int line;
 	int lineCol;
 
-	public boolean isHammerStart;
-	public boolean isHammerEnd;
-	public boolean isPullStart;
-	public boolean isPullEnd;
-	public boolean isSlurStart;
-	public boolean isSlurEnd;
+	public int hammerEnd = 0;
+	public int pullEnd = 0;
+	public int slurEnd = 0;
+	public int slideEnd = 0;
 
 	double durationRatio = -1;
 	int lastNoteToEndDist = -1;

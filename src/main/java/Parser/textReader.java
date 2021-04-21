@@ -472,16 +472,21 @@ public class textReader extends Output {
         int startNotePtr = 0;
         int endNotePtr = 1;
         boolean started = false;
+        boolean measureStartIdxModified = false;
         while (startNotePtr<noteList.size() && endNotePtr<noteList.size()) {
             Output startNote = noteList.get(startNotePtr);
             if (startNote.note1==-1) {
                 measureStartIdx = startNote.getindex();
+                measureStartIdxModified = true;
                 if (!started) {
                     startNotePtr++;
                     endNotePtr = startNotePtr+1;
                     continue;
                 }
                 break;
+            }
+            if (!started && !measureStartIdxModified) {
+                measureStartIdx = startNote.index-1;
             }
             started = true;
             if (startNote.note1==-2) {
