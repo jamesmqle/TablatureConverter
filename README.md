@@ -61,7 +61,7 @@ This [requirements document](https://github.com/jamesmqle/TablatureConverter/blo
 
 ## Testing Document
 
-The [testing document](https://github.com/jamesmqle/TablatureConverter/blob/main/Documentation/Testing%20Document.pdf) describes the test cases, the way they were derived, and the way they were implemented.
+The [testing document](https://github.com/jamesmqle/TablatureConverter/blob/main/Testing%20Document%20(2).pdf) describes the test cases, the way they were derived, and the way they were implemented.
 
 ---
 
