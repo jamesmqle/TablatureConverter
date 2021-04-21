@@ -17,19 +17,14 @@ class DrumParserTest {
         //List<String> tab = new ArrayList<>();
         LinkedHashMap<Integer, String> tab=new LinkedHashMap<>();
 
-        tab.put(6,"CC|x---------------|--------x-------|");
-        tab.put(6,"HH|--x-x-x-x-x-x-x-|----------------|");
-        tab.put(6,"SD|----o-------o---|oooo------------|");
-        tab.put(6,"HT|----------------|----oo----------|");
-        tab.put(6,"MT|----------------|------oo--------|");
-        tab.put(6,"BD|o-------o-------|o-------o-------|");
+        tab.put(0,"CC|x---------------|--------x-------|");
+        tab.put(1,"HH|--x-x-x-x-x-x-x-|----------------|");
+        tab.put(2,"SD|----o-------o---|oooo------------|");
+        tab.put(3,"HT|----------------|----oo----------|");
+        tab.put(4,"MT|----------------|------oo--------|");
+        tab.put(5,"BD|o-------o-------|o-------o-------|");
 
-//        tab.add("CC|x---------------|--------x-------|");
-//        tab.add("HH|--x-x-x-x-x-x-x-|----------------|");
-//        tab.add("SD|----o-------o---|oooo------------|");
-//        tab.add("HT|----------------|----oo----------|");
-//        tab.add("MT|----------------|------oo--------|");
-//        tab.add("BD|o-------o-------|o-------o-------|");
+
         listt = ParseDrum(tab, listt,tab.size());
         assertTrue(listt.get(0).getTech().charAt(0)=='x');
         assertTrue(listt.get(1).getTech().charAt(0)=='o');
