@@ -338,7 +338,6 @@ public class textReader extends Output {
 
         return arr;
     }
-
     /**
      * "isInteger" Takes the string and return the boolean true if the string is an
      * integer false if the string is not an integer

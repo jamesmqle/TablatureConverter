@@ -245,12 +245,12 @@ public class ConvertedSongTest {
                     double roundUpDuration = 1/Math.pow(2, Math.ceil(a));
                     double roundDownDuration = 1/Math.pow(2, Math.floor(a));
                     double roundedDuration;
-                    if (tmpDuration<(roundUpDuration+roundDownDuration)/2)
+                    if ((1/tmpDuration)<(roundUpDuration+roundDownDuration)/2)
                         roundedDuration = roundDownDuration;
                     else
                         roundedDuration = roundUpDuration;
                     doubleNoteDur = ((realDivisionCalc * 4.0) * (roundedDuration));
-                    noteDur = (int) Math.max(1, doubleNoteDur);
+                    noteDur = (int) Math.max(1, doubleNoteDur*2);
 
                     lastPart = song.getParts().get(song.getParts().size() - 1);
                     int measureCount = lastPart.getMeasures().size();
@@ -401,12 +401,12 @@ public class ConvertedSongTest {
                     double roundUpDuration = 1 / Math.pow(2, Math.ceil(a));
                     double roundDownDuration = 1 / Math.pow(2, Math.floor(a));
                     double roundedDuration;
-                    if (tmpDuration < (roundUpDuration + roundDownDuration) / 2)
+                    if ((1/tmpDuration) < (roundUpDuration + roundDownDuration) / 2)
                         roundedDuration = roundDownDuration;
                     else
                         roundedDuration = roundUpDuration;
                     doubleNoteDur = ((realDivisionCalc * 4.0) * (roundedDuration));
-                    noteDur = (int) Math.max(1, doubleNoteDur);
+                    noteDur = (int) Math.max(1, doubleNoteDur*2);
 
                     lastPart = song.getParts().get(song.getParts().size() - 1);
                     int measureCount = lastPart.getMeasures().size();
