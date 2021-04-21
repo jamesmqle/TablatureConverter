@@ -7,9 +7,9 @@
 - [Description](#description)
 - [System Requirements](#system-requirements)
 - [User Manual](#user-manual)
-- [Requirements Document](requirements-document)
-- [Testing Document](testing-document)
-- [Design Document](design-document)
+- [Requirements Document](#requirements-document)
+- [Testing Document](#testing-document)
+- [Design Document](#design-document)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -66,7 +66,7 @@ The [testing document](https://github.com/jamesmqle/TablatureConverter/blob/main
 ---
 
 ## Design Document
-The [design-document](https://github.com/jamesmqle/TablatureConverter/blob/main/Updated_SOFTWARE%20DESIGN%20DOCUMENT.pdf) describes the high level organization of the system as well as individual components. Informative class and sequence diagrams are provided and Maintenance scenarios are discussed. 
+The [design document](https://github.com/jamesmqle/TablatureConverter/blob/main/Updated_SOFTWARE%20DESIGN%20DOCUMENT.pdf) describes the high level organization of the system as well as individual components. Informative class and sequence diagrams are provided and Maintenance scenarios are discussed. 
 
 ---
 
