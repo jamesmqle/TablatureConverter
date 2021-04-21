@@ -67,9 +67,9 @@ public class Controller implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<String> list = FXCollections.observableArrayList("4/4", "2/4"); // list of time signatures
+        ObservableList<String> list = FXCollections.observableArrayList("2/2", "2/4", "3/4", "4/4", "5/4", "7/4", "3/8", "5/8", "6/8", "7/8", "9/8", "12/8"); // list of time signatures
         timeSignatureList.setItems(list); // display list of time signatures in combo box
-        timeSignatureList.getSelectionModel().selectFirst(); // select the first index of list to be default value
+        timeSignatureList.getSelectionModel().select(3); // select 4/4 to be default value
 
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
 //        new ErrorHighLighting(codeArea).enableHighlighting(); // error highlighting
@@ -165,18 +165,19 @@ public class Controller implements Initializable {
     @FXML
     public void ConvertHandler(ActionEvent event) throws IOException {
         songTitle = title.getText();
+        timeSignature = timeSignatureList.getSelectionModel().toString();
         if (codeArea.getText() != "") { // gives error message if textarea is empty
             textViewToFile(textFile, codeArea);
-            error = TabIsOKTracker(getTab(textFile.toString()), detectInstrument(textFile.toString())); // this will assign the error
-            System.out.println("Error: " + error);
-            if (error[0] >= 10) { // handle critical errors (will not convert)
-                CriticalErrorHandler(error);
-            } else if (WarningErrorHandler(error) == true) {
-                ConvertedSongTest.createXML(textReader.readTabFile(textFile.toString()), outputFile.toString(), textFile.toString()); // Passes textarea file through parser
-                tabPane.getSelectionModel().select(outputTab); // automatically goes to output tab
-                XMLTextArea.clear();
-                displayXML();
-            }
+            // error = TabIsOKTracker(getTab(textFile.toString()), detectInstrument(textFile.toString())); // this will assign the error
+              //System.out.println("Error: " + error);
+             // if (error[0] >= 10) { // handle critical errors (will not convert)
+            CriticalErrorHandler(error);
+           // } else if (WarningErrorHandler(error) == true) {
+            ConvertedSongTest.createXML(outputFile.toString(), textFile.toString()); // Passes textarea file through parser
+            tabPane.getSelectionModel().select(outputTab); // automatically goes to output tab
+            XMLTextArea.clear();
+            displayXML();
+           //   }
         } else { //  error message if textarea is empty
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Conversion Failed");
@@ -270,7 +271,7 @@ public class Controller implements Initializable {
         try {
             int measureNum = Integer.parseInt(measure.getText());
             textViewToFile(textFile, codeArea);
-            ConvertedSongTest.createXML(textReader.readTabFile(textFile.toString()), outputFile.toString(), textFile.toString());
+            ConvertedSongTest.createXML(outputFile.toString(), textFile.toString());
             if (ConvertedSongTest.MEASURE_POSITION_MAP.containsKey(measureNum)) {
                 Integer[] position = ConvertedSongTest.MEASURE_POSITION_MAP.get(measureNum);
                 codeArea.moveTo(position[0]-1, position[1]);

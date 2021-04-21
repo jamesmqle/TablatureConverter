@@ -12,13 +12,14 @@ import java.io.Serializable;
 // Feb 17 change - Changed type from Type to String
 
 @XmlRootElement(name = "note")
-@XmlType(propOrder = {"grace","chord", "unpitched", "pitch", "duration", "tie", "instrument", "voice", "type", "notations"})
+@XmlType(propOrder = {"grace","chord", "unpitched", "pitch", "duration", "tie", "instrument", "voice", "type", "notehead", "notations"})
 public class Note implements Serializable {
     private Grace grace;
+    private String notehead;
     private Pitch pitch;
     private int duration;
     private String type;
-    private String chord;
+    private Chord chord;
     private int voice;
     Notation notations;
     Tie tie;
@@ -36,6 +37,15 @@ public class Note implements Serializable {
         this.duration = duration;
         this.type = type;
         this.voice = 1;
+    }
+
+    @XmlElement(name = "notehead")
+    public String getNotehead() {
+        return notehead;
+    }
+
+    public void setNotehead(String notehead) {
+        this.notehead = notehead;
     }
 
     public Note(Pitch pitch, int duration, String type, int voice) {
@@ -108,16 +118,16 @@ public class Note implements Serializable {
     }
 
     @XmlElement(name = "chord")
-    public String getChord() {
+    public Chord getChord() {
         return this.chord;
     }
 
-    public void setChord(String chord) {
+    public void setChord(Chord chord) {
         this.chord = chord;
     }
 
     public void chordOn(){
-        this.setChord("");
+        this.setChord(new Chord());
     }
 
     @XmlElement(name = "notations")
