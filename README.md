@@ -20,16 +20,18 @@ Tablature notation is a way of writing down an instrument’s parts in an access
 
 The software product will consist of a desktop application. Upon the upload of a tablature in *.txt form, the system will convert the tab to a MusicXML file format.
 
-### Sample XMLTags.Guitar Tablature
+### Inputting .txt tablature
+![image](https://user-images.githubusercontent.com/56422075/116962180-4bed6e00-ac73-11eb-9c1e-020ee30167ec.png)
 
-```
-e|------------------------------------------------------------|
-B|------------------------------------------------------------|
-G|------------------------------------------------------------|
-D|------------------------------------------------------------|
-A|--2-0-----2-0-----------0-0-0-0-2-0-------------------------|
-E|------3-------3--3-3-3-3------------3-----------------------|
-```
+### Output .xml tablature
+![image](https://user-images.githubusercontent.com/56422075/116962192-560f6c80-ac73-11eb-8dda-c875ce64c100.png)
+
+### XML output on Musescore
+![image](https://user-images.githubusercontent.com/56422075/116962217-6889a600-ac73-11eb-87c9-3a16f1d64cff.png)
+
+
+
+
 
 
 ### Technologies
