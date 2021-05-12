@@ -28,8 +28,8 @@ The software product will consist of a desktop application. Upon the upload of a
 ![image](https://user-images.githubusercontent.com/56422075/116962192-560f6c80-ac73-11eb-8dda-c875ce64c100.png)
 
 ### XML Output on Musescore
-![Alt Text](![MuseScore-3_-convertedSong-2021-05-04-01-00-34 (1)](https://user-images.githubusercontent.com/56422075/116962805-0f227680-ac75-11eb-86db-20742346d5bd.gif)
-)
+![MuseScore-3_-convertedSong-2021-05-04-01-00-34 (1)](https://user-images.githubusercontent.com/56422075/116962805-0f227680-ac75-11eb-86db-20742346d5bd.gif)
+
 
 
 
