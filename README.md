@@ -1,5 +1,6 @@
 # TablatureConverter 🎶
 
+Context: This project was completed for EECS 2311 (Software Development Project). This is a class which focuses on teaching how to organize software, Git, documenting work, etc. This project was completed over the course of a semester, and was to be done in groups of 5 (though we started with 4).
 
 ---
 
@@ -17,14 +18,14 @@
 ---
 
 ## Description
-Tablature notation is a way of writing down an instrument’s parts in an accessible manner. The tablature in the context of this project will refer to guitar tablature. Although tablature is widely used for its ease of use, most tabs exist in a text format, and there does not exist an easy way to turn guitar tab text into a more featured digital file format.
+Tablature notation is a way of writing down an instrument’s parts in an accessible manner. The tablature in the context of this project will refer to guitar, bass guitar, and drum tablature (all supported!). Although tablature is widely used for its ease of use, most tabs exist in a text format, and there does not exist an easy way to turn guitar tab text into a more featured digital file format.
 
 The software product will consist of a desktop application. Upon the upload of a tablature in *.txt form, the system will convert the tab to a MusicXML file format.
 
-### Inputting .txt Tablature (Copy and Paste it into the text box!)
+### Inputting .txt Tablature (Copy and paste it into the text box)
 ![image](https://user-images.githubusercontent.com/56422075/116962180-4bed6e00-ac73-11eb-9c1e-020ee30167ec.png)
 
-### Output .xml Tablature (Put this XML output into Soundslice or MuseScore!)
+### Output .xml Tablature (Put this XML output into Soundslice or MuseScore)
 ![image](https://user-images.githubusercontent.com/56422075/116962192-560f6c80-ac73-11eb-8dda-c875ce64c100.png)
 
 ### XML Output on Musescore
